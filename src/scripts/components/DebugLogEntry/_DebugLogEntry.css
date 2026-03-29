@@ -1,0 +1,35 @@
+@layer components.debug-log-entry {
+  [data-component="debug-log-entry"] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    border: var(--border-width-1) solid var(--color-border);
+    border-radius: calc(var(--radius-card) - var(--space-2));
+    background: var(--color-surface-raised);
+    box-shadow: var(--shadow-soft);
+
+    [data-slot="entry-header"] {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-3);
+    }
+
+    :where(strong, time) {
+      font-size: var(--font-size-xs);
+    }
+
+    :where(time, pre) {
+      color: var(--color-muted);
+    }
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: var(--font-size-2xs);
+      line-height: var(--line-height-base);
+    }
+  }
+}

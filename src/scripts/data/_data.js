@@ -19,6 +19,21 @@
  */
 
 /**
+ * Supported color scheme options.
+ * @typedef {"light" | "dark" | "system"} ColorScheme
+ */
+
+/**
+ * Supported color theme options.
+ * @typedef {"amber" | "cyberpunk" | "wood" | "sage" | "rose"} ColorTheme
+ */
+
+/**
+ * Supported language options.
+ * @typedef {"it" | "en" | "fr" | "de" | "es"} LanguageCode
+ */
+
+/**
  * Single todo item rendered by the demo.
  * @typedef {object} TodoItem
  * @property {string} id
@@ -71,6 +86,28 @@
  */
 
 /**
+ * Persisted design system and locale preferences.
+ * @typedef {object} PreferencesState
+ * @property {ColorScheme} colorScheme
+ * @property {ColorTheme} colorTheme
+ * @property {LanguageCode} language
+ */
+
+/**
+ * New category modal state.
+ * @typedef {object} CategoryModalState
+ * @property {boolean} open
+ * @property {string} value
+ * @property {string} error
+ */
+
+/**
+ * Ephemeral UI state used by the demo shell.
+ * @typedef {object} UiState
+ * @property {CategoryModalState} categoryModal
+ */
+
+/**
  * Complete application state stored in the proxy store.
  * @typedef {object} DemoState
  * @property {TodoItem[]} todos
@@ -78,6 +115,8 @@
  * @property {DraftTodo} draft
  * @property {FiltersState} filters
  * @property {DebugState} debug
+ * @property {PreferencesState} preferences
+ * @property {UiState} ui
  */
 
 /**
@@ -91,63 +130,75 @@ export const ONE_DAY_MS = 86_400_000;
  * @returns {DemoState}
  */
 export function createSeedData() {
-	const now = Date.now();
-	return {
-		todos: [
-			{
-				id: crypto.randomUUID(),
-				title: "Prepare the talk intro",
-				notes:
-					"Open with the comparison between expensive frameworks and DOM-first",
-				category: "Talk",
-				priority: "high",
-				dueDate: new Date(now + ONE_DAY_MS).toISOString().slice(0, 10),
-				completed: false,
-				selected: false,
-				createdAt: now - 800000,
-			},
-			{
-				id: crypto.randomUUID(),
-				title: "Refine the keyed repeat engine",
-				notes: "Verify node movement and cleanup of removed blocks",
-				category: "Engine",
-				priority: "medium",
-				dueDate: new Date(now + 2 * ONE_DAY_MS).toISOString().slice(0, 10),
-				completed: false,
-				selected: true,
-				createdAt: now - 600000,
-			},
-			{
-				id: crypto.randomUUID(),
-				title: "Record demo screenshot",
-				notes: "Show the store:change event panel",
-				category: "Assets",
-				priority: "low",
-				dueDate: new Date(now + 3 * ONE_DAY_MS).toISOString().slice(0, 10),
-				completed: true,
-				selected: false,
-				createdAt: now - 400000,
-			},
-		],
-		categories: ["Inbox", "Talk", "Engine", "Assets", "Research"],
-		draft: {
-			title: "",
-			notes: "",
-			category: "Inbox",
-			priority: "medium",
-			dueDate: new Date(now + ONE_DAY_MS).toISOString().slice(0, 10),
-		},
-		filters: {
-			search: "",
-			category: "all",
-			status: "all",
-			priority: "all",
-			sortBy: "createdAt",
-			sortDir: "desc",
-		},
-		debug: {
-			paused: false,
-			logs: [],
-		},
-	};
+  const now = Date.now();
+  return {
+    todos: [
+      {
+        id: crypto.randomUUID(),
+        title: "Prepare the talk intro",
+        notes:
+          "Open with the comparison between expensive frameworks and DOM-first",
+        category: "Talk",
+        priority: "high",
+        dueDate: new Date(now + ONE_DAY_MS).toISOString().slice(0, 10),
+        completed: false,
+        selected: false,
+        createdAt: now - 800000,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Refine the keyed repeat engine",
+        notes: "Verify node movement and cleanup of removed blocks",
+        category: "Engine",
+        priority: "medium",
+        dueDate: new Date(now + 2 * ONE_DAY_MS).toISOString().slice(0, 10),
+        completed: false,
+        selected: true,
+        createdAt: now - 600000,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Record demo screenshot",
+        notes: "Show the store:change event panel",
+        category: "Assets",
+        priority: "low",
+        dueDate: new Date(now + 3 * ONE_DAY_MS).toISOString().slice(0, 10),
+        completed: true,
+        selected: false,
+        createdAt: now - 400000,
+      },
+    ],
+    categories: ["Inbox", "Talk", "Engine", "Assets", "Research"],
+    draft: {
+      title: "",
+      notes: "",
+      category: "Inbox",
+      priority: "medium",
+      dueDate: new Date(now + ONE_DAY_MS).toISOString().slice(0, 10),
+    },
+    filters: {
+      search: "",
+      category: "all",
+      status: "all",
+      priority: "all",
+      sortBy: "createdAt",
+      sortDir: "desc",
+    },
+    debug: {
+      paused: false,
+      logs: [],
+    },
+    preferences: {
+      colorScheme: "system",
+      colorTheme: "amber",
+      language: "en",
+    },
+    ui: {
+      categoryModal: {
+        open: false,
+        value: "",
+        error: "",
+      },
+    },
+  };
 }

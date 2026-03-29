@@ -1,0 +1,34 @@
+@layer components.debug-panel {
+  [data-component="debug-panel"] {
+    --panel-marker-color: var(--color-muted-strong);
+    display: flex;
+    flex-direction: column;
+    min-block-size: 100%;
+
+    [data-slot="header"] {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+    }
+
+    [data-slot="entries"] {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      gap: var(--space-3);
+      max-block-size: none;
+      min-block-size: 0;
+      overflow: auto;
+    }
+  }
+
+  @media (max-width: 780px) {
+    [data-component="debug-panel"] {
+      [data-slot="header"] {
+        align-items: stretch;
+        flex-direction: column;
+      }
+    }
+  }
+}

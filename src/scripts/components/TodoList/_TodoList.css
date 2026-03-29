@@ -1,0 +1,44 @@
+@layer components.todo-list {
+  [data-component="todo-list-panel"] {
+    --panel-marker-color: var(--color-accent-strong);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    min-inline-size: 0;
+
+    [data-slot="header"] {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: var(--space-4);
+      margin-block-end: var(--space-4);
+      padding-inline: var(--space-1);
+    }
+
+    [data-slot="summary"] {
+      margin: 0;
+      padding: var(--space-2) var(--space-3);
+      border: var(--border-width-1) solid var(--color-accent);
+      border-radius: var(--radius-pill);
+      background: var(--color-accent-surface);
+      color: var(--color-text);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+    }
+
+    [data-slot="items"] {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+  }
+
+  @media (max-width: 780px) {
+    [data-component="todo-list-panel"] {
+      [data-slot="header"] {
+        align-items: stretch;
+        flex-direction: column;
+      }
+    }
+  }
+}

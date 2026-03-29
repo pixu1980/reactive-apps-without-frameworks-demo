@@ -13,23 +13,23 @@ let flushing = false;
  * @returns {void}
  */
 export function schedule(effect) {
-	scheduled.add(effect);
+  scheduled.add(effect);
 
-	if (flushing) return;
+  if (flushing) return;
 
-	flushing = true;
+  flushing = true;
 
-	queueMicrotask(() => {
-		try {
-			while (scheduled.size > 0) {
-				const batch = [...scheduled];
-				scheduled.clear();
-				for (const job of batch) {
-					job.run();
-				}
-			}
-		} finally {
-			flushing = false;
-		}
-	});
+  queueMicrotask(() => {
+    try {
+      while (scheduled.size > 0) {
+        const batch = [...scheduled];
+        scheduled.clear();
+        for (const job of batch) {
+          job.run();
+        }
+      }
+    } finally {
+      flushing = false;
+    }
+  });
 }

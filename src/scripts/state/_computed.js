@@ -1,5 +1,6 @@
-import { Signal } from "../core/index.js";
-import { pipelineTodos } from "../data/index.js";
+import { Signal } from "@/core/index.js";
+import { pipelineTodos } from "@/data/index.js";
+import { visibleSummaryLabel } from "@/i18n/index.js";
 import { mainState, store } from "./_store-setup.js";
 
 /** @typedef {import("../data/_data.js").DebugLogEntry} DebugLogEntry */
@@ -19,41 +20,52 @@ import { mainState, store } from "./_store-setup.js";
  * Visible todo list after filters and sorting are applied.
  */
 export const visibleTodos = new Signal.Computed(() => {
-	mainState.get();
-	return pipelineTodos(store.state.todos, store.state.filters);
+  mainState.get();
+  return pipelineTodos(
+    store.state.todos,
+    store.state.filters,
+    store.state.preferences.language,
+  );
 });
 
 /**
  * Shared summary signal used by the stat cards and list labels.
  */
 export const summary = new Signal.Computed(() => {
-	mainState.get();
-	const todos = store.state.todos;
-	let total = 0;
-	let completed = 0;
-	let selected = 0;
-	for (const todo of todos) {
-		total += 1;
-		if (todo.completed) completed += 1;
-		if (todo.selected) selected += 1;
-	}
+  mainState.get();
+  const todos = store.state.todos;
+  let total = 0;
+  let completed = 0;
+  let selected = 0;
+  for (const todo of todos) {
+    total += 1;
+    if (todo.completed) completed += 1;
+    if (todo.selected) selected += 1;
+  }
 
-	/** @type {TodoSummary} */
-	return {
-		total,
-		completed,
-		open: total - completed,
-		selected,
-		visible: visibleTodos.get().length,
-	};
+  /** @type {TodoSummary} */
+  return {
+    total,
+    completed,
+    open: total - completed,
+    selected,
+    visible: visibleTodos.get().length,
+  };
+});
+
+/**
+ * Category choices exposed to editors and creation flows.
+ */
+export const categoryChoices = new Signal.Computed(() => {
+  mainState.get();
+  return store.state.categories;
 });
 
 /**
  * Category choices exposed to filters and editors.
  */
 export const categoryOptions = new Signal.Computed(() => {
-	mainState.get();
-	return ["all", ...store.state.categories];
+  return ["all", ...categoryChoices.get()];
 });
 
 /** Total number of todos in the store. */
@@ -62,7 +74,7 @@ export const totalCount = new Signal.Computed(() => summary.get().total);
 export const openCount = new Signal.Computed(() => summary.get().open);
 /** Number of completed todos. */
 export const completedCount = new Signal.Computed(
-	() => summary.get().completed,
+  () => summary.get().completed,
 );
 /** Number of todos visible after filtering. */
 export const visibleCount = new Signal.Computed(() => summary.get().visible);
@@ -72,15 +84,18 @@ export const selectedCount = new Signal.Computed(() => summary.get().selected);
 /**
  * Human readable label shown above the filtered list.
  */
-export const visibleLabel = new Signal.Computed(
-	() =>
-		`${summary.get().visible} visible item(s), sorted by ${store.state.filters.sortBy}`,
+export const visibleLabel = new Signal.Computed(() =>
+  visibleSummaryLabel(
+    store.state.preferences.language,
+    summary.get().visible,
+    store.state.filters.sortBy,
+  ),
 );
 
 /**
  * Debug log entries currently shown in the right side panel.
  */
 export const debugLogs = new Signal.Computed(() => {
-	mainState.get();
-	return store.state.debug.logs;
+  mainState.get();
+  return store.state.debug.logs;
 });

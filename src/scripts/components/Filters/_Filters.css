@@ -1,0 +1,11 @@
+@layer components.filters {
+  [data-component="filters-panel"] {
+    --panel-marker-color: var(--color-warning);
+
+    [data-slot="form"] {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+  }
+}

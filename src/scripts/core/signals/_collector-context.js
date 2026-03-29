@@ -11,7 +11,7 @@ const collectorStack = [];
  * @returns {DependencyCollector | undefined}
  */
 export function getCurrentCollector() {
-	return collectorStack[collectorStack.length - 1];
+  return collectorStack[collectorStack.length - 1];
 }
 
 /**
@@ -20,7 +20,7 @@ export function getCurrentCollector() {
  * @returns {void}
  */
 export function pushCollector(collector) {
-	collectorStack.push(collector);
+  collectorStack.push(collector);
 }
 
 /**
@@ -28,7 +28,7 @@ export function pushCollector(collector) {
  * @returns {DependencyCollector | undefined}
  */
 export function popCollector() {
-	return collectorStack.pop();
+  return collectorStack.pop();
 }
 
 /**
@@ -39,12 +39,12 @@ export function popCollector() {
  * @returns {T}
  */
 export function withCollector(collector, callback) {
-	pushCollector(collector);
-	try {
-		return callback();
-	} finally {
-		popCollector();
-	}
+  pushCollector(collector);
+  try {
+    return callback();
+  } finally {
+    popCollector();
+  }
 }
 
 /**
@@ -54,10 +54,10 @@ export function withCollector(collector, callback) {
  * @returns {T}
  */
 export function withoutCollector(callback) {
-	const current = popCollector();
-	try {
-		return callback();
-	} finally {
-		if (current) pushCollector(current);
-	}
+  const current = popCollector();
+  try {
+    return callback();
+  } finally {
+    if (current) pushCollector(current);
+  }
 }

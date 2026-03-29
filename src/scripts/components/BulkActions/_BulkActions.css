@@ -1,0 +1,5 @@
+@layer components.bulk-actions {
+  [data-component="bulk-actions-panel"] {
+    --panel-marker-color: var(--color-accent);
+  }
+}

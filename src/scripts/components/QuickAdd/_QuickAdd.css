@@ -1,0 +1,11 @@
+@layer components.quick-add {
+  [data-component="quick-add-panel"] {
+    --panel-marker-color: var(--color-success);
+
+    [data-slot="form"] {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+  }
+}

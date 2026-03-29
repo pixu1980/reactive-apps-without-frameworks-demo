@@ -1,4 +1,5 @@
-import { createSeedData, ONE_DAY_MS } from "../data/index.js";
+import { createSeedData, ONE_DAY_MS } from "@/data/index.js";
+import { t } from "@/i18n/index.js";
 import { mainState, store } from "./_store-setup.js";
 
 /** @typedef {import("../data/_data.js").TodoItem} TodoItem */
@@ -9,7 +10,7 @@ import { mainState, store } from "./_store-setup.js";
  * @returns {TodoItem | undefined}
  */
 export function getTodoById(id) {
-	return store.state.todos.find((todo) => todo.id === id);
+  return store.state.todos.find((todo) => todo.id === id);
 }
 
 /**
@@ -19,10 +20,10 @@ export function getTodoById(id) {
  * @returns {void}
  */
 export function updateTodo(id, patch) {
-	const index = store.state.todos.findIndex((todo) => todo.id === id);
-	if (index < 0) return;
-	const current = store.state.todos[index];
-	store.state.todos[index] = { ...current, ...patch };
+  const index = store.state.todos.findIndex((todo) => todo.id === id);
+  if (index < 0) return;
+  const current = store.state.todos[index];
+  store.state.todos[index] = { ...current, ...patch };
 }
 
 /**
@@ -31,7 +32,7 @@ export function updateTodo(id, patch) {
  * @returns {void}
  */
 export function removeTodo(id) {
-	store.state.todos = store.state.todos.filter((todo) => todo.id !== id);
+  store.state.todos = store.state.todos.filter((todo) => todo.id !== id);
 }
 
 /**
@@ -39,30 +40,30 @@ export function removeTodo(id) {
  * @returns {void}
  */
 export function addTodo() {
-	const draft = store.state.draft;
-	if (!draft.title.trim()) return;
-	store.state.todos = [
-		{
-			id: crypto.randomUUID(),
-			title: draft.title.trim(),
-			notes: draft.notes.trim(),
-			category: draft.category,
-			priority: draft.priority,
-			dueDate: draft.dueDate,
-			completed: false,
-			selected: false,
-			createdAt: Date.now(),
-		},
-		...store.state.todos,
-	];
-	store.state.draft = {
-		...store.state.draft,
-		title: "",
-		notes: "",
-		category: store.state.categories[0] ?? "Inbox",
-		priority: "medium",
-		dueDate: new Date(Date.now() + ONE_DAY_MS).toISOString().slice(0, 10),
-	};
+  const draft = store.state.draft;
+  if (!draft.title.trim()) return;
+  store.state.todos = [
+    {
+      id: crypto.randomUUID(),
+      title: draft.title.trim(),
+      notes: draft.notes.trim(),
+      category: draft.category,
+      priority: draft.priority,
+      dueDate: draft.dueDate,
+      completed: false,
+      selected: false,
+      createdAt: Date.now(),
+    },
+    ...store.state.todos,
+  ];
+  store.state.draft = {
+    ...store.state.draft,
+    title: "",
+    notes: "",
+    category: store.state.categories[0] ?? "Inbox",
+    priority: "medium",
+    dueDate: new Date(Date.now() + ONE_DAY_MS).toISOString().slice(0, 10),
+  };
 }
 
 /**
@@ -71,9 +72,9 @@ export function addTodo() {
  * @returns {void}
  */
 export function toggleAllSelected(nextCompleted) {
-	store.state.todos = store.state.todos.map((todo) =>
-		todo.selected ? { ...todo, completed: nextCompleted } : todo,
-	);
+  store.state.todos = store.state.todos.map((todo) =>
+    todo.selected ? { ...todo, completed: nextCompleted } : todo,
+  );
 }
 
 /**
@@ -81,7 +82,7 @@ export function toggleAllSelected(nextCompleted) {
  * @returns {void}
  */
 export function deleteCompleted() {
-	store.state.todos = store.state.todos.filter((todo) => !todo.completed);
+  store.state.todos = store.state.todos.filter((todo) => !todo.completed);
 }
 
 /**
@@ -89,7 +90,7 @@ export function deleteCompleted() {
  * @returns {void}
  */
 export function deleteSelected() {
-	store.state.todos = store.state.todos.filter((todo) => !todo.selected);
+  store.state.todos = store.state.todos.filter((todo) => !todo.selected);
 }
 
 /**
@@ -97,10 +98,10 @@ export function deleteSelected() {
  * @returns {void}
  */
 export function clearSelection() {
-	store.state.todos = store.state.todos.map((todo) => ({
-		...todo,
-		selected: false,
-	}));
+  store.state.todos = store.state.todos.map((todo) => ({
+    ...todo,
+    selected: false,
+  }));
 }
 
 /**
@@ -109,22 +110,81 @@ export function clearSelection() {
  * @returns {void}
  */
 export function selectAllVisible(visibleTodos) {
-	const ids = new Set(visibleTodos.peek().map((todo) => todo.id));
-	store.state.todos = store.state.todos.map((todo) => ({
-		...todo,
-		selected: ids.has(todo.id) ? true : todo.selected,
-	}));
+  const ids = new Set(visibleTodos.peek().map((todo) => todo.id));
+  store.state.todos = store.state.todos.map((todo) => ({
+    ...todo,
+    selected: ids.has(todo.id) ? true : todo.selected,
+  }));
 }
 
 /**
- * Adds a new category entered by the user if it does not already exist.
+ * Updates the category modal state with a partial patch.
+ * @param {Partial<import("../data/_data.js").CategoryModalState>} patch
  * @returns {void}
  */
-export function addCategory() {
-	const value = prompt("New category")?.trim();
-	if (!value) return;
-	if (store.state.categories.includes(value)) return;
-	store.state.categories = [...store.state.categories, value];
+function updateCategoryModal(patch) {
+  store.state.ui.categoryModal = {
+    ...store.state.ui.categoryModal,
+    ...patch,
+  };
+}
+
+/**
+ * Opens the category modal and resets its previous validation state.
+ * @returns {void}
+ */
+export function openCategoryModal() {
+  store.state.ui.categoryModal = {
+    open: true,
+    value: "",
+    error: "",
+  };
+}
+
+/**
+ * Closes the category modal and clears the transient form state.
+ * @returns {void}
+ */
+export function closeCategoryModal() {
+  store.state.ui.categoryModal = {
+    open: false,
+    value: "",
+    error: "",
+  };
+}
+
+/**
+ * Adds a new category from the modal state when the value is valid and unique.
+ * @param {string} [inputValue=store.state.ui.categoryModal.value]
+ * @returns {boolean}
+ */
+export function addCategory(inputValue = store.state.ui.categoryModal.value) {
+  const value = inputValue.trim();
+  const language = store.state.preferences.language;
+
+  if (!value) {
+    updateCategoryModal({
+      open: true,
+      error: t(language, "errors.emptyCategory"),
+    });
+    return false;
+  }
+
+  const alreadyExists = store.state.categories.some(
+    (category) => category.toLowerCase() === value.toLowerCase(),
+  );
+
+  if (alreadyExists) {
+    updateCategoryModal({
+      open: true,
+      error: t(language, "errors.duplicateCategory"),
+    });
+    return false;
+  }
+
+  store.state.categories = [...store.state.categories, value];
+  closeCategoryModal();
+  return true;
 }
 
 /**
@@ -132,6 +192,12 @@ export function addCategory() {
  * @returns {void}
  */
 export function resetDemo() {
-	store.replace(createSeedData());
-	mainState.set(performance.now());
+  const { preferences } = store.snapshot();
+  store.replace({
+    ...createSeedData(),
+    preferences: {
+      ...preferences,
+    },
+  });
+  mainState.set(performance.now());
 }

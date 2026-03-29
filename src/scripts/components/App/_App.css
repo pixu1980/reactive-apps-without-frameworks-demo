@@ -1,0 +1,66 @@
+@layer components.app {
+  [data-app-root="true"] {
+    display: grid;
+    gap: var(--space-6);
+    max-inline-size: initial;
+    margin-inline: auto;
+    grid-template-columns: minmax(17.5rem, 21.25rem) minmax(0, 1fr) minmax(
+        17.5rem,
+        22.5rem
+      );
+
+    > [data-component="app-header"] {
+      grid-column: 1 / -1;
+    }
+
+    > [data-component="app-shell"] {
+      grid-column: 2;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+      min-inline-size: 0;
+      align-self: start;
+    }
+
+    > [data-slot="controls"] {
+      grid-area: 2 / 1;
+      display: flex;
+      flex-flow: column;
+    }
+
+    > [data-slot="debug-sidebar"] {
+      grid-column: 3;
+      grid-row: 2;
+      align-self: stretch;
+      block-size: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    > :where([data-slot="controls"], [data-slot="debug-sidebar"]) {
+      gap: var(--space-5);
+      min-inline-size: 0;
+    }
+  }
+
+  @media (max-width: 1180px) {
+    [data-app-root="true"] {
+      grid-template-columns: 1fr;
+
+      > [data-component="app-shell"],
+      > [data-slot="controls"],
+      > [data-slot="debug-sidebar"] {
+        grid-column: 1;
+      }
+
+      > [data-slot="controls"] {
+        grid-row: auto;
+      }
+
+      > [data-slot="debug-sidebar"] {
+        grid-row: auto;
+        order: 3;
+      }
+    }
+  }
+}

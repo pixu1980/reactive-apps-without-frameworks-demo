@@ -5,12 +5,12 @@
  * @returns {void}
  */
 export function clearRange(start, end) {
-	let current = start.nextSibling;
-	while (current && current !== end) {
-		const next = current.nextSibling;
-		current.remove();
-		current = next;
-	}
+  let current = start.nextSibling;
+  while (current && current !== end) {
+    const next = current.nextSibling;
+    current.remove();
+    current = next;
+  }
 }
 
 /**
@@ -21,15 +21,15 @@ export function clearRange(start, end) {
  * @returns {void}
  */
 export function moveRangeBefore(start, end, referenceNode) {
-	const fragment = document.createDocumentFragment();
-	let current = start;
-	while (current) {
-		const next = current.nextSibling;
-		fragment.append(current);
-		if (current === end) break;
-		current = next;
-	}
-	referenceNode.parentNode.insertBefore(fragment, referenceNode);
+  const fragment = document.createDocumentFragment();
+  let current = start;
+  while (current) {
+    const next = current.nextSibling;
+    fragment.append(current);
+    if (current === end) break;
+    current = next;
+  }
+  referenceNode.parentNode.insertBefore(fragment, referenceNode);
 }
 
 /**
@@ -40,13 +40,13 @@ export function moveRangeBefore(start, end, referenceNode) {
  * @returns {boolean}
  */
 export function isRangeBeforeReference(start, end, referenceNode) {
-	let current = start;
-	while (current) {
-		if (current === referenceNode) return false;
-		if (current === end) return current.nextSibling === referenceNode;
-		current = current.nextSibling;
-	}
-	return false;
+  let current = start;
+  while (current) {
+    if (current === referenceNode) return false;
+    if (current === end) return current.nextSibling === referenceNode;
+    current = current.nextSibling;
+  }
+  return false;
 }
 
 /**
@@ -55,8 +55,8 @@ export function isRangeBeforeReference(start, end, referenceNode) {
  * @returns {Node}
  */
 export function normalizeNode(value) {
-	if (value instanceof Node) return value;
-	return document.createTextNode(value == null ? "" : String(value));
+  if (value instanceof Node) return value;
+  return document.createTextNode(value == null ? "" : String(value));
 }
 
 /**
@@ -65,11 +65,11 @@ export function normalizeNode(value) {
  * @returns {boolean}
  */
 export function isIterable(value) {
-	return (
-		value &&
-		typeof value !== "string" &&
-		typeof value[Symbol.iterator] === "function"
-	);
+  return (
+    value &&
+    typeof value !== "string" &&
+    typeof value[Symbol.iterator] === "function"
+  );
 }
 
 /**
@@ -78,7 +78,7 @@ export function isIterable(value) {
  * @returns {"checked" | "value"}
  */
 export function inferModelProperty(element) {
-	return element instanceof HTMLInputElement && element.type === "checkbox"
-		? "checked"
-		: "value";
+  return element instanceof HTMLInputElement && element.type === "checkbox"
+    ? "checked"
+    : "value";
 }

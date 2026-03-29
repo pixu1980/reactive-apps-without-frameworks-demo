@@ -1,8 +1,6 @@
-@layer demo;
+@layer tokens, base, shell, components.app, components.app-header, components.bulk-actions, components.category-modal, components.debug-log-entry, components.debug-panel, components.filters, components.quick-add, components.stats-row, components.todo-item, components.todo-list, responsive;
 
-@import "./_tokens.css" layer(demo);
-@import "./_base.css" layer(demo);
-@import "./_shell.css" layer(demo);
-@import "./_todo-list.css" layer(demo);
-@import "./_debug-log.css" layer(demo);
-@import "./_responsive.css" layer(demo);
+@import "./_tokens.css" layer(tokens);
+@import "./_base.css" layer(base);
+@import "./_shell.css" layer(shell);
+@import "./_responsive.css" layer(responsive);

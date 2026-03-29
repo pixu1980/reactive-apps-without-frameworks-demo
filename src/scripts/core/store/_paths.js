@@ -4,9 +4,9 @@
  * @returns {Array<string | number | symbol>}
  */
 export function toPathArray(path) {
-	if (Array.isArray(path)) return path;
-	if (path == null || path === "") return [];
-	return String(path).split(".").filter(Boolean);
+  if (Array.isArray(path)) return path;
+  if (path == null || path === "") return [];
+  return String(path).split(".").filter(Boolean);
 }
 
 /**
@@ -15,5 +15,5 @@ export function toPathArray(path) {
  * @returns {string}
  */
 export function pathToString(path) {
-	return toPathArray(path).join(".");
+  return toPathArray(path).join(".");
 }

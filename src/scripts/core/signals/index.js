@@ -17,11 +17,11 @@ import { StateSignal } from "./_state-signal.js";
  * Public signal constructors and low level helpers.
  */
 export const Signal = {
-	State: StateSignal,
-	Computed: ComputedSignal,
-	subtle: {
-		untrack: withoutCollector,
-	},
+  State: StateSignal,
+  Computed: ComputedSignal,
+  subtle: {
+    untrack: withoutCollector,
+  },
 };
 
 /**
@@ -30,7 +30,7 @@ export const Signal = {
  * @returns {boolean}
  */
 export function isSignalLike(value) {
-	return Boolean(value && typeof value.get === "function" && value.__isSignal);
+  return Boolean(value && typeof value.get === "function" && value.__isSignal);
 }
 
 /**
@@ -39,6 +39,6 @@ export function isSignalLike(value) {
  * @returns {() => void}
  */
 export function effect(callback) {
-	const runner = new EffectCollector(callback);
-	return () => runner.stop();
+  const runner = new EffectCollector(callback);
+  return () => runner.stop();
 }

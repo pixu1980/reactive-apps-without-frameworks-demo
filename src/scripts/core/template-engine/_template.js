@@ -7,11 +7,11 @@ setTemplateInstanceClass(TemplateInstance);
 /** @typedef {HTMLElement & { __rootPart?: ChildNodePart }} RenderContainer */
 
 export {
-	directive,
-	html,
-	isDirective,
-	model,
-	repeat,
+  directive,
+  html,
+  isDirective,
+  model,
+  repeat,
 } from "./_template-helpers.js";
 
 /**
@@ -21,14 +21,14 @@ export {
  * @returns {void}
  */
 export function render(result, container) {
-	let rootPart = container.__rootPart;
-	if (!rootPart) {
-		const start = document.createComment("root:start");
-		const end = document.createComment("root:end");
-		container.textContent = "";
-		container.append(start, end);
-		rootPart = new ChildNodePart(start, end);
-		container.__rootPart = rootPart;
-	}
-	rootPart.setValue(result);
+  let rootPart = container.__rootPart;
+  if (!rootPart) {
+    const start = document.createComment("root:start");
+    const end = document.createComment("root:end");
+    container.textContent = "";
+    container.append(start, end);
+    rootPart = new ChildNodePart(start, end);
+    container.__rootPart = rootPart;
+  }
+  rootPart.setValue(result);
 }

@@ -1,8 +1,63 @@
-import { html, model, repeat } from "../core/index.js";
-import { mainState, getTodoById, store, updateTodo } from "../state/index.js";
+import { html, model, repeat } from "@/core/index.js";
+import { optionLabel, t } from "@/i18n/index.js";
+import {
+  categoryChoices,
+  getTodoById,
+  mainState,
+  store,
+  updateTodo,
+} from "@/state/index.js";
 
 /** @typedef {import("../data/_data.js").TodoItem} TodoItem */
 /** @typedef {Parameters<typeof model>[0]} ModelConfig */
+/** @typedef {{ value: string, label: string }} NamedOption */
+
+const colorSchemeValues = ["system", "light", "dark"];
+const colorThemeValues = ["amber", "cyberpunk", "wood", "sage", "rose"];
+const priorityValues = ["low", "medium", "high"];
+const statusValues = ["all", "open", "done"];
+const directionValues = ["asc", "desc"];
+const sortByValues = ["createdAt", "title", "priority", "dueDate", "category"];
+
+/** @type {NamedOption[]} */
+const languageOptionList = [
+  { value: "it", label: "🇮🇹 Italiano" },
+  { value: "en", label: "🇬🇧 English" },
+  { value: "fr", label: "🇫🇷 Français" },
+  { value: "de", label: "🇩🇪 Deutsch" },
+  { value: "es", label: "🇪🇸 Español" },
+];
+
+/**
+ * Renders a static option list from name/value pairs.
+ * @param {NamedOption[]} options
+ * @returns {ReturnType<typeof html>}
+ */
+function namedOptions(options) {
+  return html`${repeat(
+    options,
+    (option) => option.value,
+    (option) => html`<option value=${option.value}>${option.label}</option>`,
+  )}`;
+}
+
+/**
+ * Returns the current UI language from persisted preferences.
+ * @returns {import("../data/_data.js").LanguageCode}
+ */
+function currentLanguage() {
+  return store.state.preferences.language;
+}
+
+/**
+ * Creates name/value pairs from stable enum values.
+ * @param {string[]} values
+ * @param {(value: string) => string} getLabel
+ * @returns {NamedOption[]}
+ */
+function toNamedOptionList(values, getLabel) {
+  return values.map((value) => ({ value, label: getLabel(value) }));
+}
 
 /**
  * Creates a model directive backed by a store path.
@@ -11,12 +66,12 @@ import { mainState, getTodoById, store, updateTodo } from "../state/index.js";
  * @returns {ReturnType<typeof model>}
  */
 export function storeModel(path, options = {}) {
-	return model({
-		signal: mainState,
-		get: () => store.get(path),
-		set: (value) => store.set(path, value),
-		...options,
-	});
+  return model({
+    signal: mainState,
+    get: () => store.get(path),
+    set: (value) => store.set(path, value),
+    ...options,
+  });
 }
 
 /**
@@ -27,13 +82,13 @@ export function storeModel(path, options = {}) {
  * @returns {ReturnType<typeof model>}
  */
 export function todoModel(todoId, field, options = {}) {
-	return model({
-		signal: mainState,
-		get: () =>
-			getTodoById(todoId)?.[field] ?? (options.prop === "checked" ? false : ""),
-		set: (value) => updateTodo(todoId, { [field]: value }),
-		...options,
-	});
+  return model({
+    signal: mainState,
+    get: () =>
+      getTodoById(todoId)?.[field] ?? (options.prop === "checked" ? false : ""),
+    set: (value) => updateTodo(todoId, { [field]: value }),
+    ...options,
+  });
 }
 
 /**
@@ -41,11 +96,12 @@ export function todoModel(todoId, field, options = {}) {
  * @returns {ReturnType<typeof html>}
  */
 export function priorityOptions() {
-	return html`
-    <option value="low">low</option>
-    <option value="medium">medium</option>
-    <option value="high">high</option>
-  `;
+  const language = currentLanguage();
+  return namedOptions(
+    toNamedOptionList(priorityValues, (value) =>
+      optionLabel(language, "priority", value),
+    ),
+  );
 }
 
 /**
@@ -53,12 +109,12 @@ export function priorityOptions() {
  * @returns {ReturnType<typeof html>}
  */
 export function priorityFilterOptions() {
-	return html`
-    <option value="all">all</option>
-    <option value="low">low</option>
-    <option value="medium">medium</option>
-    <option value="high">high</option>
-  `;
+  const language = currentLanguage();
+  return namedOptions(
+    toNamedOptionList(["all", ...priorityValues], (value) =>
+      optionLabel(language, "priority", value),
+    ),
+  );
 }
 
 /**
@@ -66,11 +122,12 @@ export function priorityFilterOptions() {
  * @returns {ReturnType<typeof html>}
  */
 export function statusOptions() {
-	return html`
-    <option value="all">all</option>
-    <option value="open">open</option>
-    <option value="done">done</option>
-  `;
+  const language = currentLanguage();
+  return namedOptions(
+    toNamedOptionList(statusValues, (value) =>
+      optionLabel(language, "status", value),
+    ),
+  );
 }
 
 /**
@@ -78,10 +135,46 @@ export function statusOptions() {
  * @returns {ReturnType<typeof html>}
  */
 export function directionOptions() {
-	return html`
-    <option value="asc">asc</option>
-    <option value="desc">desc</option>
-  `;
+  const language = currentLanguage();
+  return namedOptions(
+    toNamedOptionList(directionValues, (value) =>
+      optionLabel(language, "direction", value),
+    ),
+  );
+}
+
+/**
+ * Renders the supported color scheme selector options.
+ * @returns {ReturnType<typeof html>}
+ */
+export function colorSchemeOptions() {
+  const language = currentLanguage();
+  return namedOptions(
+    toNamedOptionList(colorSchemeValues, (value) =>
+      optionLabel(language, "colorScheme", value),
+    ),
+  );
+}
+
+/**
+ * Renders the supported color theme selector options.
+ * @returns {ReturnType<typeof html>}
+ */
+export function colorThemeOptions() {
+  const language = currentLanguage();
+  return namedOptions(
+    toNamedOptionList(colorThemeValues, (value) =>
+      optionLabel(language, "colorTheme", value),
+    ),
+  );
+}
+
+/**
+ * Renders the supported language selector options.
+ * @returns {ReturnType<typeof html>}
+ */
+export function languageOptions() {
+  return namedOptions(languageOptionList);
 }
 
 /**
@@ -89,13 +182,26 @@ export function directionOptions() {
  * @returns {ReturnType<typeof html>}
  */
 export function sortByOptions() {
-	return html`
-    <option value="createdAt">createdAt</option>
-    <option value="title">title</option>
-    <option value="priority">priority</option>
-    <option value="dueDate">dueDate</option>
-    <option value="category">category</option>
-  `;
+  const language = currentLanguage();
+  return namedOptions(
+    toNamedOptionList(sortByValues, (value) =>
+      optionLabel(language, "sortBy", value),
+    ),
+  );
+}
+
+/**
+ * Renders the category filter options using the shared named option pipeline.
+ * @returns {ReturnType<typeof html>}
+ */
+export function categoryFilterOptions() {
+  const language = currentLanguage();
+  return namedOptions([
+    { value: "all", label: t(language, "options.category.all") },
+    ...categoryChoices
+      .get()
+      .map((category) => ({ value: category, label: category })),
+  ]);
 }
 
 /**
@@ -104,13 +210,12 @@ export function sortByOptions() {
  * @returns {ReturnType<typeof html>}
  */
 export function categorySelect(modelDirective) {
-	return html`
+  const options = categoryChoices
+    .get()
+    .map((category) => ({ value: category, label: category }));
+  return html`
     <select model=${modelDirective}>
-      ${repeat(
-				store.state.categories,
-				(item) => item,
-				(item) => html`<option value=${item}>${item}</option>`,
-			)}
+      ${namedOptions(options)}
     </select>
   `;
 }
@@ -122,10 +227,12 @@ export function categorySelect(modelDirective) {
  * @returns {ReturnType<typeof html>}
  */
 export function statCard(signal, label) {
-	return html`
-    <article class="card stat">
-      <strong>${signal}</strong>
-      <span>${label}</span>
-    </article>
+  return html`
+    <li>
+      <article data-component="stat-card" data-surface="card">
+        <strong>${signal}</strong>
+        <span>${label}</span>
+      </article>
+    </li>
   `;
 }

@@ -11,7 +11,7 @@ let TemplateInstance;
  * @returns {void}
  */
 export function setTemplateInstanceClass(cls) {
-	TemplateInstance = cls;
+  TemplateInstance = cls;
 }
 
 /**
@@ -19,9 +19,9 @@ export function setTemplateInstanceClass(cls) {
  * @returns {TemplateInstanceConstructor}
  */
 export function getTemplateInstanceClass() {
-	if (!TemplateInstance) {
-		throw new Error("TemplateInstance class not registered.");
-	}
+  if (!TemplateInstance) {
+    throw new Error("TemplateInstance class not registered.");
+  }
 
-	return TemplateInstance;
+  return TemplateInstance;
 }

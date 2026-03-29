@@ -1,11 +1,65 @@
-import { Signal, Store } from "../core/index.js";
-import { createSeedData } from "../data/index.js";
+import { Signal, Store } from "@/core/index.js";
+import { createSeedData } from "@/data/index.js";
+import { formatDebugTime, t } from "@/i18n/index.js";
 
 /** @typedef {import("../data/_data.js").DebugLogEntry} DebugLogEntry */
 /** @typedef {import("../data/_data.js").DemoState} DemoState */
 
 const STORAGE_KEY = "reactive-apps-without-frameworks-demo-state-v1";
 const MAX_DEBUG_LOG_ENTRIES = 30;
+
+/**
+ * Returns true when the provided value can be spread as a plain record.
+ * @param {unknown} value
+ * @returns {value is Record<string, unknown>}
+ */
+function isRecord(value) {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/**
+ * Merges a persisted snapshot with the latest state shape while resetting ephemeral UI state.
+ * @param {unknown} savedState
+ * @returns {DemoState}
+ */
+function normalizeState(savedState) {
+  const seed = createSeedData();
+  if (!isRecord(savedState)) return seed;
+
+  const draft = isRecord(savedState.draft) ? savedState.draft : {};
+  const filters = isRecord(savedState.filters) ? savedState.filters : {};
+  const debug = isRecord(savedState.debug) ? savedState.debug : {};
+  const preferences = isRecord(savedState.preferences)
+    ? savedState.preferences
+    : {};
+
+  return {
+    ...seed,
+    ...savedState,
+    todos: Array.isArray(savedState.todos) ? savedState.todos : seed.todos,
+    categories: Array.isArray(savedState.categories)
+      ? savedState.categories
+      : seed.categories,
+    draft: {
+      ...seed.draft,
+      ...draft,
+    },
+    filters: {
+      ...seed.filters,
+      ...filters,
+    },
+    debug: {
+      ...seed.debug,
+      ...debug,
+      logs: Array.isArray(debug.logs) ? debug.logs : seed.debug.logs,
+    },
+    preferences: {
+      ...seed.preferences,
+      ...preferences,
+    },
+    ui: seed.ui,
+  };
+}
 
 /**
  * Shape emitted by the proxy store on every mutation.
@@ -20,14 +74,14 @@ const MAX_DEBUG_LOG_ENTRIES = 30;
  * @returns {DemoState}
  */
 function readInitialState() {
-	const saved = localStorage.getItem(STORAGE_KEY);
-	if (!saved) return createSeedData();
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) return createSeedData();
 
-	try {
-		return /** @type {DemoState} */ (JSON.parse(saved));
-	} catch {
-		return createSeedData();
-	}
+  try {
+    return normalizeState(JSON.parse(saved));
+  } catch {
+    return createSeedData();
+  }
 }
 
 export const store = new Store(readInitialState());
@@ -45,17 +99,17 @@ let isWritingDebugLog = false;
  * @returns {void}
  */
 function appendDebugLog(detail) {
-	/** @type {DebugLogEntry[]} */
-	const nextLogs = [
-		{
-			id: crypto.randomUUID(),
-			timestamp: new Date().toLocaleTimeString("en-GB"),
-			...detail,
-		},
-		...store.state.debug.logs,
-	].slice(0, MAX_DEBUG_LOG_ENTRIES);
+  /** @type {DebugLogEntry[]} */
+  const nextLogs = [
+    {
+      id: crypto.randomUUID(),
+      timestamp: formatDebugTime(store.state.preferences.language),
+      ...detail,
+    },
+    ...store.state.debug.logs,
+  ].slice(0, MAX_DEBUG_LOG_ENTRIES);
 
-	store.state.debug.logs = nextLogs;
+  store.state.debug.logs = nextLogs;
 }
 
 /**
@@ -63,8 +117,8 @@ function appendDebugLog(detail) {
  * @returns {void}
  */
 function persistState() {
-	const snapshot = store.snapshot();
-	localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
+  const snapshot = store.snapshot();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
 }
 
 /**
@@ -73,40 +127,51 @@ function persistState() {
  * @returns {void}
  */
 function handleStoreChange(event) {
-	// The debug panel writes back into the same store, so nested debug events are ignored.
-	if (isWritingDebugLog) return;
+  // The debug panel writes back into the same store, so nested debug events are ignored.
+  if (isWritingDebugLog) return;
 
-	if (!store.state.debug.paused && event.detail.path !== "debug.logs") {
-		isWritingDebugLog = true;
+  if (!store.state.debug.paused && event.detail.path !== "debug.logs") {
+    isWritingDebugLog = true;
 
-		try {
-			appendDebugLog(event.detail);
-		} finally {
-			isWritingDebugLog = false;
-		}
-	}
+    try {
+      appendDebugLog(event.detail);
+    } finally {
+      isWritingDebugLog = false;
+    }
+  }
 
-	persistState();
-	mainState.set(performance.now());
+  persistState();
+  mainState.set(performance.now());
 }
 
 window.addEventListener("store:change", handleStoreChange);
 
-const appRoot = document.querySelector("#app");
+/**
+ * Resolves an application mount node from an element or selector.
+ * @param {HTMLElement | string | null | undefined} [target=document.body]
+ * @returns {HTMLElement}
+ */
+function resolveMountNode(target = document.body) {
+  if (typeof target === "string") {
+    const node = document.querySelector(target);
+    if (node instanceof HTMLElement) return node;
+    throw new Error(t(store.state.preferences.language, "errors.missingMount"));
+  }
 
-if (!(appRoot instanceof HTMLElement)) {
-	throw new Error('Missing "#app" mount point.');
+  if (target instanceof HTMLElement) return target;
+
+  throw new Error(t(store.state.preferences.language, "errors.missingMount"));
 }
 
 /**
  * Root node used by the template renderer.
  * @type {HTMLElement}
  */
-export const root = appRoot;
+export const root = resolveMountNode(document.body);
 
 /**
  * Whether the demo is running inside the embedded iframe mode.
  * @type {boolean}
  */
 export const isEmbedded =
-	new URLSearchParams(window.location.search).get("embed") === "1";
+  new URLSearchParams(window.location.search).get("embed") === "1";

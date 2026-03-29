@@ -47,11 +47,11 @@ const directiveBrand = Symbol("directive");
  * @returns {TemplateResult}
  */
 export function html(strings, ...values) {
-	return {
-		kind: "template-result",
-		strings,
-		values,
-	};
+  return {
+    kind: "template-result",
+    strings,
+    values,
+  };
 }
 
 /**
@@ -62,11 +62,11 @@ export function html(strings, ...values) {
  * @returns {DirectiveResult<TPayload>}
  */
 export function directive(name, payload) {
-	return {
-		[directiveBrand]: true,
-		name,
-		payload,
-	};
+  return {
+    [directiveBrand]: true,
+    name,
+    payload,
+  };
 }
 
 /**
@@ -76,7 +76,7 @@ export function directive(name, payload) {
  * @returns {boolean}
  */
 export function isDirective(value, name) {
-	return Boolean(value?.[directiveBrand] && (!name || value.name === name));
+  return Boolean(value?.[directiveBrand] && (!name || value.name === name));
 }
 
 /**
@@ -85,7 +85,7 @@ export function isDirective(value, name) {
  * @returns {DirectiveResult<ModelDirectiveConfig>}
  */
 export function model(config) {
-	return directive("model", config);
+  return directive("model", config);
 }
 
 /**
@@ -97,9 +97,9 @@ export function model(config) {
  * @returns {DirectiveResult<RepeatDirectiveConfig<TItem>>}
  */
 export function repeat(items, key, renderItem) {
-	return directive("repeat", {
-		items,
-		key,
-		renderItem,
-	});
+  return directive("repeat", {
+    items,
+    key,
+    renderItem,
+  });
 }
