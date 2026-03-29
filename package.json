@@ -1,6 +1,6 @@
 {
 	"name": "reactive-apps-without-frameworks-demo",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"license": "MIT",
 	"private": true,
 	"scripts": {
@@ -11,8 +11,8 @@
 		"start": "parcel src/index.html -p 6002",
 		"prebuild": "pnpm run clear",
 		"build": "parcel build src/index.html --dist-dir dist --public-url ./",
-    "postbulid": "git add . && git commit --amend --no-edit && git push -f",
-    "rel:push": "git push && git push --tags",
+		"postbulid": "git add . && git commit --amend --no-edit && git push -f",
+		"rel:push": "git push && git push --tags",
 		"rel:major": "pnpm run build && pnpm version major -m \"rel(%s)\" && pnpm run rel:push",
 		"rel:minor": "pnpm run build && pnpm version minor -m \"rel(%s)\" && pnpm run rel:push",
 		"rel:patch": "pnpm run build && pnpm version patch -m \"rel(%s)\" && pnpm run rel:push",
@@ -21,7 +21,6 @@
 		"lint:biome": "biome lint .",
 		"format": "pnpm run format:prettier && pnpm run format:biome",
 		"lint": "pnpm run lint:biome"
-
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.4.9",
