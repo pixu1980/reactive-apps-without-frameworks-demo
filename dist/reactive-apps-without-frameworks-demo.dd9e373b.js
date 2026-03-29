@@ -376,4 +376,3 @@ let e;let t=[];function a(e,a){t.push(e);try{return a()}finally{t.pop()}}class i
     </dialog>
   `}()}
   `,K)}),j.set(performance.now());
-//# sourceMappingURL=reactive-apps-without-frameworks-demo.f85b45a2.js.map
