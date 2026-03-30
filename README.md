@@ -12,9 +12,13 @@ pnpm start
 pnpm run build
 ```
 
+`pnpm run build` now generates Brotli sidecar assets in `dist` for compressible text files.
+
 ## GitHub Pages
 
 The workflow in [.github/workflows/static.yml](.github/workflows/static.yml) builds the app and publishes the `dist` folder to GitHub Pages.
+
+GitHub Pages will publish the `.br` files, but it does not add `Content-Encoding: br` automatically. The sidecar files are useful for hosts or CDNs that support precompressed asset delivery.
 
 Expected production URL:
 
