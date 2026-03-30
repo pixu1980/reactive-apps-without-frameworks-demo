@@ -37,11 +37,21 @@ export function removeTodo(id) {
 
 /**
  * Creates a new todo from the draft form when the title is not empty.
- * @returns {void}
+ * @returns {boolean}
  */
 export function addTodo() {
   const draft = store.state.draft;
-  if (!draft.title.trim()) return;
+  const language = store.state.preferences.language;
+
+  if (!draft.title.trim()) {
+    store.state.ui.todoModal = {
+      ...store.state.ui.todoModal,
+      open: true,
+      error: t(language, "errors.emptyTodoTitle"),
+    };
+    return false;
+  }
+
   store.state.todos = [
     {
       id: crypto.randomUUID(),
@@ -64,6 +74,8 @@ export function addTodo() {
     priority: "medium",
     dueDate: new Date(Date.now() + ONE_DAY_MS).toISOString().slice(0, 10),
   };
+  closeTodoModal();
+  return true;
 }
 
 /**
@@ -130,6 +142,18 @@ function updateCategoryModal(patch) {
 }
 
 /**
+ * Updates the todo modal state with a partial patch.
+ * @param {Partial<import("../data/_data.js").TodoModalState>} patch
+ * @returns {void}
+ */
+function updateTodoModal(patch) {
+  store.state.ui.todoModal = {
+    ...store.state.ui.todoModal,
+    ...patch,
+  };
+}
+
+/**
  * Opens the category modal and resets its previous validation state.
  * @returns {void}
  */
@@ -151,6 +175,28 @@ export function closeCategoryModal() {
     value: "",
     error: "",
   };
+}
+
+/**
+ * Opens the todo modal and clears transient validation feedback.
+ * @returns {void}
+ */
+export function openTodoModal() {
+  updateTodoModal({
+    open: true,
+    error: "",
+  });
+}
+
+/**
+ * Closes the todo modal while preserving the current draft values.
+ * @returns {void}
+ */
+export function closeTodoModal() {
+  updateTodoModal({
+    open: false,
+    error: "",
+  });
 }
 
 /**

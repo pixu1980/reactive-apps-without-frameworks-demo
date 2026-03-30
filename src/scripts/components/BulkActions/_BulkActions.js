@@ -26,7 +26,7 @@ export function bulkActionsPanel() {
       data-surface="card"
     >
       <h2>${t(language, "sections.bulkActions")}</h2>
-      <menu data-layout="action-grid" data-list-reset data-slot="actions-grid">
+      <menu data-list-reset data-slot="actions-grid">
         <li>
           <button @click=${() => selectAllVisible(visibleTodos)}>
             ${t(language, "buttons.selectVisible")}

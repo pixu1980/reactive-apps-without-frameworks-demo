@@ -17,7 +17,7 @@
     }
 
     :where(strong, time) {
-      font-size: var(--font-size-xs);
+      font-size: var(--font-size-s);
     }
 
     :where(time, pre) {
@@ -28,7 +28,7 @@
       margin: 0;
       white-space: pre-wrap;
       word-break: break-word;
-      font-size: var(--font-size-2xs);
+      font-size: var(--font-size-s);
       line-height: var(--line-height-base);
     }
   }

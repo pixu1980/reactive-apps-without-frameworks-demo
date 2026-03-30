@@ -13,7 +13,14 @@ import {
 /** @typedef {{ value: string, label: string }} NamedOption */
 
 const colorSchemeValues = ["system", "light", "dark"];
-const colorThemeValues = ["amber", "cyberpunk", "wood", "sage", "rose"];
+const themeValues = [
+  "studio",
+  "atelier",
+  "cabinet",
+  "grove",
+  "signal",
+  "nocturne",
+];
 const priorityValues = ["low", "medium", "high"];
 const statusValues = ["all", "open", "done"];
 const directionValues = ["asc", "desc"];
@@ -157,14 +164,14 @@ export function colorSchemeOptions() {
 }
 
 /**
- * Renders the supported color theme selector options.
+ * Renders the supported theme selector options.
  * @returns {ReturnType<typeof html>}
  */
-export function colorThemeOptions() {
+export function themeOptions() {
   const language = currentLanguage();
   return namedOptions(
-    toNamedOptionList(colorThemeValues, (value) =>
-      optionLabel(language, "colorTheme", value),
+    toNamedOptionList(themeValues, (value) =>
+      optionLabel(language, "theme", value),
     ),
   );
 }

@@ -2,4 +2,25 @@
   [data-component="bulk-actions-panel"] {
     --panel-marker-color: var(--color-accent);
   }
+
+  [data-component="bulk-actions-panel"] [data-slot="actions-grid"] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+
+    > li {
+      display: flex;
+      min-block-size: var(--bulk-action-min-block-size);
+      min-inline-size: 0;
+    }
+
+    button {
+      flex: 1 1 auto;
+      inline-size: 100%;
+      block-size: 100%;
+      padding-block: var(--space-4);
+      text-align: center;
+      white-space: nowrap;
+    }
+  }
 }

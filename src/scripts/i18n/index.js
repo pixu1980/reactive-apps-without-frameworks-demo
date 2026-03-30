@@ -28,6 +28,7 @@ const dictionary = {
     },
     buttons: {
       resetDemo: "Reset demo",
+      newTodo: "New todo",
       newCategory: "New category",
       addTodo: "Add todo",
       cancel: "Cancel",
@@ -50,7 +51,7 @@ const dictionary = {
     },
     fields: {
       colorScheme: "Color scheme",
-      colorTheme: "Color theme",
+      theme: "Theme",
       language: "Language",
       search: "Search",
       status: "Status",
@@ -86,12 +87,18 @@ const dictionary = {
       description:
         "Add it once and every category dropdown updates on the next render cycle.",
       help: "Use a unique label so filters and editors stay aligned.",
+      todoEyebrow: "Draft driven dialog",
+      todoTitle: "New todo",
+      todoDescription:
+        "Create a new todo from the shared draft state without leaving the current workspace.",
+      todoHelp: "A title is required before the todo can be created.",
     },
     messages: {
       visibleSummary: "{count} visible item(s), sorted by {sortBy}",
     },
     errors: {
       emptyCategory: "Enter a category name.",
+      emptyTodoTitle: "Enter a todo title.",
       duplicateCategory: "That category already exists.",
       missingMount: "Missing application mount node.",
     },
@@ -101,12 +108,13 @@ const dictionary = {
         light: "Light",
         dark: "Dark",
       },
-      colorTheme: {
-        amber: "Amber",
-        cyberpunk: "Cyberpunk",
-        wood: "Wood",
-        sage: "Sage",
-        rose: "Rose",
+      theme: {
+        studio: "Studio",
+        atelier: "Atelier",
+        cabinet: "Cabinet",
+        grove: "Grove",
+        signal: "Signal",
+        nocturne: "Nocturne",
       },
       priority: {
         all: "All priorities",
@@ -146,6 +154,7 @@ const dictionary = {
     },
     buttons: {
       resetDemo: "Reimposta demo",
+      newTodo: "Nuovo todo",
       newCategory: "Nuova categoria",
       addTodo: "Aggiungi todo",
       cancel: "Annulla",
@@ -168,7 +177,7 @@ const dictionary = {
     },
     fields: {
       colorScheme: "Schema colore",
-      colorTheme: "Tema colore",
+      theme: "Tema",
       language: "Lingua",
       search: "Cerca",
       status: "Stato",
@@ -204,12 +213,18 @@ const dictionary = {
       description:
         "Aggiungila una volta e ogni menu categoria si aggiorna al ciclo di render successivo.",
       help: "Usa un'etichetta unica per mantenere allineati filtri ed editor.",
+      todoEyebrow: "Dialog guidato dal draft",
+      todoTitle: "Nuovo todo",
+      todoDescription:
+        "Crea un nuovo todo dallo stato condiviso del draft senza lasciare il workspace corrente.",
+      todoHelp: "Inserisci un titolo prima di creare il todo.",
     },
     messages: {
       visibleSummary: "{count} elementi visibili, ordinati per {sortBy}",
     },
     errors: {
       emptyCategory: "Inserisci un nome categoria.",
+      emptyTodoTitle: "Inserisci un titolo per il todo.",
       duplicateCategory: "Questa categoria esiste gia.",
       missingMount: "Manca il nodo di mount dell'applicazione.",
     },
@@ -219,12 +234,13 @@ const dictionary = {
         light: "Chiaro",
         dark: "Scuro",
       },
-      colorTheme: {
-        amber: "Ambra",
-        cyberpunk: "Cyberpunk",
-        wood: "Legno",
-        sage: "Salvia",
-        rose: "Rosa",
+      theme: {
+        studio: "Studio",
+        atelier: "Atelier",
+        cabinet: "Cabinet",
+        grove: "Grove",
+        signal: "Signal",
+        nocturne: "Nocturne",
       },
       priority: {
         all: "Tutte le priorita",
@@ -264,6 +280,7 @@ const dictionary = {
     },
     buttons: {
       resetDemo: "Reinitialiser la demo",
+      newTodo: "Nouveau todo",
       newCategory: "Nouvelle categorie",
       addTodo: "Ajouter le todo",
       cancel: "Annuler",
@@ -286,7 +303,7 @@ const dictionary = {
     },
     fields: {
       colorScheme: "Schema de couleurs",
-      colorTheme: "Theme couleur",
+      theme: "Theme",
       language: "Langue",
       search: "Recherche",
       status: "Statut",
@@ -322,12 +339,18 @@ const dictionary = {
       description:
         "Ajoutez-la une fois et chaque menu de categorie se met a jour au prochain cycle de rendu.",
       help: "Utilisez un libelle unique pour garder filtres et editeurs alignes.",
+      todoEyebrow: "Dialogue pilote par le draft",
+      todoTitle: "Nouveau todo",
+      todoDescription:
+        "Creez un nouveau todo depuis l'etat partage du draft sans quitter l'espace de travail courant.",
+      todoHelp: "Saisissez un titre avant de creer le todo.",
     },
     messages: {
       visibleSummary: "{count} element(s) visibles, tries par {sortBy}",
     },
     errors: {
       emptyCategory: "Saisissez un nom de categorie.",
+      emptyTodoTitle: "Saisissez un titre pour le todo.",
       duplicateCategory: "Cette categorie existe deja.",
       missingMount: "Le noeud de montage de l'application est introuvable.",
     },
@@ -337,12 +360,13 @@ const dictionary = {
         light: "Clair",
         dark: "Sombre",
       },
-      colorTheme: {
-        amber: "Ambre",
-        cyberpunk: "Cyberpunk",
-        wood: "Bois",
-        sage: "Sauge",
-        rose: "Rose",
+      theme: {
+        studio: "Studio",
+        atelier: "Atelier",
+        cabinet: "Cabinet",
+        grove: "Grove",
+        signal: "Signal",
+        nocturne: "Nocturne",
       },
       priority: {
         all: "Toutes les priorites",
@@ -382,6 +406,7 @@ const dictionary = {
     },
     buttons: {
       resetDemo: "Demo zuruecksetzen",
+      newTodo: "Neues Todo",
       newCategory: "Neue Kategorie",
       addTodo: "Todo hinzufuegen",
       cancel: "Abbrechen",
@@ -404,7 +429,7 @@ const dictionary = {
     },
     fields: {
       colorScheme: "Farbschema",
-      colorTheme: "Farbthema",
+      theme: "Thema",
       language: "Sprache",
       search: "Suche",
       status: "Status",
@@ -440,12 +465,18 @@ const dictionary = {
       description:
         "Einmal hinzufuegen und jedes Kategorie Menue aktualisiert sich im naechsten Render Zyklus.",
       help: "Verwende eine eindeutige Bezeichnung, damit Filter und Editoren synchron bleiben.",
+      todoEyebrow: "Draft gesteuerter Dialog",
+      todoTitle: "Neues Todo",
+      todoDescription:
+        "Erstelle ein neues Todo aus dem gemeinsamen Draft Zustand, ohne den aktuellen Workspace zu verlassen.",
+      todoHelp: "Gib einen Titel ein, bevor du das Todo erstellst.",
     },
     messages: {
       visibleSummary: "{count} sichtbare Eintraege, sortiert nach {sortBy}",
     },
     errors: {
       emptyCategory: "Gib einen Kategorienamen ein.",
+      emptyTodoTitle: "Gib einen Titel fuer das Todo ein.",
       duplicateCategory: "Diese Kategorie existiert bereits.",
       missingMount: "Der Mount Knoten der Anwendung fehlt.",
     },
@@ -455,12 +486,13 @@ const dictionary = {
         light: "Hell",
         dark: "Dunkel",
       },
-      colorTheme: {
-        amber: "Bernstein",
-        cyberpunk: "Cyberpunk",
-        wood: "Holz",
-        sage: "Salbei",
-        rose: "Rosa",
+      theme: {
+        studio: "Studio",
+        atelier: "Atelier",
+        cabinet: "Cabinet",
+        grove: "Grove",
+        signal: "Signal",
+        nocturne: "Nocturne",
       },
       priority: {
         all: "Alle Prioritaeten",
@@ -500,6 +532,7 @@ const dictionary = {
     },
     buttons: {
       resetDemo: "Reiniciar demo",
+      newTodo: "Nuevo todo",
       newCategory: "Nueva categoria",
       addTodo: "Anadir todo",
       cancel: "Cancelar",
@@ -522,7 +555,7 @@ const dictionary = {
     },
     fields: {
       colorScheme: "Esquema de color",
-      colorTheme: "Tema de color",
+      theme: "Tema",
       language: "Idioma",
       search: "Buscar",
       status: "Estado",
@@ -558,12 +591,18 @@ const dictionary = {
       description:
         "Anadela una vez y cada menu de categoria se actualizara en el siguiente ciclo de render.",
       help: "Usa una etiqueta unica para mantener alineados filtros y editores.",
+      todoEyebrow: "Dialogo guiado por el draft",
+      todoTitle: "Nuevo todo",
+      todoDescription:
+        "Crea un nuevo todo desde el estado compartido del draft sin salir del espacio de trabajo actual.",
+      todoHelp: "Ingresa un titulo antes de crear el todo.",
     },
     messages: {
       visibleSummary: "{count} elemento(s) visibles, ordenados por {sortBy}",
     },
     errors: {
       emptyCategory: "Introduce un nombre de categoria.",
+      emptyTodoTitle: "Introduce un titulo para el todo.",
       duplicateCategory: "Esa categoria ya existe.",
       missingMount: "Falta el nodo de montaje de la aplicacion.",
     },
@@ -573,12 +612,13 @@ const dictionary = {
         light: "Claro",
         dark: "Oscuro",
       },
-      colorTheme: {
-        amber: "Ambar",
-        cyberpunk: "Cyberpunk",
-        wood: "Madera",
-        sage: "Salvia",
-        rose: "Rosa",
+      theme: {
+        studio: "Studio",
+        atelier: "Atelier",
+        cabinet: "Cabinet",
+        grove: "Grove",
+        signal: "Signal",
+        nocturne: "Nocturne",
       },
       priority: {
         all: "Todas las prioridades",

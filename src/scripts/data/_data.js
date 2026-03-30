@@ -24,8 +24,8 @@
  */
 
 /**
- * Supported color theme options.
- * @typedef {"amber" | "cyberpunk" | "wood" | "sage" | "rose"} ColorTheme
+ * Supported theme options.
+ * @typedef {"studio" | "atelier" | "cabinet" | "grove" | "signal" | "nocturne"} Theme
  */
 
 /**
@@ -89,7 +89,7 @@
  * Persisted design system and locale preferences.
  * @typedef {object} PreferencesState
  * @property {ColorScheme} colorScheme
- * @property {ColorTheme} colorTheme
+ * @property {Theme} theme
  * @property {LanguageCode} language
  */
 
@@ -102,9 +102,17 @@
  */
 
 /**
+ * New todo modal state.
+ * @typedef {object} TodoModalState
+ * @property {boolean} open
+ * @property {string} error
+ */
+
+/**
  * Ephemeral UI state used by the demo shell.
  * @typedef {object} UiState
  * @property {CategoryModalState} categoryModal
+ * @property {TodoModalState} todoModal
  */
 
 /**
@@ -190,13 +198,17 @@ export function createSeedData() {
     },
     preferences: {
       colorScheme: "system",
-      colorTheme: "amber",
+      theme: "studio",
       language: "en",
     },
     ui: {
       categoryModal: {
         open: false,
         value: "",
+        error: "",
+      },
+      todoModal: {
+        open: false,
         error: "",
       },
     },

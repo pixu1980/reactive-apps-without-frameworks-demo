@@ -7,6 +7,21 @@ import { formatDebugTime, t } from "@/i18n/index.js";
 
 const STORAGE_KEY = "reactive-apps-without-frameworks-demo-state-v1";
 const MAX_DEBUG_LOG_ENTRIES = 30;
+const supportedThemes = new Set([
+  "studio",
+  "atelier",
+  "cabinet",
+  "grove",
+  "signal",
+  "nocturne",
+]);
+const legacyThemeMap = {
+  amber: "studio",
+  cyberpunk: "signal",
+  wood: "cabinet",
+  sage: "grove",
+  rose: "atelier",
+};
 
 /**
  * Returns true when the provided value can be spread as a plain record.
@@ -15,6 +30,19 @@ const MAX_DEBUG_LOG_ENTRIES = 30;
  */
 function isRecord(value) {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/**
+ * Normalizes theme identifiers including persisted legacy values.
+ * @param {unknown} value
+ * @param {string} fallback
+ * @returns {string}
+ */
+function normalizeTheme(value, fallback) {
+  if (typeof value !== "string") return fallback;
+
+  const candidate = legacyThemeMap[value] ?? value;
+  return supportedThemes.has(candidate) ? candidate : fallback;
 }
 
 /**
@@ -32,6 +60,11 @@ function normalizeState(savedState) {
   const preferences = isRecord(savedState.preferences)
     ? savedState.preferences
     : {};
+  const { colorTheme: legacyTheme, ...restPreferences } = preferences;
+  const theme = normalizeTheme(
+    restPreferences.theme ?? legacyTheme,
+    seed.preferences.theme,
+  );
 
   return {
     ...seed,
@@ -55,7 +88,8 @@ function normalizeState(savedState) {
     },
     preferences: {
       ...seed.preferences,
-      ...preferences,
+      ...restPreferences,
+      theme,
     },
     ui: seed.ui,
   };
@@ -84,7 +118,11 @@ function readInitialState() {
   }
 }
 
-export const store = new Store(readInitialState());
+const initialState = readInitialState();
+
+export const store = new Store(initialState);
+
+localStorage.setItem(STORAGE_KEY, JSON.stringify(initialState));
 
 /**
  * Signal bumped after each committed mutation to refresh model bindings and computed views.

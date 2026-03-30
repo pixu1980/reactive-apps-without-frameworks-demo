@@ -1,5 +1,5 @@
-@layer components.category-modal {
-  [data-component="category-modal"] {
+@layer components.todo-modal {
+  [data-component="todo-modal"] {
     position: fixed;
     inset: 0;
     display: grid;
@@ -21,10 +21,9 @@
 
     [data-slot="surface"] {
       inline-size: auto;
-      min-inline-size: min(100%, 22rem);
-      max-inline-size: min(100%, var(--modal-max-inline-size));
+      min-inline-size: min(100%, 30rem);
+      max-inline-size: min(100%, var(--modal-wide-max-inline-size));
       padding: var(--space-6);
-      display: flex;
       flex-direction: column;
       gap: var(--space-5);
       background: color-mix(
@@ -38,10 +37,20 @@
       -webkit-backdrop-filter: blur(1.25rem);
     }
 
+    [data-slot="header"] {
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: var(--space-3);
+      flex: 0 0 auto;
+    }
+
     [data-slot="copy"] {
       display: flex;
       flex-direction: column;
-      gap: var(--space-2);
+      gap: var(--space-3);
+      min-block-size: 0;
 
       h2 {
         margin: 0;
@@ -68,6 +77,12 @@
 
     [data-slot="actions"] {
       margin-block-start: var(--space-1);
+    }
+  }
+
+  @media (max-width: 780px) {
+    [data-component="todo-modal"] {
+      padding: var(--space-4);
     }
   }
 }

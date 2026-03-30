@@ -4,7 +4,7 @@
 export {
   categoryFilterOptions,
   colorSchemeOptions,
-  colorThemeOptions,
+  themeOptions,
   categorySelect,
   directionOptions,
   languageOptions,

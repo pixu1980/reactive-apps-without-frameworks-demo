@@ -7,8 +7,10 @@
     border-radius: var(--radius-card);
     background: var(--color-surface);
     box-shadow: var(--shadow-medium);
-    position: relative;
     width: 100%;
+    min-block-size: 0;
+    display: flex;
+    position: relative;
   }
 
   [data-panel] {
@@ -23,6 +25,8 @@
     [data-panel],
     [data-component="todo-list-panel"] [data-slot="header"]
   ) {
+    margin: 0;
+
     h2 {
       display: flex;
       align-items: center;

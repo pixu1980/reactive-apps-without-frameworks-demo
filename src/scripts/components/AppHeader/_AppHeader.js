@@ -3,12 +3,17 @@ import "./_AppHeader.css";
 import { html } from "@/core/index.js";
 import {
   colorSchemeOptions,
-  colorThemeOptions,
   languageOptions,
   storeModel,
+  themeOptions,
 } from "@/helpers/index.js";
 import { t } from "@/i18n/index.js";
-import { openCategoryModal, resetDemo, store } from "@/state/index.js";
+import {
+  openCategoryModal,
+  openTodoModal,
+  resetDemo,
+  store,
+} from "@/state/index.js";
 
 /**
  * Renders the hero header and top level demo actions.
@@ -34,6 +39,11 @@ export function appHeader() {
             </button>
           </li>
           <li>
+            <button @click=${openTodoModal}>
+              ${t(language, "buttons.newTodo")}
+            </button>
+          </li>
+          <li>
             <button data-variant="secondary" @click=${openCategoryModal}>
               ${t(language, "buttons.newCategory")}
             </button>
@@ -53,11 +63,11 @@ export function appHeader() {
           </label>
 
           <label data-field>
-            <span>${t(language, "fields.colorTheme")}</span>
+            <span>${t(language, "fields.theme")}</span>
             <select
-              model=${storeModel("preferences.colorTheme", { event: "change" })}
+              model=${storeModel("preferences.theme", { event: "change" })}
             >
-              ${colorThemeOptions()}
+              ${themeOptions()}
             </select>
           </label>
 

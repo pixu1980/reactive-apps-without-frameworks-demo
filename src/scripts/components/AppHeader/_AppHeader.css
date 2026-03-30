@@ -1,10 +1,7 @@
 @layer components.app-header {
   [data-component="app-header"] {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(
-        var(--header-toolbar-min-inline-size),
-        30rem
-      );
+    display: flex;
+    place-content: space-between;
     align-items: start;
     gap: var(--space-6);
     padding: var(--space-6);
@@ -18,19 +15,21 @@
       display: flex;
       flex-direction: column;
       gap: var(--space-3);
+      min-block-size: 0;
     }
 
     [data-slot="toolbar"] {
       display: flex;
       flex-direction: column;
       gap: var(--space-4);
+      min-block-size: 0;
     }
 
     [data-slot="actions"] {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: var(--space-3);
-      place-content: end;
+      justify-content: flex-end;
 
       > li {
         display: contents;
@@ -38,15 +37,19 @@
 
       button {
         inline-size: auto;
-        min-inline-size: var(--header-action-min-inline-size);
-        flex: 0 0 auto;
+        min-inline-size: initial;
+        flex: 0;
+        white-space: nowrap;
       }
     }
 
     [data-slot="preferences"] {
       display: grid;
       gap: var(--space-3);
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(
+        3,
+        minmax(var(--preferences-control-min-inline-size), 1fr)
+      );
 
       > label {
         min-inline-size: 0;
@@ -58,21 +61,39 @@
     [data-component="app-header"] {
       grid-template-columns: 1fr;
 
+      [data-slot="actions"] {
+        justify-content: flex-start;
+      }
+
       [data-slot="preferences"] {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
   }
 
+  @media (max-width: 920px) {
+    [data-component="app-header"] {
+      [data-slot="actions"] {
+        flex-wrap: wrap;
+      }
+    }
+  }
+
   @media (max-width: 780px) {
     [data-component="app-header"] {
+      [data-slot="copy"] {
+        min-block-size: auto;
+      }
+
       [data-slot="actions"] {
         align-items: stretch;
         flex-direction: column;
       }
 
       [data-slot="actions"] button {
+        flex: 0;
         inline-size: 100%;
+        min-inline-size: initial;
       }
 
       [data-slot="preferences"] {
