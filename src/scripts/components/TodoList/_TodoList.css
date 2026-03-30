@@ -1,5 +1,5 @@
 @layer components.todo-list {
-  [data-component="todo-list-panel"] {
+  [data-component="todo-list"] {
     --panel-marker-color: var(--color-accent-strong);
     display: flex;
     flex-direction: column;
@@ -48,7 +48,7 @@
   }
 
   @media (max-width: 780px) {
-    [data-component="todo-list-panel"] {
+    [data-component="todo-list"] {
       [data-slot="header"] {
         align-items: stretch;
         flex-direction: column;

@@ -21,10 +21,7 @@
     gap: var(--space-4);
   }
 
-  :where(
-    [data-panel],
-    [data-component="todo-list-panel"] [data-slot="header"]
-  ) {
+  :where([data-panel], [data-component="todo-list"] [data-slot="header"]) {
     margin: 0;
 
     h2 {

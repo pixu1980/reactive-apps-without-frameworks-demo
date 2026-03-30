@@ -1,5 +1,5 @@
-import { isSignalLike } from '../signals/index.js';
-import { Part } from './_part.js';
+import { isSignalLike } from "../signals/index.js";
+import { Part } from "./_part.js";
 
 /**
  * Property binding part used for .property syntax inside templates.
@@ -28,7 +28,7 @@ export class PropertyPart extends Part {
   setValue(value) {
     if (isSignalLike(value)) {
       this.bindSignal(value, (resolved) => this.commit(resolved));
-      
+
       return;
     }
 

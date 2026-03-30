@@ -1,4 +1,4 @@
-const directiveBrand = Symbol('directive');
+const directiveBrand = Symbol("directive");
 
 /**
  * Result produced by the html tagged template helper.
@@ -48,7 +48,7 @@ const directiveBrand = Symbol('directive');
  */
 export function html(strings, ...values) {
   return {
-    kind: 'template-result',
+    kind: "template-result",
     strings,
     values,
   };
@@ -85,7 +85,7 @@ export function isDirective(value, name) {
  * @returns {DirectiveResult<ModelDirectiveConfig>}
  */
 export function model(config) {
-  return directive('model', config);
+  return directive("model", config);
 }
 
 /**
@@ -97,7 +97,7 @@ export function model(config) {
  * @returns {DirectiveResult<RepeatDirectiveConfig<TItem>>}
  */
 export function repeat(items, key, renderItem) {
-  return directive('repeat', {
+  return directive("repeat", {
     items,
     key,
     renderItem,

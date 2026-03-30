@@ -1,8 +1,14 @@
-import { isSignalLike } from '../signals/index.js';
-import { Part } from './_part.js';
-import { clearRange, isIterable, isRangeBeforeReference, moveRangeBefore, normalizeNode } from './_range.js';
-import { isDirective } from './_template-helpers.js';
-import { getTemplateInstanceClass } from './_template-instance-ref.js';
+import { isSignalLike } from "../signals/index.js";
+import { Part } from "./_part.js";
+import {
+  clearRange,
+  isIterable,
+  isRangeBeforeReference,
+  moveRangeBefore,
+  normalizeNode,
+} from "./_range.js";
+import { isDirective } from "./_template-helpers.js";
+import { getTemplateInstanceClass } from "./_template-instance-ref.js";
 
 /**
  * Rendered template result shape accepted by child parts.
@@ -111,7 +117,7 @@ export class ChildNodePart extends Part {
    * @returns {void}
    */
   commit(value) {
-    if (isDirective(value, 'repeat')) {
+    if (isDirective(value, "repeat")) {
       this.commitRepeat(/** @type {RepeatDirectivePayload} */ (value.payload));
       this.value = value;
 
@@ -122,7 +128,7 @@ export class ChildNodePart extends Part {
     this.repeatPayload = null;
     this.repeatState = null;
 
-    if (value?.kind === 'template-result') {
+    if (value?.kind === "template-result") {
       this.commitTemplate(/** @type {TemplateResult} */ (value));
       this.value = value;
 
@@ -238,7 +244,11 @@ export class ChildNodePart extends Part {
     }
 
     const source = isSignalLike(items) ? items.get() : items;
-    const list = Array.isArray(source) ? source : isIterable(source) ? [...source] : [];
+    const list = Array.isArray(source)
+      ? source
+      : isIterable(source)
+        ? [...source]
+        : [];
 
     /** @type {RepeatState} */
     const state = this.repeatState ?? { blocks: new Map() };
@@ -254,7 +264,9 @@ export class ChildNodePart extends Part {
       const itemKey = key(item);
 
       if (seenKeys.has(itemKey)) {
-        throw new Error(`repeat() keys must be unique. Duplicate key: ${String(itemKey)}`);
+        throw new Error(
+          `repeat() keys must be unique. Duplicate key: ${String(itemKey)}`,
+        );
       }
 
       seenKeys.add(itemKey);

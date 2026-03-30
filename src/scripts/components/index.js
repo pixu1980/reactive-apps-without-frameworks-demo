@@ -1,5 +1,5 @@
 /**
  * Public exports for the component based view tree.
  */
-export { appView } from './App/index.js';
-export { todoItem } from './TodoItem/index.js';
+export { App } from "./App/index.js";
+export { TodoItem } from "./TodoItem/index.js";

@@ -1,6 +1,6 @@
-import { clonePlainValue, deepClone } from './_clone.js';
-import { isObject } from './_guards.js';
-import { pathToString, toPathArray } from './_paths.js';
+import { clonePlainValue, deepClone } from "./_clone.js";
+import { isObject } from "./_guards.js";
+import { pathToString, toPathArray } from "./_paths.js";
 
 /**
  * Store path expressed as dot notation or as discrete path segments.
@@ -56,8 +56,8 @@ export class Store {
     const proxy = new Proxy(target, {
       get: (raw, key, receiver) => {
         // Internal escape hatches are kept enumerable free and only exist for cloning helpers.
-        if (key === '__raw') return raw;
-        if (key === '__path') return path;
+        if (key === "__raw") return raw;
+        if (key === "__path") return path;
 
         const value = Reflect.get(raw, key, receiver);
 
@@ -108,7 +108,7 @@ export class Store {
       newValue: deepClone(newValue),
     };
 
-    const event = new CustomEvent('store:change', { detail });
+    const event = new CustomEvent("store:change", { detail });
     this.events.dispatchEvent(event);
   }
 
@@ -137,7 +137,7 @@ export class Store {
   set(path, value) {
     const parts = toPathArray(path);
 
-    if (!parts.length) throw new Error('Path is required');
+    if (!parts.length) throw new Error("Path is required");
 
     const last = parts.pop();
     let current = this.state;

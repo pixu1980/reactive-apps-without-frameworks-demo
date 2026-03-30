@@ -1,7 +1,7 @@
-import { isSignalLike } from '../signals/index.js';
-import { Part } from './_part.js';
-import { inferModelProperty } from './_range.js';
-import { isDirective } from './_template-helpers.js';
+import { isSignalLike } from "../signals/index.js";
+import { Part } from "./_part.js";
+import { inferModelProperty } from "./_range.js";
+import { isDirective } from "./_template-helpers.js";
 
 /**
  * DOM element supported by the model binding directive.
@@ -73,7 +73,7 @@ export class AttributePart extends Part {
    * @returns {void}
    */
   setValue(value) {
-    if (this.name === 'model' && isDirective(value, 'model')) {
+    if (this.name === "model" && isDirective(value, "model")) {
       this.commitModel(/** @type {ModelDirectiveConfig} */ (value.payload));
       this.value = value;
 
@@ -103,7 +103,7 @@ export class AttributePart extends Part {
       return;
     }
 
-    this.element.setAttribute(this.name, value === true ? '' : String(value));
+    this.element.setAttribute(this.name, value === true ? "" : String(value));
   }
 
   /**
@@ -112,10 +112,15 @@ export class AttributePart extends Part {
    * @returns {void}
    */
   commitModel(config) {
-    const eventName = config.event ?? 'input';
+    const eventName = config.event ?? "input";
     const property = config.prop ?? inferModelProperty(this.element);
 
-    if (this._modelBinding && this._modelBinding.eventName === eventName && this._modelBinding.property === property && this._modelBinding.signal === config.signal) {
+    if (
+      this._modelBinding &&
+      this._modelBinding.eventName === eventName &&
+      this._modelBinding.property === property &&
+      this._modelBinding.signal === config.signal
+    ) {
       this._modelBinding.config = config;
       this._modelBinding.sync();
 
@@ -135,29 +140,43 @@ export class AttributePart extends Part {
     const sync = () => {
       const nextValue = binding.config.get();
 
-      if (property === 'checked') {
+      if (property === "checked") {
         const normalizedValue = Boolean(nextValue);
 
         if (this.element.checked !== normalizedValue) {
           this.element.checked = normalizedValue;
         }
       } else {
-        const normalizedValue = nextValue ?? '';
+        const normalizedValue = nextValue ?? "";
 
         if (this.element[property] === normalizedValue) {
           return;
         }
 
         const isActiveElement = document.activeElement === this.element;
-        const supportsSelection = typeof this.element.selectionStart === 'number' && typeof this.element.selectionEnd === 'number';
-        const selectionStart = supportsSelection ? this.element.selectionStart : null;
-        const selectionEnd = supportsSelection ? this.element.selectionEnd : null;
+        const supportsSelection =
+          typeof this.element.selectionStart === "number" &&
+          typeof this.element.selectionEnd === "number";
+        const selectionStart = supportsSelection
+          ? this.element.selectionStart
+          : null;
+        const selectionEnd = supportsSelection
+          ? this.element.selectionEnd
+          : null;
 
         // Preserve the cursor when a controlled field re-renders while focused.
         this.element[property] = normalizedValue;
 
-        if (isActiveElement && supportsSelection && selectionStart !== null && selectionEnd !== null) {
-          const textValue = typeof normalizedValue === 'string' ? normalizedValue : String(normalizedValue);
+        if (
+          isActiveElement &&
+          supportsSelection &&
+          selectionStart !== null &&
+          selectionEnd !== null
+        ) {
+          const textValue =
+            typeof normalizedValue === "string"
+              ? normalizedValue
+              : String(normalizedValue);
           const nextCursor = Math.min(selectionStart, textValue.length);
           const nextSelectionEnd = Math.min(selectionEnd, textValue.length);
 
@@ -192,7 +211,8 @@ export class AttributePart extends Part {
      */
     const onInput = (event) => {
       const target = /** @type {ModelBoundElement} */ (event.currentTarget);
-      const nextValue = property === 'checked' ? target.checked : target[property];
+      const nextValue =
+        property === "checked" ? target.checked : target[property];
 
       binding.config.set(nextValue);
     };

@@ -139,15 +139,16 @@ export const ONE_DAY_MS = 86_400_000;
  */
 export function createSeedData() {
   const now = Date.now();
-	
+
   return {
     todos: [
       {
         id: crypto.randomUUID(),
-        title: 'Prepare the talk intro',
-        notes: 'Open with the comparison between expensive frameworks and DOM-first',
-        category: 'Talk',
-        priority: 'high',
+        title: "Prepare the talk intro",
+        notes:
+          "Open with the comparison between expensive frameworks and DOM-first",
+        category: "Talk",
+        priority: "high",
         dueDate: new Date(now + ONE_DAY_MS).toISOString().slice(0, 10),
         completed: false,
         selected: false,
@@ -155,10 +156,10 @@ export function createSeedData() {
       },
       {
         id: crypto.randomUUID(),
-        title: 'Refine the keyed repeat engine',
-        notes: 'Verify node movement and cleanup of removed blocks',
-        category: 'Engine',
-        priority: 'medium',
+        title: "Refine the keyed repeat engine",
+        notes: "Verify node movement and cleanup of removed blocks",
+        category: "Engine",
+        priority: "medium",
         dueDate: new Date(now + 2 * ONE_DAY_MS).toISOString().slice(0, 10),
         completed: false,
         selected: true,
@@ -166,50 +167,50 @@ export function createSeedData() {
       },
       {
         id: crypto.randomUUID(),
-        title: 'Record demo screenshot',
-        notes: 'Show the store:change event panel',
-        category: 'Assets',
-        priority: 'low',
+        title: "Record demo screenshot",
+        notes: "Show the store:change event panel",
+        category: "Assets",
+        priority: "low",
         dueDate: new Date(now + 3 * ONE_DAY_MS).toISOString().slice(0, 10),
         completed: true,
         selected: false,
         createdAt: now - 400000,
       },
     ],
-    categories: ['Inbox', 'Talk', 'Engine', 'Assets', 'Research'],
+    categories: ["Inbox", "Talk", "Engine", "Assets", "Research"],
     draft: {
-      title: '',
-      notes: '',
-      category: 'Inbox',
-      priority: 'medium',
+      title: "",
+      notes: "",
+      category: "Inbox",
+      priority: "medium",
       dueDate: new Date(now + ONE_DAY_MS).toISOString().slice(0, 10),
     },
     filters: {
-      search: '',
-      category: 'all',
-      status: 'all',
-      priority: 'all',
-      sortBy: 'createdAt',
-      sortDir: 'desc',
+      search: "",
+      category: "all",
+      status: "all",
+      priority: "all",
+      sortBy: "createdAt",
+      sortDir: "desc",
     },
     debug: {
       paused: false,
       logs: [],
     },
     preferences: {
-      colorScheme: 'system',
-      theme: 'studio',
-      language: 'en',
+      colorScheme: "system",
+      theme: "studio",
+      language: "en",
     },
     ui: {
       categoryModal: {
         open: false,
-        value: '',
-        error: '',
+        value: "",
+        error: "",
       },
       todoModal: {
         open: false,
-        error: '',
+        error: "",
       },
     },
   };

@@ -1,25 +1,38 @@
-import { html, model, repeat } from '@/core/index.js';
-import { optionLabel, t } from '@/i18n/index.js';
-import { categoryChoices, getTodoById, tickState, store, updateTodo } from '@/state/index.js';
+import { html, model, repeat } from "@/core/index.js";
+import { optionLabel, t } from "@/i18n/index.js";
+import {
+  categoryChoices,
+  getTodoById,
+  tickState,
+  store,
+  updateTodo,
+} from "@/state/index.js";
 
 /** @typedef {import("../data/_data.js").TodoItem} TodoItem */
 /** @typedef {Parameters<typeof model>[0]} ModelConfig */
 /** @typedef {{ value: string, label: string }} NamedOption */
 
-const colorSchemeValues = ['system', 'light', 'dark'];
-const themeValues = ['studio', 'atelier', 'cabinet', 'grove', 'signal', 'nocturne'];
-const priorityValues = ['low', 'medium', 'high'];
-const statusValues = ['all', 'open', 'done'];
-const directionValues = ['asc', 'desc'];
-const sortByValues = ['createdAt', 'title', 'priority', 'dueDate', 'category'];
+const colorSchemeValues = ["system", "light", "dark"];
+const themeValues = [
+  "studio",
+  "atelier",
+  "cabinet",
+  "grove",
+  "signal",
+  "nocturne",
+];
+const priorityValues = ["low", "medium", "high"];
+const statusValues = ["all", "open", "done"];
+const directionValues = ["asc", "desc"];
+const sortByValues = ["createdAt", "title", "priority", "dueDate", "category"];
 
 /** @type {NamedOption[]} */
 const languageOptionList = [
-  { value: 'it', label: '🇮🇹 Italiano' },
-  { value: 'en', label: '🇬🇧 English' },
-  { value: 'fr', label: '🇫🇷 Français' },
-  { value: 'de', label: '🇩🇪 Deutsch' },
-  { value: 'es', label: '🇪🇸 Español' },
+  { value: "it", label: "🇮🇹 Italiano" },
+  { value: "en", label: "🇬🇧 English" },
+  { value: "fr", label: "🇫🇷 Français" },
+  { value: "de", label: "🇩🇪 Deutsch" },
+  { value: "es", label: "🇪🇸 Español" },
 ];
 
 /**
@@ -31,8 +44,20 @@ function namedOptions(options) {
   return html`${repeat(
     options,
     (option) => option.value,
-    (option) => html`<option value=${option.value}>${option.label}</option>`
+    (option) => html`<option value=${option.value}>${option.label}</option>`,
   )}`;
+}
+
+/**
+ * Renders the live category options shared by editors.
+ * @returns {ReturnType<typeof repeat>}
+ */
+function categoryChoiceOptions() {
+  return repeat(
+    categoryChoices,
+    (category) => category,
+    (category) => html`<option value=${category}>${category}</option>`,
+  );
 }
 
 /**
@@ -78,7 +103,8 @@ export function storeModel(path, options = {}) {
 export function todoModel(todoId, field, options = {}) {
   return model({
     signal: tickState,
-    get: () => getTodoById(todoId)?.[field] ?? (options.prop === 'checked' ? false : ''),
+    get: () =>
+      getTodoById(todoId)?.[field] ?? (options.prop === "checked" ? false : ""),
     set: (value) => updateTodo(todoId, { [field]: value }),
     ...options,
   });
@@ -90,7 +116,11 @@ export function todoModel(todoId, field, options = {}) {
  */
 export function priorityOptions() {
   const language = currentLanguage();
-  return namedOptions(toNamedOptionList(priorityValues, (value) => optionLabel(language, 'priority', value)));
+  return namedOptions(
+    toNamedOptionList(priorityValues, (value) =>
+      optionLabel(language, "priority", value),
+    ),
+  );
 }
 
 /**
@@ -99,7 +129,11 @@ export function priorityOptions() {
  */
 export function priorityFilterOptions() {
   const language = currentLanguage();
-  return namedOptions(toNamedOptionList(['all', ...priorityValues], (value) => optionLabel(language, 'priority', value)));
+  return namedOptions(
+    toNamedOptionList(["all", ...priorityValues], (value) =>
+      optionLabel(language, "priority", value),
+    ),
+  );
 }
 
 /**
@@ -108,7 +142,11 @@ export function priorityFilterOptions() {
  */
 export function statusOptions() {
   const language = currentLanguage();
-  return namedOptions(toNamedOptionList(statusValues, (value) => optionLabel(language, 'status', value)));
+  return namedOptions(
+    toNamedOptionList(statusValues, (value) =>
+      optionLabel(language, "status", value),
+    ),
+  );
 }
 
 /**
@@ -117,7 +155,11 @@ export function statusOptions() {
  */
 export function directionOptions() {
   const language = currentLanguage();
-  return namedOptions(toNamedOptionList(directionValues, (value) => optionLabel(language, 'direction', value)));
+  return namedOptions(
+    toNamedOptionList(directionValues, (value) =>
+      optionLabel(language, "direction", value),
+    ),
+  );
 }
 
 /**
@@ -126,7 +168,11 @@ export function directionOptions() {
  */
 export function colorSchemeOptions() {
   const language = currentLanguage();
-  return namedOptions(toNamedOptionList(colorSchemeValues, (value) => optionLabel(language, 'colorScheme', value)));
+  return namedOptions(
+    toNamedOptionList(colorSchemeValues, (value) =>
+      optionLabel(language, "colorScheme", value),
+    ),
+  );
 }
 
 /**
@@ -135,7 +181,11 @@ export function colorSchemeOptions() {
  */
 export function themeOptions() {
   const language = currentLanguage();
-  return namedOptions(toNamedOptionList(themeValues, (value) => optionLabel(language, 'theme', value)));
+  return namedOptions(
+    toNamedOptionList(themeValues, (value) =>
+      optionLabel(language, "theme", value),
+    ),
+  );
 }
 
 /**
@@ -152,7 +202,11 @@ export function languageOptions() {
  */
 export function sortByOptions() {
   const language = currentLanguage();
-  return namedOptions(toNamedOptionList(sortByValues, (value) => optionLabel(language, 'sortBy', value)));
+  return namedOptions(
+    toNamedOptionList(sortByValues, (value) =>
+      optionLabel(language, "sortBy", value),
+    ),
+  );
 }
 
 /**
@@ -161,7 +215,10 @@ export function sortByOptions() {
  */
 export function categoryFilterOptions() {
   const language = currentLanguage();
-  return namedOptions([{ value: 'all', label: t(language, 'options.category.all') }, ...categoryChoices.get().map((category) => ({ value: category, label: category }))]);
+  return html`
+    <option value="all">${t(language, "options.category.all")}</option>
+    ${categoryChoiceOptions()}
+  `;
 }
 
 /**
@@ -170,10 +227,9 @@ export function categoryFilterOptions() {
  * @returns {ReturnType<typeof html>}
  */
 export function categorySelect(modelDirective) {
-  const options = categoryChoices.get().map((category) => ({ value: category, label: category }));
   return html`
     <select model=${modelDirective}>
-      ${namedOptions(options)}
+      ${categoryChoiceOptions()}
     </select>
   `;
 }

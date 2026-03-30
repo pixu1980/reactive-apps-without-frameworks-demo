@@ -20,7 +20,7 @@ export function setTemplateInstanceClass(cls) {
  */
 export function getTemplateInstanceClass() {
   if (!TemplateInstance) {
-    throw new Error('TemplateInstance class not registered.');
+    throw new Error("TemplateInstance class not registered.");
   }
 
   return TemplateInstance;

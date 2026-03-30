@@ -1,1 +1,1 @@
-export { debugLogEntry } from './_DebugLogEntry.js';
+export { DebugLogEntry } from "./_DebugLogEntry.js";

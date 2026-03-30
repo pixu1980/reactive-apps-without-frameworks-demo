@@ -42,7 +42,7 @@ function handleBackdropClick(event) {
  * Renders the modal used to create a new todo from the shared draft state.
  * @returns {ReturnType<typeof html> | string}
  */
-export function todoModal() {
+export function TodoModal() {
   const modal = store.state.ui.todoModal;
   const language = store.state.preferences.language;
 

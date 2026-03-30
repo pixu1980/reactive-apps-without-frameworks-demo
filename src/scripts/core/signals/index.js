@@ -1,7 +1,7 @@
-import { withoutCollector } from './_collector-context.js';
-import { ComputedSignal } from './_computed-signal.js';
-import { EffectCollector } from './_effect-collector.js';
-import { StateSignal } from './_state-signal.js';
+import { withoutCollector } from "./_collector-context.js";
+import { ComputedSignal } from "./_computed-signal.js";
+import { EffectCollector } from "./_effect-collector.js";
+import { StateSignal } from "./_state-signal.js";
 
 /**
  * Trackable reactive value exposed by the signal layer.
@@ -30,7 +30,7 @@ export const Signal = {
  * @returns {boolean}
  */
 export function isSignalLike(value) {
-  return Boolean(value && typeof value.get === 'function' && value.__isSignal);
+  return Boolean(value && typeof value.get === "function" && value.__isSignal);
 }
 
 /**
@@ -40,6 +40,6 @@ export function isSignalLike(value) {
  */
 export function effect(callback) {
   const runner = new EffectCollector(callback);
-  
+
   return () => runner.stop();
 }

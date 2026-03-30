@@ -1,5 +1,5 @@
-import { withCollector } from './_collector-context.js';
-import { schedule } from './_scheduler.js';
+import { withCollector } from "./_collector-context.js";
+import { schedule } from "./_scheduler.js";
 
 /**
  * Signal contract required by the effect dependency tracker.

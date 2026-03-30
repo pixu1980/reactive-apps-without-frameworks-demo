@@ -1,5 +1,5 @@
-@layer components.app-header {
-  [data-component="app-header"] {
+@layer components.header {
+  [data-component="header"] {
     display: flex;
     place-content: space-between;
     align-items: start;
@@ -47,9 +47,9 @@
       display: grid;
       gap: var(--space-3);
       grid-template-columns: repeat(
-        3,
-        minmax(var(--preferences-control-min-inline-size), 1fr)
-      );
+          3,
+          minmax(var(--preferences-control-min-inline-size), 1fr)
+        );
 
       > label {
         min-inline-size: 0;
@@ -58,7 +58,7 @@
   }
 
   @media (max-width: 1180px) {
-    [data-component="app-header"] {
+    [data-component="header"] {
       grid-template-columns: 1fr;
 
       [data-slot="actions"] {
@@ -72,7 +72,7 @@
   }
 
   @media (max-width: 920px) {
-    [data-component="app-header"] {
+    [data-component="header"] {
       [data-slot="actions"] {
         flex-wrap: wrap;
       }
@@ -80,7 +80,7 @@
   }
 
   @media (max-width: 780px) {
-    [data-component="app-header"] {
+    [data-component="header"] {
       [data-slot="copy"] {
         min-block-size: auto;
       }

@@ -1,4 +1,4 @@
-import { appView } from "@/components/index.js";
+import { App } from "@/components/index.js";
 import { effect, render } from "@/core/index.js";
 import { tickState, root, store } from "@/state/index.js";
 
@@ -70,7 +70,7 @@ effect(() => {
 
 effect(() => {
   tickState.get();
-  render(appView(), root);
+  render(App(), root);
   scheduleAppShellSizeSync();
 });
 

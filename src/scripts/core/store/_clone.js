@@ -1,4 +1,4 @@
-import { isObject } from './_guards.js';
+import { isObject } from "./_guards.js";
 
 /**
  * Unwraps proxy values before cloning them.

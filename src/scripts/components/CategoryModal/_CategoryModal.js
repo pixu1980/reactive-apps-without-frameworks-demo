@@ -38,7 +38,7 @@ function handleBackdropClick(event) {
  * Renders the modal used to create a new category without relying on prompt().
  * @returns {ReturnType<typeof html> | string}
  */
-export function categoryModal() {
+export function CategoryModal() {
   const modal = store.state.ui.categoryModal;
   const language = store.state.preferences.language;
 

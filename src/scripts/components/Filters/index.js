@@ -1,1 +1,1 @@
-export { filtersPanel } from './_Filters.js';
+export { Filters } from "./_Filters.js";

@@ -1,1 +1,1 @@
-export { todoListPanel } from './_TodoList.js';
+export { TodoList } from "./_TodoList.js";

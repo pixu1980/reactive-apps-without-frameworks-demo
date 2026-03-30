@@ -1,4 +1,4 @@
-import { getCurrentCollector } from './_collector-context.js';
+import { getCurrentCollector } from "./_collector-context.js";
 
 /**
  * Subscriber invoked when a signal changes.

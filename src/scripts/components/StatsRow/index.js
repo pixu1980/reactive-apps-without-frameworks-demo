@@ -1,1 +1,1 @@
-export { statsRow } from './_StatsRow.js';
+export { StatsRow } from "./_StatsRow.js";

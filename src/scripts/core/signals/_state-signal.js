@@ -1,4 +1,4 @@
-import { BaseSignal } from './_base-signal.js';
+import { BaseSignal } from "./_base-signal.js";
 
 /**
  * Mutable signal that stores a concrete value.

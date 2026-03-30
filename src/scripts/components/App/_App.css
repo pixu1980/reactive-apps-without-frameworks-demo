@@ -9,7 +9,7 @@
         25rem
       );
 
-    > [data-component="app-header"] {
+    > [data-component="header"] {
       grid-column: 1 / -1;
     }
 

@@ -1,1 +1,1 @@
-export { quickAddPanel } from './_QuickAdd.js';
+export { QuickAdd } from "./_QuickAdd.js";

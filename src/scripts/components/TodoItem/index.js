@@ -1,1 +1,1 @@
-export { todoItem } from './_TodoItem.js';
+export { TodoItem } from "./_TodoItem.js";

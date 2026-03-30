@@ -1,4 +1,9 @@
-import { AttributePart, ChildNodePart, EventPart, PropertyPart } from './_parts.js';
+import {
+  AttributePart,
+  ChildNodePart,
+  EventPart,
+  PropertyPart,
+} from "./_parts.js";
 
 const ATTRIBUTE_PART_RE = /([.@]?[-\w:]+)\s*=\s*(?:"|'|)?$/;
 const COMMENT_PART_RE = /^part:(\d+)$/;
@@ -92,7 +97,7 @@ function getTemplate(strings) {
     return record;
   }
 
-  let markup = '';
+  let markup = "";
 
   for (let index = 0; index < strings.length - 1; index += 1) {
     const chunk = strings[index];
@@ -108,12 +113,15 @@ function getTemplate(strings) {
 
   markup += strings[strings.length - 1];
 
-  const template = document.createElement('template');
+  const template = document.createElement("template");
   template.innerHTML = markup;
 
   /** @type {TemplateDescriptor[]} */
   const descriptors = [];
-  const walker = document.createTreeWalker(template.content, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT);
+  const walker = document.createTreeWalker(
+    template.content,
+    NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_COMMENT,
+  );
   let node = walker.nextNode();
 
   while (node) {
@@ -122,7 +130,7 @@ function getTemplate(strings) {
 
       if (match) {
         descriptors.push({
-          type: 'child',
+          type: "child",
           index: Number(match[1]),
           path: getNodePath(node, template.content),
         });
@@ -141,14 +149,14 @@ function getTemplate(strings) {
         }
 
         const rawName = attribute.name;
-        let type = 'attribute';
+        let type = "attribute";
         let name = rawName;
 
-        if (rawName.startsWith('.')) {
-          type = 'property';
+        if (rawName.startsWith(".")) {
+          type = "property";
           name = rawName.slice(1);
-        } else if (rawName.startsWith('@')) {
-          type = 'event';
+        } else if (rawName.startsWith("@")) {
+          type = "event";
           name = rawName.slice(1);
         }
 
@@ -199,19 +207,19 @@ export class TemplateInstance {
       /** @type {TemplatePart | undefined} */
       let part;
 
-      if (descriptor.type === 'child') {
+      if (descriptor.type === "child") {
         const start = document.createComment(`start:${descriptor.index}`);
         const end = document.createComment(`end:${descriptor.index}`);
 
         node.replaceWith(start, end);
         part = new ChildNodePart(start, end);
-      } else if (descriptor.type === 'attribute') {
+      } else if (descriptor.type === "attribute") {
         node.removeAttribute(descriptor.rawName);
         part = new AttributePart(node, descriptor.name);
-      } else if (descriptor.type === 'property') {
+      } else if (descriptor.type === "property") {
         node.removeAttribute(descriptor.rawName);
         part = new PropertyPart(node, descriptor.name);
-      } else if (descriptor.type === 'event') {
+      } else if (descriptor.type === "event") {
         node.removeAttribute(descriptor.rawName);
         part = new EventPart(node, descriptor.name);
       }

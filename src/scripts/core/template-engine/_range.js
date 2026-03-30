@@ -66,7 +66,7 @@ export function isRangeBeforeReference(start, end, referenceNode) {
 export function normalizeNode(value) {
   if (value instanceof Node) return value;
 
-  return document.createTextNode(value == null ? '' : String(value));
+  return document.createTextNode(value == null ? "" : String(value));
 }
 
 /**
@@ -75,7 +75,11 @@ export function normalizeNode(value) {
  * @returns {boolean}
  */
 export function isIterable(value) {
-  return value && typeof value !== 'string' && typeof value[Symbol.iterator] === 'function';
+  return (
+    value &&
+    typeof value !== "string" &&
+    typeof value[Symbol.iterator] === "function"
+  );
 }
 
 /**
@@ -84,5 +88,7 @@ export function isIterable(value) {
  * @returns {"checked" | "value"}
  */
 export function inferModelProperty(element) {
-  return element instanceof HTMLInputElement && element.type === 'checkbox' ? 'checked' : 'value';
+  return element instanceof HTMLInputElement && element.type === "checkbox"
+    ? "checked"
+    : "value";
 }

@@ -9,10 +9,10 @@ export class EventPart {
   constructor(element, name) {
     /** @type {Element} */
     this.element = element;
-    
+
     /** @type {string} */
     this.name = name;
-    
+
     /** @type {EventListener | null} */
     this.listener = null;
   }
@@ -27,9 +27,9 @@ export class EventPart {
       this.element.removeEventListener(this.name, this.listener);
       this.listener = null;
     }
-    
-    if (typeof value !== 'function') return;
-    
+
+    if (typeof value !== "function") return;
+
     this.listener = value;
     this.element.addEventListener(this.name, this.listener);
   }

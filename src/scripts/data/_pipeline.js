@@ -27,12 +27,12 @@ const collatorCache = new Map();
 function getTextCollator(language) {
   const locale = localeForLanguage(language);
   let collator = collatorCache.get(locale);
-	
+
   if (!collator) {
     collator = new Intl.Collator(locale, { sensitivity: "base" });
     collatorCache.set(locale, collator);
   }
-	
+
   return collator;
 }
 
@@ -57,7 +57,7 @@ export function* fromArray(items) {
  */
 export function* filterBySearch(source, search, language) {
   const query = search.trim().toLowerCase();
-	
+
   if (!query) {
     yield* source;
     return;
@@ -150,12 +150,12 @@ export function sortTodos(items, sortBy, sortDir, language) {
   sorted.sort((left, right) => {
     let a = left[sortBy];
     let b = right[sortBy];
-		
+
     if (sortBy === "priority") {
       a = priorityRank[/** @type {TodoPriority} */ (a)];
       b = priorityRank[/** @type {TodoPriority} */ (b)];
     }
-		
+
     if (sortBy === "title" || sortBy === "category") {
       return direction * textCollator.compare(String(a), String(b));
     }
@@ -166,7 +166,7 @@ export function sortTodos(items, sortBy, sortDir, language) {
 
     return a > b ? direction : -direction;
   });
-	
+
   return sorted;
 }
 
@@ -188,6 +188,6 @@ export function pipelineTodos(todos, filters, language) {
     ),
     filters.priority,
   );
-	
+
   return sortTodos(iterator, filters.sortBy, filters.sortDir, language);
 }

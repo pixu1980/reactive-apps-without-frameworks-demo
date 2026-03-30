@@ -1,5 +1,5 @@
 @layer components.filters {
-  [data-component="filters-panel"] {
+  [data-component="filters"] {
     --panel-marker-color: var(--color-warning);
 
     [data-slot="form"] {

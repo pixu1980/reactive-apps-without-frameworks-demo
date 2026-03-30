@@ -8,11 +8,11 @@ export function toPathArray(path) {
     return path;
   }
 
-  if (path == null || path === '') {
+  if (path == null || path === "") {
     return [];
   }
 
-  return String(path).split('.').filter(Boolean);
+  return String(path).split(".").filter(Boolean);
 }
 
 /**
@@ -21,5 +21,5 @@ export function toPathArray(path) {
  * @returns {string}
  */
 export function pathToString(path) {
-  return toPathArray(path).join('.');
+  return toPathArray(path).join(".");
 }
