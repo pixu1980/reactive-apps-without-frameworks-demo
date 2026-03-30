@@ -1,4 +1,4 @@
-import { getCurrentCollector } from "./_collector-context.js";
+import { getCurrentCollector } from './_collector-context.js';
 
 /**
  * Subscriber invoked when a signal changes.
@@ -17,6 +17,7 @@ export class BaseSignal {
   constructor() {
     /** @type {Set<SignalSubscriber>} */
     this.subscribers = new Set();
+
     /** @type {true} */
     this.__isSignal = true;
   }

@@ -1,6 +1,6 @@
 import { createSeedData, ONE_DAY_MS } from "@/data/index.js";
 import { t } from "@/i18n/index.js";
-import { mainState, store } from "./_store-setup.js";
+import { tickState, store } from "./_store-setup.js";
 
 /** @typedef {import("../data/_data.js").TodoItem} TodoItem */
 
@@ -21,8 +21,13 @@ export function getTodoById(id) {
  */
 export function updateTodo(id, patch) {
   const index = store.state.todos.findIndex((todo) => todo.id === id);
-  if (index < 0) return;
+
+  if (index < 0) {
+    return;
+  }
+
   const current = store.state.todos[index];
+
   store.state.todos[index] = { ...current, ...patch };
 }
 
@@ -49,6 +54,7 @@ export function addTodo() {
       open: true,
       error: t(language, "errors.emptyTodoTitle"),
     };
+
     return false;
   }
 
@@ -66,6 +72,7 @@ export function addTodo() {
     },
     ...store.state.todos,
   ];
+
   store.state.draft = {
     ...store.state.draft,
     title: "",
@@ -74,7 +81,9 @@ export function addTodo() {
     priority: "medium",
     dueDate: new Date(Date.now() + ONE_DAY_MS).toISOString().slice(0, 10),
   };
+
   closeTodoModal();
+
   return true;
 }
 
@@ -123,9 +132,10 @@ export function clearSelection() {
  */
 export function selectAllVisible(visibleTodos) {
   const ids = new Set(visibleTodos.peek().map((todo) => todo.id));
+
   store.state.todos = store.state.todos.map((todo) => ({
     ...todo,
-    selected: ids.has(todo.id) ? true : todo.selected,
+    selected: ids.has(todo.id) || todo.selected,
   }));
 }
 
@@ -213,6 +223,7 @@ export function addCategory(inputValue = store.state.ui.categoryModal.value) {
       open: true,
       error: t(language, "errors.emptyCategory"),
     });
+
     return false;
   }
 
@@ -225,11 +236,13 @@ export function addCategory(inputValue = store.state.ui.categoryModal.value) {
       open: true,
       error: t(language, "errors.duplicateCategory"),
     });
+
     return false;
   }
 
   store.state.categories = [...store.state.categories, value];
   closeCategoryModal();
+
   return true;
 }
 
@@ -239,11 +252,13 @@ export function addCategory(inputValue = store.state.ui.categoryModal.value) {
  */
 export function resetDemo() {
   const { preferences } = store.snapshot();
+
   store.replace({
     ...createSeedData(),
     preferences: {
       ...preferences,
     },
   });
-  mainState.set(performance.now());
+
+  tickState.set(performance.now());
 }

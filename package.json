@@ -19,9 +19,9 @@
     "rel:major": "pnpm run build && pnpm version major -m \"rel(%s)\" && pnpm run rel:push",
     "rel:minor": "pnpm run build && pnpm version minor -m \"rel(%s)\" && pnpm run rel:push",
     "rel:patch": "pnpm run build && pnpm version patch -m \"rel(%s)\" && pnpm run rel:push",
-    "format:prettier": "prettier --write \"package.json\" \"src/**/*.{html,css,js}\" \"*.{md,yml,yaml}\"",
+    "format:prettier": "prettier --write \"package.json\" \"src/**/*.{html,css,js,json}\" \"*.{md,yml,yaml}\"",
     "format:biome": "biome format --write src/scripts package.json",
-    "lint:prettier": "prettier --check \"package.json\" \"src/**/*.{html,css,js}\" \"*.{md,yml,yaml}\"",
+    "lint:prettier": "prettier --check \"package.json\" \"src/**/*.{html,css,js,json}\" \"*.{md,yml,yaml}\"",
     "lint:biome": "biome lint src/scripts package.json",
     "format": "pnpm run format:prettier && pnpm run format:biome",
     "lint": "pnpm run lint:prettier && pnpm run lint:biome"

@@ -1,0 +1,122 @@
+{
+  "app": {
+    "eyebrow": "HTML Zustand, Signale, Proxy Store",
+    "title": "Vanilla Todo List",
+    "subcopyPrimary": "Eine Vanilla Todo Demo, in der Formulare direkt in einen Proxy Store schreiben.",
+    "subcopySecondary": "Liste, Filter, Zaehler und Debug Log werden mit Signals und DOM Parts neu gerendert."
+  },
+  "buttons": {
+    "resetDemo": "Demo zuruecksetzen",
+    "newTodo": "Neues Todo",
+    "newCategory": "Neue Kategorie",
+    "addTodo": "Todo hinzufuegen",
+    "cancel": "Abbrechen",
+    "createCategory": "Kategorie erstellen",
+    "selectVisible": "Sichtbare auswaehlen",
+    "clearSelection": "Auswahl aufheben",
+    "completeSelected": "Auswahl abschliessen",
+    "reopenSelected": "Auswahl wieder oeffnen",
+    "deleteSelected": "Auswahl loeschen",
+    "deleteCompleted": "Erledigte loeschen",
+    "delete": "Loeschen"
+  },
+  "sections": {
+    "quickAdd": "Schnell erfassen",
+    "filtersSorting": "Filter und Sortierung",
+    "bulkActions": "Sammelaktionen",
+    "reactiveList": "Reaktive Liste",
+    "overview": "Ueberblick",
+    "debugLog": "store:change Protokoll"
+  },
+  "fields": {
+    "colorScheme": "Farbschema",
+    "theme": "Thema",
+    "language": "Sprache",
+    "search": "Suche",
+    "status": "Status",
+    "category": "Kategorie",
+    "priority": "Prioritaet",
+    "sortBy": "Sortieren nach",
+    "direction": "Richtung",
+    "title": "Titel",
+    "notes": "Notizen",
+    "dueDate": "Faelligkeit",
+    "name": "Name"
+  },
+  "labels": {
+    "select": "Auswaehlen",
+    "done": "Erledigt",
+    "pauseLog": "Protokoll pausieren"
+  },
+  "stats": {
+    "total": "Gesamt",
+    "open": "Offen",
+    "done": "Erledigt",
+    "visible": "Sichtbar",
+    "selected": "Ausgewaehlt"
+  },
+  "placeholders": {
+    "search": "Titel, Notizen, Kategorie durchsuchen...",
+    "todoTitle": "Was muss passieren?",
+    "categoryName": "Recherche"
+  },
+  "modal": {
+    "eyebrow": "Store gesteuerter Dialog",
+    "title": "Neue Kategorie",
+    "description": "Einmal hinzufuegen und jedes Kategorie Menue aktualisiert sich im naechsten Render Zyklus.",
+    "help": "Verwende eine eindeutige Bezeichnung, damit Filter und Editoren synchron bleiben.",
+    "todoEyebrow": "Draft gesteuerter Dialog",
+    "todoTitle": "Neues Todo",
+    "todoDescription": "Erstelle ein neues Todo aus dem gemeinsamen Draft Zustand, ohne den aktuellen Workspace zu verlassen.",
+    "todoHelp": "Gib einen Titel ein, bevor du das Todo erstellst."
+  },
+  "messages": {
+    "visibleSummary": "{count} sichtbare Eintraege, sortiert nach {sortBy}"
+  },
+  "errors": {
+    "emptyCategory": "Gib einen Kategorienamen ein.",
+    "emptyTodoTitle": "Gib einen Titel fuer das Todo ein.",
+    "duplicateCategory": "Diese Kategorie existiert bereits.",
+    "missingMount": "Der Mount Knoten der Anwendung fehlt."
+  },
+  "options": {
+    "colorScheme": {
+      "system": "System",
+      "light": "Hell",
+      "dark": "Dunkel"
+    },
+    "theme": {
+      "studio": "Studio",
+      "atelier": "Atelier",
+      "cabinet": "Cabinet",
+      "grove": "Grove",
+      "signal": "Signal",
+      "nocturne": "Nocturne"
+    },
+    "priority": {
+      "all": "Alle Prioritaeten",
+      "low": "Niedrig",
+      "medium": "Mittel",
+      "high": "Hoch"
+    },
+    "status": {
+      "all": "Alle",
+      "open": "Offen",
+      "done": "Erledigt"
+    },
+    "direction": {
+      "asc": "Aufsteigend",
+      "desc": "Absteigend"
+    },
+    "sortBy": {
+      "createdAt": "Erstellt am",
+      "title": "Titel",
+      "priority": "Prioritaet",
+      "dueDate": "Faelligkeit",
+      "category": "Kategorie"
+    },
+    "category": {
+      "all": "Alle Kategorien"
+    }
+  }
+}

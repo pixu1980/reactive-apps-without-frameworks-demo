@@ -19,10 +19,6 @@
     font-size: var(--font-size-sm);
     line-height: var(--line-height-base);
   }
-
-  [data-embed="true"] body {
-    padding: var(--space-4);
-  }
 }
 
 @layer typography {

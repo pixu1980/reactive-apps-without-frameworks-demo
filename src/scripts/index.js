@@ -1,14 +1,14 @@
 import { appView } from "@/components/index.js";
 import { effect, render } from "@/core/index.js";
-import { isEmbedded, mainState, root, store } from "@/state/index.js";
+import { tickState, root, store } from "@/state/index.js";
 
 /**
  * Bootstraps the demo and keeps the root view in sync with store driven invalidations.
  */
-document.documentElement.dataset.embed = String(isEmbedded);
 root.dataset.appRoot = "true";
 
 let observedAppShell = null;
+
 const appShellResizeObserver = new ResizeObserver(() => {
   syncAppShellSize();
 });
@@ -19,6 +19,7 @@ const appShellResizeObserver = new ResizeObserver(() => {
  */
 function syncDocumentPreferences() {
   const { colorScheme, theme, language } = store.state.preferences;
+
   document.documentElement.dataset.colorScheme = colorScheme;
   document.documentElement.dataset.theme = theme;
   document.documentElement.dataset.language = language;
@@ -34,13 +35,13 @@ function syncAppShellSize() {
 
   if (!(appShell instanceof HTMLElement)) {
     root.style.removeProperty("--app-main-block-size");
+
     return;
   }
 
   if (observedAppShell !== appShell) {
-    if (observedAppShell instanceof HTMLElement) {
+    observedAppShell instanceof HTMLElement &&
       appShellResizeObserver.unobserve(observedAppShell);
-    }
 
     observedAppShell = appShell;
     appShellResizeObserver.observe(appShell);
@@ -63,14 +64,14 @@ function scheduleAppShellSizeSync() {
 }
 
 effect(() => {
-  mainState.get();
+  tickState.get();
   syncDocumentPreferences();
 });
 
 effect(() => {
-  mainState.get();
+  tickState.get();
   render(appView(), root);
   scheduleAppShellSizeSync();
 });
 
-mainState.set(performance.now());
+tickState.set(performance.now());

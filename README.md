@@ -22,14 +22,6 @@ Expected production URL:
 https://pixu1980.github.io/reactive-apps-without-frameworks-demo/
 ```
 
-To render the compact iframe friendly variant, append `?embed=1`.
+## Talk Integration
 
-## Embed From The Talk Repo
-
-The talk deck can override the iframe source with a `demo-url` query parameter.
-
-Example:
-
-```text
-https://pixu1980.github.io/reactive-apps-without-frameworks/?demo-url=https%3A%2F%2Fpixu1980.github.io%2Freactive-apps-without-frameworks-demo%2F
-```
+The talk deck no longer embeds the app in an iframe. It links to this standalone demo in a new tab so the exact same experience can be explored outside the slides.

@@ -1,0 +1,122 @@
+{
+  "app": {
+    "eyebrow": "HTML state, signals, proxy store",
+    "title": "Vanilla Todo List",
+    "subcopyPrimary": "A vanilla todo demo where forms write directly into a proxy backed store.",
+    "subcopySecondary": "List updates, filters, counters, and the debug log rerender through signals and DOM parts."
+  },
+  "buttons": {
+    "resetDemo": "Reset demo",
+    "newTodo": "New todo",
+    "newCategory": "New category",
+    "addTodo": "Add todo",
+    "cancel": "Cancel",
+    "createCategory": "Create category",
+    "selectVisible": "Select visible",
+    "clearSelection": "Clear selection",
+    "completeSelected": "Complete selected",
+    "reopenSelected": "Reopen selected",
+    "deleteSelected": "Delete selected",
+    "deleteCompleted": "Delete completed",
+    "delete": "Delete"
+  },
+  "sections": {
+    "quickAdd": "Quick add",
+    "filtersSorting": "Filters and sorting",
+    "bulkActions": "Bulk actions",
+    "reactiveList": "Reactive list",
+    "overview": "Overview",
+    "debugLog": "store:change log"
+  },
+  "fields": {
+    "colorScheme": "Color scheme",
+    "theme": "Theme",
+    "language": "Language",
+    "search": "Search",
+    "status": "Status",
+    "category": "Category",
+    "priority": "Priority",
+    "sortBy": "Sort by",
+    "direction": "Direction",
+    "title": "Title",
+    "notes": "Notes",
+    "dueDate": "Due date",
+    "name": "Name"
+  },
+  "labels": {
+    "select": "Select",
+    "done": "Done",
+    "pauseLog": "Pause log"
+  },
+  "stats": {
+    "total": "Total",
+    "open": "Open",
+    "done": "Done",
+    "visible": "Visible",
+    "selected": "Selected"
+  },
+  "placeholders": {
+    "search": "Search title, notes, category...",
+    "todoTitle": "What needs to happen?",
+    "categoryName": "Research"
+  },
+  "modal": {
+    "eyebrow": "Store driven dialog",
+    "title": "New category",
+    "description": "Add it once and every category dropdown updates on the next render cycle.",
+    "help": "Use a unique label so filters and editors stay aligned.",
+    "todoEyebrow": "Draft driven dialog",
+    "todoTitle": "New todo",
+    "todoDescription": "Create a new todo from the shared draft state without leaving the current workspace.",
+    "todoHelp": "A title is required before the todo can be created."
+  },
+  "messages": {
+    "visibleSummary": "{count} visible item(s), sorted by {sortBy}"
+  },
+  "errors": {
+    "emptyCategory": "Enter a category name.",
+    "emptyTodoTitle": "Enter a todo title.",
+    "duplicateCategory": "That category already exists.",
+    "missingMount": "Missing application mount node."
+  },
+  "options": {
+    "colorScheme": {
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "theme": {
+      "studio": "Studio",
+      "atelier": "Atelier",
+      "cabinet": "Cabinet",
+      "grove": "Grove",
+      "signal": "Signal",
+      "nocturne": "Nocturne"
+    },
+    "priority": {
+      "all": "All priorities",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "status": {
+      "all": "All",
+      "open": "Open",
+      "done": "Done"
+    },
+    "direction": {
+      "asc": "Ascending",
+      "desc": "Descending"
+    },
+    "sortBy": {
+      "createdAt": "Created date",
+      "title": "Title",
+      "priority": "Priority",
+      "dueDate": "Due date",
+      "category": "Category"
+    },
+    "category": {
+      "all": "All categories"
+    }
+  }
+}

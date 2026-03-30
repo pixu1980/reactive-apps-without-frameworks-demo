@@ -1,7 +1,7 @@
-import { isSignalLike } from "../signals/index.js";
-import { Part } from "./_part.js";
-import { inferModelProperty } from "./_range.js";
-import { isDirective } from "./_template-helpers.js";
+import { isSignalLike } from '../signals/index.js';
+import { Part } from './_part.js';
+import { inferModelProperty } from './_range.js';
+import { isDirective } from './_template-helpers.js';
 
 /**
  * DOM element supported by the model binding directive.
@@ -46,10 +46,13 @@ export class AttributePart extends Part {
     super();
     /** @type {ModelBoundElement} */
     this.element = element;
+
     /** @type {string} */
     this.name = name;
+
     /** @type {(() => void) | null} */
     this.modelCleanup = null;
+
     /** @type {ModelBinding | null} */
     this._modelBinding = null;
   }
@@ -60,6 +63,7 @@ export class AttributePart extends Part {
    */
   disposeModel() {
     if (this.modelCleanup) this.modelCleanup();
+
     this.modelCleanup = null;
   }
 
@@ -69,15 +73,17 @@ export class AttributePart extends Part {
    * @returns {void}
    */
   setValue(value) {
-    if (this.name === "model" && isDirective(value, "model")) {
+    if (this.name === 'model' && isDirective(value, 'model')) {
       this.commitModel(/** @type {ModelDirectiveConfig} */ (value.payload));
       this.value = value;
+
       return;
     }
 
     if (isSignalLike(value)) {
       this.disposeModel();
       this.bindSignal(value, (resolved) => this.commit(resolved));
+
       return;
     }
 
@@ -96,7 +102,8 @@ export class AttributePart extends Part {
       this.element.removeAttribute(this.name);
       return;
     }
-    this.element.setAttribute(this.name, value === true ? "" : String(value));
+
+    this.element.setAttribute(this.name, value === true ? '' : String(value));
   }
 
   /**
@@ -105,17 +112,13 @@ export class AttributePart extends Part {
    * @returns {void}
    */
   commitModel(config) {
-    const eventName = config.event ?? "input";
+    const eventName = config.event ?? 'input';
     const property = config.prop ?? inferModelProperty(this.element);
 
-    if (
-      this._modelBinding &&
-      this._modelBinding.eventName === eventName &&
-      this._modelBinding.property === property &&
-      this._modelBinding.signal === config.signal
-    ) {
+    if (this._modelBinding && this._modelBinding.eventName === eventName && this._modelBinding.property === property && this._modelBinding.signal === config.signal) {
       this._modelBinding.config = config;
       this._modelBinding.sync();
+
       return;
     }
 
@@ -131,41 +134,33 @@ export class AttributePart extends Part {
      */
     const sync = () => {
       const nextValue = binding.config.get();
-      if (property === "checked") {
+
+      if (property === 'checked') {
         const normalizedValue = Boolean(nextValue);
+
         if (this.element.checked !== normalizedValue) {
           this.element.checked = normalizedValue;
         }
       } else {
-        const normalizedValue = nextValue ?? "";
-        if (this.element[property] === normalizedValue) return;
+        const normalizedValue = nextValue ?? '';
+
+        if (this.element[property] === normalizedValue) {
+          return;
+        }
 
         const isActiveElement = document.activeElement === this.element;
-        const supportsSelection =
-          typeof this.element.selectionStart === "number" &&
-          typeof this.element.selectionEnd === "number";
-        const selectionStart = supportsSelection
-          ? this.element.selectionStart
-          : null;
-        const selectionEnd = supportsSelection
-          ? this.element.selectionEnd
-          : null;
+        const supportsSelection = typeof this.element.selectionStart === 'number' && typeof this.element.selectionEnd === 'number';
+        const selectionStart = supportsSelection ? this.element.selectionStart : null;
+        const selectionEnd = supportsSelection ? this.element.selectionEnd : null;
 
         // Preserve the cursor when a controlled field re-renders while focused.
         this.element[property] = normalizedValue;
 
-        if (
-          isActiveElement &&
-          supportsSelection &&
-          selectionStart !== null &&
-          selectionEnd !== null
-        ) {
-          const textValue =
-            typeof normalizedValue === "string"
-              ? normalizedValue
-              : String(normalizedValue);
+        if (isActiveElement && supportsSelection && selectionStart !== null && selectionEnd !== null) {
+          const textValue = typeof normalizedValue === 'string' ? normalizedValue : String(normalizedValue);
           const nextCursor = Math.min(selectionStart, textValue.length);
           const nextSelectionEnd = Math.min(selectionEnd, textValue.length);
+
           this.element.setSelectionRange(nextCursor, nextSelectionEnd);
         }
       }
@@ -177,10 +172,12 @@ export class AttributePart extends Part {
      */
     const syncAfterRender = () => {
       sync();
+
       if (this.element instanceof HTMLSelectElement) {
         queueMicrotask(() => {
-          if (this._modelBinding === binding && this.element.isConnected)
+          if (this._modelBinding === binding && this.element.isConnected) {
             sync();
+          }
         });
       }
     };
@@ -195,12 +192,13 @@ export class AttributePart extends Part {
      */
     const onInput = (event) => {
       const target = /** @type {ModelBoundElement} */ (event.currentTarget);
-      const nextValue =
-        property === "checked" ? target.checked : target[property];
+      const nextValue = property === 'checked' ? target.checked : target[property];
+
       binding.config.set(nextValue);
     };
 
     this.element.addEventListener(eventName, onInput);
+
     this.modelCleanup = () => {
       this.element.removeEventListener(eventName, onInput);
       this._modelBinding = null;
@@ -208,6 +206,7 @@ export class AttributePart extends Part {
 
     if (config.signal && isSignalLike(config.signal)) {
       this.bindSignal(config.signal, syncAfterRender);
+
       return;
     }
 

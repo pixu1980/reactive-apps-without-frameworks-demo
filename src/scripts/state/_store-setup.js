@@ -7,6 +7,7 @@ import { formatDebugTime, t } from "@/i18n/index.js";
 
 const STORAGE_KEY = "reactive-apps-without-frameworks-demo-state-v1";
 const MAX_DEBUG_LOG_ENTRIES = 30;
+
 const supportedThemes = new Set([
   "studio",
   "atelier",
@@ -15,6 +16,7 @@ const supportedThemes = new Set([
   "signal",
   "nocturne",
 ]);
+
 const legacyThemeMap = {
   amber: "studio",
   cyberpunk: "signal",
@@ -39,9 +41,12 @@ function isRecord(value) {
  * @returns {string}
  */
 function normalizeTheme(value, fallback) {
-  if (typeof value !== "string") return fallback;
+  if (typeof value !== "string") {
+    return fallback;
+  }
 
   const candidate = legacyThemeMap[value] ?? value;
+
   return supportedThemes.has(candidate) ? candidate : fallback;
 }
 
@@ -52,15 +57,21 @@ function normalizeTheme(value, fallback) {
  */
 function normalizeState(savedState) {
   const seed = createSeedData();
-  if (!isRecord(savedState)) return seed;
+
+  if (!isRecord(savedState)) {
+    return seed;
+  }
 
   const draft = isRecord(savedState.draft) ? savedState.draft : {};
   const filters = isRecord(savedState.filters) ? savedState.filters : {};
   const debug = isRecord(savedState.debug) ? savedState.debug : {};
+
   const preferences = isRecord(savedState.preferences)
     ? savedState.preferences
     : {};
+
   const { colorTheme: legacyTheme, ...restPreferences } = preferences;
+
   const theme = normalizeTheme(
     restPreferences.theme ?? legacyTheme,
     seed.preferences.theme,
@@ -109,7 +120,10 @@ function normalizeState(savedState) {
  */
 function readInitialState() {
   const saved = localStorage.getItem(STORAGE_KEY);
-  if (!saved) return createSeedData();
+
+  if (!saved) {
+    return createSeedData();
+  }
 
   try {
     return normalizeState(JSON.parse(saved));
@@ -127,7 +141,7 @@ localStorage.setItem(STORAGE_KEY, JSON.stringify(initialState));
 /**
  * Signal bumped after each committed mutation to refresh model bindings and computed views.
  */
-export const mainState = new Signal.State(0, { equals: () => false });
+export const tickState = new Signal.State(0, { equals: () => false });
 
 let isWritingDebugLog = false;
 
@@ -166,7 +180,9 @@ function persistState() {
  */
 function handleStoreChange(event) {
   // The debug panel writes back into the same store, so nested debug events are ignored.
-  if (isWritingDebugLog) return;
+  if (isWritingDebugLog) {
+    return;
+  }
 
   if (!store.state.debug.paused && event.detail.path !== "debug.logs") {
     isWritingDebugLog = true;
@@ -179,7 +195,7 @@ function handleStoreChange(event) {
   }
 
   persistState();
-  mainState.set(performance.now());
+  tickState.set(performance.now());
 }
 
 window.addEventListener("store:change", handleStoreChange);
@@ -192,11 +208,17 @@ window.addEventListener("store:change", handleStoreChange);
 function resolveMountNode(target = document.body) {
   if (typeof target === "string") {
     const node = document.querySelector(target);
-    if (node instanceof HTMLElement) return node;
+
+    if (node instanceof HTMLElement) {
+      return node;
+    }
+
     throw new Error(t(store.state.preferences.language, "errors.missingMount"));
   }
 
-  if (target instanceof HTMLElement) return target;
+  if (target instanceof HTMLElement) {
+    return target;
+  }
 
   throw new Error(t(store.state.preferences.language, "errors.missingMount"));
 }
@@ -206,10 +228,3 @@ function resolveMountNode(target = document.body) {
  * @type {HTMLElement}
  */
 export const root = resolveMountNode(document.body);
-
-/**
- * Whether the demo is running inside the embedded iframe mode.
- * @type {boolean}
- */
-export const isEmbedded =
-  new URLSearchParams(window.location.search).get("embed") === "1";

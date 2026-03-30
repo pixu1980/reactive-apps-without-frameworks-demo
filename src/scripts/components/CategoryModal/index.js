@@ -1,1 +1,1 @@
-export { categoryModal } from "./_CategoryModal.js";
+export { categoryModal } from './_CategoryModal.js';

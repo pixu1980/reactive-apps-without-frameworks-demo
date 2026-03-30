@@ -35,8 +35,7 @@ function handleModalCancel(event) {
  * @returns {void}
  */
 function handleBackdropClick(event) {
-  if (event.target !== event.currentTarget) return;
-  closeTodoModal();
+  event.target === event.currentTarget && closeTodoModal();
 }
 
 /**
@@ -46,20 +45,16 @@ function handleBackdropClick(event) {
 export function todoModal() {
   const modal = store.state.ui.todoModal;
   const language = store.state.preferences.language;
-  if (!modal.open) return "";
+
+  if (!modal.open) {
+    return "";
+  }
 
   const messageId = modal.error ? "new-todo-error" : "new-todo-help";
   const feedbackState = modal.error ? "error" : "idle";
 
   return html`
-    <dialog
-      aria-describedby=${messageId}
-      aria-labelledby="new-todo-title"
-      data-component="todo-modal"
-      @cancel=${handleModalCancel}
-      @click=${handleBackdropClick}
-      open
-    >
+    <dialog aria-describedby=${messageId} aria-labelledby="new-todo-title" data-component="todo-modal" @cancel=${handleModalCancel} @click=${handleBackdropClick} open>
       <article data-slot="surface" data-surface="card">
         <header data-slot="header">
           <section data-slot="copy">
@@ -72,13 +67,7 @@ export function todoModal() {
         <form data-slot="form" @submit=${handleTodoSubmit}>
           <label data-field>
             <span>${t(language, "fields.title")}</span>
-            <input
-              aria-describedby=${messageId}
-              aria-invalid=${String(Boolean(modal.error))}
-              autofocus
-              model=${storeModel("draft.title")}
-              placeholder=${t(language, "placeholders.todoTitle")}
-            />
+            <input aria-describedby=${messageId} aria-invalid=${String(Boolean(modal.error))} autofocus model=${storeModel("draft.title")} placeholder=${t(language, "placeholders.todoTitle")} />
           </label>
 
           <label data-field>
@@ -89,15 +78,11 @@ export function todoModal() {
           <section data-layout="pair-grid" data-slot="meta">
             <label data-field>
               <span>${t(language, "fields.category")}</span>
-              ${categorySelect(
-                storeModel("draft.category", { event: "change" }),
-              )}
+              ${categorySelect(storeModel("draft.category", { event: "change" }))}
             </label>
             <label data-field>
               <span>${t(language, "fields.priority")}</span>
-              <select
-                model=${storeModel("draft.priority", { event: "change" })}
-              >
+              <select model=${storeModel("draft.priority", { event: "change" })}>
                 ${priorityOptions()}
               </select>
             </label>
@@ -105,24 +90,13 @@ export function todoModal() {
 
           <label data-field>
             <span>${t(language, "fields.dueDate")}</span>
-            <input
-              model=${storeModel("draft.dueDate", { event: "change" })}
-              type="date"
-            />
+            <input model=${storeModel("draft.dueDate", { event: "change" })} type="date" />
           </label>
 
-          <p data-slot="feedback" data-state=${feedbackState} id=${messageId}>
-            ${modal.error || t(language, "modal.todoHelp")}
-          </p>
+          <p data-slot="feedback" data-state=${feedbackState} id=${messageId}>${modal.error || t(language, "modal.todoHelp")}</p>
 
           <footer data-layout="action-grid" data-slot="actions">
-            <button
-              data-variant="secondary"
-              type="button"
-              @click=${closeTodoModal}
-            >
-              ${t(language, "buttons.cancel")}
-            </button>
+            <button data-variant="secondary" type="button" @click=${closeTodoModal}>${t(language, "buttons.cancel")}</button>
             <button type="submit">${t(language, "buttons.addTodo")}</button>
           </footer>
         </form>

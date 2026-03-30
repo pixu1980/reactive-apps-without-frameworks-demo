@@ -1,1 +1,1 @@
-export { bulkActionsPanel } from "./_BulkActions.js";
+export { bulkActionsPanel } from './_BulkActions.js';

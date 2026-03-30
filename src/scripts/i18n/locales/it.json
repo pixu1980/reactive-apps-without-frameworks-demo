@@ -1,0 +1,122 @@
+{
+  "app": {
+    "eyebrow": "Stato HTML, segnali, proxy store",
+    "title": "Vanilla Todo List",
+    "subcopyPrimary": "Una demo todo vanilla in cui i form scrivono direttamente in uno store basato su proxy.",
+    "subcopySecondary": "Lista, filtri, contatori e log di debug si aggiornano con signals e DOM parts."
+  },
+  "buttons": {
+    "resetDemo": "Reimposta demo",
+    "newTodo": "Nuovo todo",
+    "newCategory": "Nuova categoria",
+    "addTodo": "Aggiungi todo",
+    "cancel": "Annulla",
+    "createCategory": "Crea categoria",
+    "selectVisible": "Seleziona visibili",
+    "clearSelection": "Azzera selezione",
+    "completeSelected": "Completa selezionate",
+    "reopenSelected": "Riapri selezionate",
+    "deleteSelected": "Elimina selezionate",
+    "deleteCompleted": "Elimina completate",
+    "delete": "Elimina"
+  },
+  "sections": {
+    "quickAdd": "Aggiunta rapida",
+    "filtersSorting": "Filtri e ordinamento",
+    "bulkActions": "Azioni di gruppo",
+    "reactiveList": "Lista reattiva",
+    "overview": "Panoramica",
+    "debugLog": "Log store:change"
+  },
+  "fields": {
+    "colorScheme": "Schema colore",
+    "theme": "Tema",
+    "language": "Lingua",
+    "search": "Cerca",
+    "status": "Stato",
+    "category": "Categoria",
+    "priority": "Priorita",
+    "sortBy": "Ordina per",
+    "direction": "Direzione",
+    "title": "Titolo",
+    "notes": "Note",
+    "dueDate": "Scadenza",
+    "name": "Nome"
+  },
+  "labels": {
+    "select": "Seleziona",
+    "done": "Fatto",
+    "pauseLog": "Metti in pausa il log"
+  },
+  "stats": {
+    "total": "Totali",
+    "open": "Aperte",
+    "done": "Fatte",
+    "visible": "Visibili",
+    "selected": "Selezionate"
+  },
+  "placeholders": {
+    "search": "Cerca per titolo, note, categoria...",
+    "todoTitle": "Cosa deve succedere?",
+    "categoryName": "Ricerca"
+  },
+  "modal": {
+    "eyebrow": "Dialog guidato dallo store",
+    "title": "Nuova categoria",
+    "description": "Aggiungila una volta e ogni menu categoria si aggiorna al ciclo di render successivo.",
+    "help": "Usa un'etichetta unica per mantenere allineati filtri ed editor.",
+    "todoEyebrow": "Dialog guidato dal draft",
+    "todoTitle": "Nuovo todo",
+    "todoDescription": "Crea un nuovo todo dallo stato condiviso del draft senza lasciare il workspace corrente.",
+    "todoHelp": "Inserisci un titolo prima di creare il todo."
+  },
+  "messages": {
+    "visibleSummary": "{count} elementi visibili, ordinati per {sortBy}"
+  },
+  "errors": {
+    "emptyCategory": "Inserisci un nome categoria.",
+    "emptyTodoTitle": "Inserisci un titolo per il todo.",
+    "duplicateCategory": "Questa categoria esiste gia.",
+    "missingMount": "Manca il nodo di mount dell'applicazione."
+  },
+  "options": {
+    "colorScheme": {
+      "system": "Sistema",
+      "light": "Chiaro",
+      "dark": "Scuro"
+    },
+    "theme": {
+      "studio": "Studio",
+      "atelier": "Atelier",
+      "cabinet": "Cabinet",
+      "grove": "Grove",
+      "signal": "Signal",
+      "nocturne": "Nocturne"
+    },
+    "priority": {
+      "all": "Tutte le priorita",
+      "low": "Bassa",
+      "medium": "Media",
+      "high": "Alta"
+    },
+    "status": {
+      "all": "Tutte",
+      "open": "Aperte",
+      "done": "Fatte"
+    },
+    "direction": {
+      "asc": "Crescente",
+      "desc": "Decrescente"
+    },
+    "sortBy": {
+      "createdAt": "Data di creazione",
+      "title": "Titolo",
+      "priority": "Priorita",
+      "dueDate": "Scadenza",
+      "category": "Categoria"
+    },
+    "category": {
+      "all": "Tutte le categorie"
+    }
+  }
+}

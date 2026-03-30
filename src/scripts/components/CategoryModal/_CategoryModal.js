@@ -31,8 +31,7 @@ function handleModalCancel(event) {
  * @returns {void}
  */
 function handleBackdropClick(event) {
-  if (event.target !== event.currentTarget) return;
-  closeCategoryModal();
+  event.target === event.currentTarget && closeCategoryModal();
 }
 
 /**
@@ -42,20 +41,16 @@ function handleBackdropClick(event) {
 export function categoryModal() {
   const modal = store.state.ui.categoryModal;
   const language = store.state.preferences.language;
-  if (!modal.open) return "";
+
+  if (!modal.open) {
+    return "";
+  }
 
   const messageId = modal.error ? "new-category-error" : "new-category-help";
   const feedbackState = modal.error ? "error" : "idle";
 
   return html`
-    <dialog
-      aria-describedby=${messageId}
-      aria-labelledby="new-category-title"
-      data-component="category-modal"
-      @cancel=${handleModalCancel}
-      @click=${handleBackdropClick}
-      open
-    >
+    <dialog aria-describedby=${messageId} aria-labelledby="new-category-title" data-component="category-modal" @cancel=${handleModalCancel} @click=${handleBackdropClick} open>
       <article data-slot="surface" data-surface="card">
         <header data-slot="copy">
           <p data-text="eyebrow">${t(language, "modal.eyebrow")}</p>
@@ -75,21 +70,11 @@ export function categoryModal() {
             />
           </label>
 
-          <p data-slot="feedback" data-state=${feedbackState} id=${messageId}>
-            ${modal.error || t(language, "modal.help")}
-          </p>
+          <p data-slot="feedback" data-state=${feedbackState} id=${messageId}>${modal.error || t(language, "modal.help")}</p>
 
           <footer data-layout="action-grid" data-slot="actions">
-            <button
-              data-variant="secondary"
-              type="button"
-              @click=${closeCategoryModal}
-            >
-              ${t(language, "buttons.cancel")}
-            </button>
-            <button type="submit">
-              ${t(language, "buttons.createCategory")}
-            </button>
+            <button data-variant="secondary" type="button" @click=${closeCategoryModal}>${t(language, "buttons.cancel")}</button>
+            <button type="submit">${t(language, "buttons.createCategory")}</button>
           </footer>
         </form>
       </article>

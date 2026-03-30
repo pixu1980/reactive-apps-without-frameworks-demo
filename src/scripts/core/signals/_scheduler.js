@@ -24,6 +24,7 @@ export function schedule(effect) {
       while (scheduled.size > 0) {
         const batch = [...scheduled];
         scheduled.clear();
+
         for (const job of batch) {
           job.run();
         }

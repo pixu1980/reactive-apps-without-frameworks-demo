@@ -1,9 +1,9 @@
-import "./_TodoList.css";
+import './_TodoList.css';
 
-import { todoItem } from "@/components/TodoItem/index.js";
-import { html, repeat } from "@/core/index.js";
-import { t } from "@/i18n/index.js";
-import { visibleLabel, visibleTodos, store } from "@/state/index.js";
+import { todoItem } from '@/components/TodoItem/index.js';
+import { html, repeat } from '@/core/index.js';
+import { t } from '@/i18n/index.js';
+import { store, visibleLabel, visibleTodos } from '@/state/index.js';
 
 /**
  * Renders the central todo list and its live visibility label.
@@ -15,7 +15,7 @@ export function todoListPanel() {
   return html`
     <section data-component="todo-list-panel">
       <header data-slot="header">
-        <h2>${t(language, "sections.reactiveList")}</h2>
+        <h2>${t(language, 'sections.reactiveList')}</h2>
         <p data-slot="summary">${visibleLabel}</p>
       </header>
       <ol data-list-reset data-slot="items">

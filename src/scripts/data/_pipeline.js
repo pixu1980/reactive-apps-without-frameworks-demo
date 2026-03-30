@@ -27,10 +27,12 @@ const collatorCache = new Map();
 function getTextCollator(language) {
   const locale = localeForLanguage(language);
   let collator = collatorCache.get(locale);
+	
   if (!collator) {
     collator = new Intl.Collator(locale, { sensitivity: "base" });
     collatorCache.set(locale, collator);
   }
+	
   return collator;
 }
 
@@ -41,7 +43,9 @@ function getTextCollator(language) {
  * @returns {Generator<T, void, unknown>}
  */
 export function* fromArray(items) {
-  for (const item of items) yield item;
+  for (const item of items) {
+    yield item;
+  }
 }
 
 /**
@@ -53,15 +57,20 @@ export function* fromArray(items) {
  */
 export function* filterBySearch(source, search, language) {
   const query = search.trim().toLowerCase();
+	
   if (!query) {
     yield* source;
     return;
   }
+
   for (const item of source) {
     const localizedPriority = optionLabel(language, "priority", item.priority);
     const haystack =
       `${item.title} ${item.notes} ${item.category} ${item.priority} ${localizedPriority}`.toLowerCase();
-    if (haystack.includes(query)) yield item;
+
+    if (haystack.includes(query)) {
+      yield item;
+    }
   }
 }
 
@@ -76,8 +85,11 @@ export function* filterByCategory(source, category) {
     yield* source;
     return;
   }
+
   for (const item of source) {
-    if (item.category === category) yield item;
+    if (item.category === category) {
+      yield item;
+    }
   }
 }
 
@@ -92,9 +104,14 @@ export function* filterByStatus(source, status) {
     yield* source;
     return;
   }
+
   for (const item of source) {
-    if (status === "done" && item.completed) yield item;
-    if (status === "open" && !item.completed) yield item;
+    const matchesDone = status === "done" && item.completed;
+    const matchesOpen = status === "open" && !item.completed;
+
+    if (matchesDone || matchesOpen) {
+      yield item;
+    }
   }
 }
 
@@ -109,8 +126,11 @@ export function* filterByPriority(source, priority) {
     yield* source;
     return;
   }
+
   for (const item of source) {
-    if (item.priority === priority) yield item;
+    if (item.priority === priority) {
+      yield item;
+    }
   }
 }
 
@@ -130,16 +150,23 @@ export function sortTodos(items, sortBy, sortDir, language) {
   sorted.sort((left, right) => {
     let a = left[sortBy];
     let b = right[sortBy];
+		
     if (sortBy === "priority") {
       a = priorityRank[/** @type {TodoPriority} */ (a)];
       b = priorityRank[/** @type {TodoPriority} */ (b)];
     }
+		
     if (sortBy === "title" || sortBy === "category") {
       return direction * textCollator.compare(String(a), String(b));
     }
-    if (a === b) return 0;
+
+    if (a === b) {
+      return 0;
+    }
+
     return a > b ? direction : -direction;
   });
+	
   return sorted;
 }
 
@@ -161,5 +188,6 @@ export function pipelineTodos(todos, filters, language) {
     ),
     filters.priority,
   );
+	
   return sortTodos(iterator, filters.sortBy, filters.sortDir, language);
 }

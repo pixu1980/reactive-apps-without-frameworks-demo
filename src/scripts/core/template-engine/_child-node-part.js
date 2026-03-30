@@ -1,14 +1,8 @@
-import { isSignalLike } from "../signals/index.js";
-import { Part } from "./_part.js";
-import {
-  clearRange,
-  isIterable,
-  isRangeBeforeReference,
-  moveRangeBefore,
-  normalizeNode,
-} from "./_range.js";
-import { isDirective } from "./_template-helpers.js";
-import { getTemplateInstanceClass } from "./_template-instance-ref.js";
+import { isSignalLike } from '../signals/index.js';
+import { Part } from './_part.js';
+import { clearRange, isIterable, isRangeBeforeReference, moveRangeBefore, normalizeNode } from './_range.js';
+import { isDirective } from './_template-helpers.js';
+import { getTemplateInstanceClass } from './_template-instance-ref.js';
 
 /**
  * Rendered template result shape accepted by child parts.
@@ -47,6 +41,7 @@ import { getTemplateInstanceClass } from "./_template-instance-ref.js";
 function createBlock(itemKey, referenceNode) {
   const start = document.createComment(`repeat-start:${itemKey}`);
   const end = document.createComment(`repeat-end:${itemKey}`);
+
   referenceNode.parentNode.insertBefore(start, referenceNode);
   referenceNode.parentNode.insertBefore(end, referenceNode);
 
@@ -71,18 +66,25 @@ export class ChildNodePart extends Part {
     super();
     /** @type {Comment} */
     this.start = start;
+
     /** @type {Comment} */
     this.end = end;
+
     /** @type {Node | null} */
     this.currentNode = null;
+
     /** @type {{ strings: TemplateStringsArray, update(values: unknown[]): void, fragment: DocumentFragment } | null} */
     this.currentTemplateInstance = null;
+
     /** @type {RepeatState | null} */
     this.repeatState = null;
+
     /** @type {RepeatDirectivePayload | null} */
     this.repeatPayload = null;
+
     /** @type {{ get(): Iterable<unknown>, subscribe(subscriber: () => void): (() => unknown) } | null} */
     this.repeatItemsSignal = null;
+
     /** @type {(() => unknown) | null} */
     this.repeatItemsCleanup = null;
   }
@@ -95,8 +97,10 @@ export class ChildNodePart extends Part {
   setValue(value) {
     if (isSignalLike(value)) {
       this.bindSignal(value, (resolved) => this.commit(resolved));
+
       return;
     }
+
     this.disposeSignal();
     this.commit(value);
   }
@@ -107,9 +111,10 @@ export class ChildNodePart extends Part {
    * @returns {void}
    */
   commit(value) {
-    if (isDirective(value, "repeat")) {
+    if (isDirective(value, 'repeat')) {
       this.commitRepeat(/** @type {RepeatDirectivePayload} */ (value.payload));
       this.value = value;
+
       return;
     }
 
@@ -117,18 +122,25 @@ export class ChildNodePart extends Part {
     this.repeatPayload = null;
     this.repeatState = null;
 
-    if (value?.kind === "template-result") {
+    if (value?.kind === 'template-result') {
       this.commitTemplate(/** @type {TemplateResult} */ (value));
       this.value = value;
+
       return;
     }
 
     if (isIterable(value)) {
       this.currentTemplateInstance = null;
+
       const fragment = document.createDocumentFragment();
-      for (const item of value) fragment.append(normalizeNode(item));
+
+      for (const item of value) {
+        fragment.append(normalizeNode(item));
+      }
+
       this.commitNode(fragment);
       this.value = value;
+
       return;
     }
 
@@ -155,8 +167,10 @@ export class ChildNodePart extends Part {
    */
   commitTemplate(result) {
     const strings = result.strings;
+
     if (this.currentTemplateInstance?.strings === strings) {
       this.currentTemplateInstance.update(result.values);
+
       return;
     }
 
@@ -164,6 +178,7 @@ export class ChildNodePart extends Part {
 
     const TemplateInstance = getTemplateInstanceClass();
     const instance = new TemplateInstance(strings);
+
     this.currentTemplateInstance = instance;
     instance.update(result.values);
     this.start.parentNode.insertBefore(instance.fragment, this.end);
@@ -175,13 +190,17 @@ export class ChildNodePart extends Part {
    * @returns {void}
    */
   bindRepeatItemsSignal(signal) {
-    if (this.repeatItemsSignal === signal && this.repeatItemsCleanup) return;
+    if (this.repeatItemsSignal === signal && this.repeatItemsCleanup) {
+      return;
+    }
 
     this.disposeRepeatItemsSignal();
     this.repeatItemsSignal = signal;
+
     this.repeatItemsCleanup = signal.subscribe(() => {
       if (!this.start.isConnected || !this.end.isConnected) {
         this.disposeRepeatItemsSignal();
+
         return;
       }
 
@@ -196,7 +215,10 @@ export class ChildNodePart extends Part {
    * @returns {void}
    */
   disposeRepeatItemsSignal() {
-    if (this.repeatItemsCleanup) this.repeatItemsCleanup();
+    if (this.repeatItemsCleanup) {
+      this.repeatItemsCleanup();
+    }
+
     this.repeatItemsCleanup = null;
     this.repeatItemsSignal = null;
   }
@@ -208,6 +230,7 @@ export class ChildNodePart extends Part {
    */
   commitRepeat({ items, key, renderItem }) {
     this.repeatPayload = { items, key, renderItem };
+
     if (isSignalLike(items)) {
       this.bindRepeatItemsSignal(items);
     } else {
@@ -215,13 +238,11 @@ export class ChildNodePart extends Part {
     }
 
     const source = isSignalLike(items) ? items.get() : items;
-    const list = Array.isArray(source)
-      ? source
-      : isIterable(source)
-        ? [...source]
-        : [];
+    const list = Array.isArray(source) ? source : isIterable(source) ? [...source] : [];
+
     /** @type {RepeatState} */
     const state = this.repeatState ?? { blocks: new Map() };
+
     /** @type {Map<string | number | symbol, RepeatBlock>} */
     const nextBlocks = new Map();
     const seenKeys = new Set();
@@ -233,9 +254,7 @@ export class ChildNodePart extends Part {
       const itemKey = key(item);
 
       if (seenKeys.has(itemKey)) {
-        throw new Error(
-          `repeat() keys must be unique. Duplicate key: ${String(itemKey)}`,
-        );
+        throw new Error(`repeat() keys must be unique. Duplicate key: ${String(itemKey)}`);
       }
 
       seenKeys.add(itemKey);
@@ -249,6 +268,7 @@ export class ChildNodePart extends Part {
         if (!isRangeBeforeReference(block.start, block.end, referenceNode)) {
           moveRangeBefore(block.start, block.end, referenceNode);
         }
+
         if (block.item !== item) {
           block.part.setValue(renderItem(item));
           block.item = item;
@@ -260,7 +280,10 @@ export class ChildNodePart extends Part {
     }
 
     for (const [itemKey, block] of state.blocks.entries()) {
-      if (nextBlocks.has(itemKey)) continue;
+      if (nextBlocks.has(itemKey)) {
+        continue;
+      }
+
       clearRange(block.start, block.end);
       block.start.remove();
       block.end.remove();

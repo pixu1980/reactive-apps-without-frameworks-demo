@@ -17,18 +17,6 @@ export {
   selectAllVisible,
   toggleAllSelected,
   updateTodo,
-} from "./_actions.js";
-export {
-  categoryChoices,
-  categoryOptions,
-  completedCount,
-  debugLogs,
-  openCount,
-  selectedCount,
-  summary,
-  totalCount,
-  visibleCount,
-  visibleLabel,
-  visibleTodos,
-} from "./_computed.js";
-export { mainState, isEmbedded, root, store } from "./_store-setup.js";
+} from './_actions.js';
+export { categoryChoices, categoryOptions, completedCount, debugLogs, openCount, selectedCount, summary, totalCount, visibleCount, visibleLabel, visibleTodos } from './_computed.js';
+export { tickState, root, store } from './_store-setup.js';

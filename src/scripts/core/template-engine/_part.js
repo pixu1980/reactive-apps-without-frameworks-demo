@@ -12,6 +12,7 @@ export class Part {
    */
   constructor() {
     this.value = undefined;
+
     /** @type {(() => unknown) | null} */
     this.signalCleanup = null;
   }
@@ -34,6 +35,7 @@ export class Part {
    */
   disposeSignal() {
     if (this.signalCleanup) this.signalCleanup();
+
     this.signalCleanup = null;
   }
 }

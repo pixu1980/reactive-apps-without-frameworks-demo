@@ -1,5 +1,5 @@
-import { withCollector } from "./_collector-context.js";
-import { schedule } from "./_scheduler.js";
+import { withCollector } from './_collector-context.js';
+import { schedule } from './_scheduler.js';
 
 /**
  * Signal contract required by the effect dependency tracker.
@@ -16,11 +16,15 @@ export class EffectCollector {
   constructor(callback) {
     /** @type {() => void} */
     this.callback = callback;
+
     /** @type {Map<TrackableSignal, () => unknown>} */
     this.dependencies = new Map();
+
     this.active = true;
+
     /** @type {() => void} */
     this.run = this.run.bind(this);
+
     this.run();
   }
 
@@ -52,6 +56,7 @@ export class EffectCollector {
   run() {
     if (!this.active) return;
     this.cleanup();
+
     withCollector(this, () => {
       this.callback();
     });

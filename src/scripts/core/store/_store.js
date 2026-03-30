@@ -1,6 +1,6 @@
-import { clonePlainValue, deepClone } from "./_clone.js";
-import { isObject } from "./_guards.js";
-import { pathToString, toPathArray } from "./_paths.js";
+import { clonePlainValue, deepClone } from './_clone.js';
+import { isObject } from './_guards.js';
+import { pathToString, toPathArray } from './_paths.js';
 
 /**
  * Store path expressed as dot notation or as discrete path segments.
@@ -32,10 +32,13 @@ export class Store {
   constructor(initialState = {}, options = {}) {
     /** @type {EventTarget} */
     this.events = options.eventsTarget ?? window;
+
     /** @type {object} */
     this.target = deepClone(initialState);
+
     /** @type {WeakMap<object, object>} */
     this.proxyCache = new WeakMap();
+
     /** @type {any} */
     this.state = this.createProxy(this.target, []);
   }
@@ -53,10 +56,13 @@ export class Store {
     const proxy = new Proxy(target, {
       get: (raw, key, receiver) => {
         // Internal escape hatches are kept enumerable free and only exist for cloning helpers.
-        if (key === "__raw") return raw;
-        if (key === "__path") return path;
+        if (key === '__raw') return raw;
+        if (key === '__path') return path;
+
         const value = Reflect.get(raw, key, receiver);
+
         if (isObject(value)) return this.createProxy(value, [...path, key]);
+
         return value;
       },
       set: (raw, key, value, receiver) => {
@@ -64,17 +70,21 @@ export class Store {
         const oldValue = raw[key];
         const prepared = clonePlainValue(value);
         const result = Reflect.set(raw, key, prepared, receiver);
+
         if (oldValue !== prepared) {
           this.emitChange(nextPath, oldValue, prepared);
         }
+
         return result;
       },
       deleteProperty: (raw, key) => {
         if (!(key in raw)) return true;
+
         const nextPath = [...path, key];
         const oldValue = raw[key];
         const result = Reflect.deleteProperty(raw, key);
         this.emitChange(nextPath, oldValue, undefined);
+
         return result;
       },
     });
@@ -97,7 +107,8 @@ export class Store {
       oldValue: deepClone(oldValue),
       newValue: deepClone(newValue),
     };
-    const event = new CustomEvent("store:change", { detail });
+
+    const event = new CustomEvent('store:change', { detail });
     this.events.dispatchEvent(event);
   }
 
@@ -109,9 +120,11 @@ export class Store {
   get(path) {
     const parts = toPathArray(path);
     let current = this.state;
+
     for (const part of parts) {
       current = current?.[part];
     }
+
     return current;
   }
 
@@ -123,14 +136,19 @@ export class Store {
    */
   set(path, value) {
     const parts = toPathArray(path);
-    if (!parts.length) throw new Error("Path is required");
+
+    if (!parts.length) throw new Error('Path is required');
+
     const last = parts.pop();
     let current = this.state;
+
     for (const part of parts) {
       if (!isObject(current[part])) current[part] = {};
       current = current[part];
     }
+
     current[last] = value;
+
     return value;
   }
 
@@ -142,6 +160,7 @@ export class Store {
    */
   update(path, updater) {
     const currentValue = this.get(path);
+
     return this.set(path, updater(currentValue));
   }
 

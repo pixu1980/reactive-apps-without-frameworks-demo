@@ -40,6 +40,7 @@ export function popCollector() {
  */
 export function withCollector(collector, callback) {
   pushCollector(collector);
+
   try {
     return callback();
   } finally {
@@ -55,6 +56,7 @@ export function withCollector(collector, callback) {
  */
 export function withoutCollector(callback) {
   const current = popCollector();
+
   try {
     return callback();
   } finally {

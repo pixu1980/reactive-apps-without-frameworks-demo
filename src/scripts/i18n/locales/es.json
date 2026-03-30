@@ -1,0 +1,122 @@
+{
+  "app": {
+    "eyebrow": "Estado HTML, senales, proxy store",
+    "title": "Vanilla Todo List",
+    "subcopyPrimary": "Una demo todo vanilla donde los formularios escriben directamente en un store basado en proxy.",
+    "subcopySecondary": "La lista, los filtros, los contadores y el log de depuracion se actualizan con signals y DOM parts."
+  },
+  "buttons": {
+    "resetDemo": "Reiniciar demo",
+    "newTodo": "Nuevo todo",
+    "newCategory": "Nueva categoria",
+    "addTodo": "Anadir todo",
+    "cancel": "Cancelar",
+    "createCategory": "Crear categoria",
+    "selectVisible": "Seleccionar visibles",
+    "clearSelection": "Limpiar seleccion",
+    "completeSelected": "Completar seleccionadas",
+    "reopenSelected": "Reabrir seleccionadas",
+    "deleteSelected": "Eliminar seleccionadas",
+    "deleteCompleted": "Eliminar completadas",
+    "delete": "Eliminar"
+  },
+  "sections": {
+    "quickAdd": "Alta rapida",
+    "filtersSorting": "Filtros y orden",
+    "bulkActions": "Acciones masivas",
+    "reactiveList": "Lista reactiva",
+    "overview": "Resumen",
+    "debugLog": "Log store:change"
+  },
+  "fields": {
+    "colorScheme": "Esquema de color",
+    "theme": "Tema",
+    "language": "Idioma",
+    "search": "Buscar",
+    "status": "Estado",
+    "category": "Categoria",
+    "priority": "Prioridad",
+    "sortBy": "Ordenar por",
+    "direction": "Direccion",
+    "title": "Titulo",
+    "notes": "Notas",
+    "dueDate": "Fecha limite",
+    "name": "Nombre"
+  },
+  "labels": {
+    "select": "Seleccionar",
+    "done": "Hecho",
+    "pauseLog": "Pausar log"
+  },
+  "stats": {
+    "total": "Total",
+    "open": "Abiertas",
+    "done": "Hechas",
+    "visible": "Visibles",
+    "selected": "Seleccionadas"
+  },
+  "placeholders": {
+    "search": "Buscar por titulo, notas, categoria...",
+    "todoTitle": "Que tiene que pasar?",
+    "categoryName": "Investigacion"
+  },
+  "modal": {
+    "eyebrow": "Dialogo guiado por el store",
+    "title": "Nueva categoria",
+    "description": "Anadela una vez y cada menu de categoria se actualizara en el siguiente ciclo de render.",
+    "help": "Usa una etiqueta unica para mantener alineados filtros y editores.",
+    "todoEyebrow": "Dialogo guiado por el draft",
+    "todoTitle": "Nuevo todo",
+    "todoDescription": "Crea un nuevo todo desde el estado compartido del draft sin salir del espacio de trabajo actual.",
+    "todoHelp": "Ingresa un titulo antes de crear el todo."
+  },
+  "messages": {
+    "visibleSummary": "{count} elemento(s) visibles, ordenados por {sortBy}"
+  },
+  "errors": {
+    "emptyCategory": "Introduce un nombre de categoria.",
+    "emptyTodoTitle": "Introduce un titulo para el todo.",
+    "duplicateCategory": "Esa categoria ya existe.",
+    "missingMount": "Falta el nodo de montaje de la aplicacion."
+  },
+  "options": {
+    "colorScheme": {
+      "system": "Sistema",
+      "light": "Claro",
+      "dark": "Oscuro"
+    },
+    "theme": {
+      "studio": "Studio",
+      "atelier": "Atelier",
+      "cabinet": "Cabinet",
+      "grove": "Grove",
+      "signal": "Signal",
+      "nocturne": "Nocturne"
+    },
+    "priority": {
+      "all": "Todas las prioridades",
+      "low": "Baja",
+      "medium": "Media",
+      "high": "Alta"
+    },
+    "status": {
+      "all": "Todas",
+      "open": "Abiertas",
+      "done": "Hechas"
+    },
+    "direction": {
+      "asc": "Ascendente",
+      "desc": "Descendente"
+    },
+    "sortBy": {
+      "createdAt": "Fecha de creacion",
+      "title": "Titulo",
+      "priority": "Prioridad",
+      "dueDate": "Fecha limite",
+      "category": "Categoria"
+    },
+    "category": {
+      "all": "Todas las categorias"
+    }
+  }
+}

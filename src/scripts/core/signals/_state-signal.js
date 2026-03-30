@@ -1,4 +1,4 @@
-import { BaseSignal } from "./_base-signal.js";
+import { BaseSignal } from './_base-signal.js';
 
 /**
  * Mutable signal that stores a concrete value.
@@ -14,6 +14,7 @@ export class StateSignal extends BaseSignal {
     super();
     /** @type {T} */
     this.value = value;
+
     /** @type {(previousValue: T, nextValue: T) => boolean} */
     this.equals = options.equals ?? Object.is;
   }
@@ -24,6 +25,7 @@ export class StateSignal extends BaseSignal {
    */
   get() {
     this.track();
+
     return this.value;
   }
 
@@ -42,6 +44,7 @@ export class StateSignal extends BaseSignal {
    */
   set(nextValue) {
     if (this.equals(this.value, nextValue)) return this.value;
+
     this.value = nextValue;
     this.notify();
 

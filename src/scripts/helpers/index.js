@@ -3,9 +3,8 @@
  */
 export {
   categoryFilterOptions,
-  colorSchemeOptions,
-  themeOptions,
   categorySelect,
+  colorSchemeOptions,
   directionOptions,
   languageOptions,
   priorityFilterOptions,
@@ -14,5 +13,6 @@ export {
   statCard,
   statusOptions,
   storeModel,
+  themeOptions,
   todoModel,
-} from "./_helpers.js";
+} from './_helpers.js';

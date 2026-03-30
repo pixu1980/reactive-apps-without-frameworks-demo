@@ -1,0 +1,122 @@
+{
+  "app": {
+    "eyebrow": "Etat HTML, signaux, proxy store",
+    "title": "Vanilla Todo List",
+    "subcopyPrimary": "Une demo todo vanilla ou les formulaires ecrivent directement dans un store base sur proxy.",
+    "subcopySecondary": "La liste, les filtres, les compteurs et le journal de debug se mettent a jour avec signals et DOM parts."
+  },
+  "buttons": {
+    "resetDemo": "Reinitialiser la demo",
+    "newTodo": "Nouveau todo",
+    "newCategory": "Nouvelle categorie",
+    "addTodo": "Ajouter le todo",
+    "cancel": "Annuler",
+    "createCategory": "Creer la categorie",
+    "selectVisible": "Selectionner les visibles",
+    "clearSelection": "Effacer la selection",
+    "completeSelected": "Terminer la selection",
+    "reopenSelected": "Reouvrir la selection",
+    "deleteSelected": "Supprimer la selection",
+    "deleteCompleted": "Supprimer les termines",
+    "delete": "Supprimer"
+  },
+  "sections": {
+    "quickAdd": "Ajout rapide",
+    "filtersSorting": "Filtres et tri",
+    "bulkActions": "Actions de groupe",
+    "reactiveList": "Liste reactive",
+    "overview": "Vue d'ensemble",
+    "debugLog": "Journal store:change"
+  },
+  "fields": {
+    "colorScheme": "Schema de couleurs",
+    "theme": "Theme",
+    "language": "Langue",
+    "search": "Recherche",
+    "status": "Statut",
+    "category": "Categorie",
+    "priority": "Priorite",
+    "sortBy": "Trier par",
+    "direction": "Direction",
+    "title": "Titre",
+    "notes": "Notes",
+    "dueDate": "Date limite",
+    "name": "Nom"
+  },
+  "labels": {
+    "select": "Selectionner",
+    "done": "Fait",
+    "pauseLog": "Mettre le journal en pause"
+  },
+  "stats": {
+    "total": "Total",
+    "open": "Ouverts",
+    "done": "Faits",
+    "visible": "Visibles",
+    "selected": "Selectionnes"
+  },
+  "placeholders": {
+    "search": "Rechercher dans le titre, les notes, la categorie...",
+    "todoTitle": "Que faut-il faire ?",
+    "categoryName": "Recherche"
+  },
+  "modal": {
+    "eyebrow": "Dialogue pilote par le store",
+    "title": "Nouvelle categorie",
+    "description": "Ajoutez-la une fois et chaque menu de categorie se met a jour au prochain cycle de rendu.",
+    "help": "Utilisez un libelle unique pour garder filtres et editeurs alignes.",
+    "todoEyebrow": "Dialogue pilote par le draft",
+    "todoTitle": "Nouveau todo",
+    "todoDescription": "Creez un nouveau todo depuis l'etat partage du draft sans quitter l'espace de travail courant.",
+    "todoHelp": "Saisissez un titre avant de creer le todo."
+  },
+  "messages": {
+    "visibleSummary": "{count} element(s) visibles, tries par {sortBy}"
+  },
+  "errors": {
+    "emptyCategory": "Saisissez un nom de categorie.",
+    "emptyTodoTitle": "Saisissez un titre pour le todo.",
+    "duplicateCategory": "Cette categorie existe deja.",
+    "missingMount": "Le noeud de montage de l'application est introuvable."
+  },
+  "options": {
+    "colorScheme": {
+      "system": "Systeme",
+      "light": "Clair",
+      "dark": "Sombre"
+    },
+    "theme": {
+      "studio": "Studio",
+      "atelier": "Atelier",
+      "cabinet": "Cabinet",
+      "grove": "Grove",
+      "signal": "Signal",
+      "nocturne": "Nocturne"
+    },
+    "priority": {
+      "all": "Toutes les priorites",
+      "low": "Basse",
+      "medium": "Moyenne",
+      "high": "Haute"
+    },
+    "status": {
+      "all": "Tous",
+      "open": "Ouverts",
+      "done": "Faits"
+    },
+    "direction": {
+      "asc": "Croissant",
+      "desc": "Decroissant"
+    },
+    "sortBy": {
+      "createdAt": "Date de creation",
+      "title": "Titre",
+      "priority": "Priorite",
+      "dueDate": "Date limite",
+      "category": "Categorie"
+    },
+    "category": {
+      "all": "Toutes les categories"
+    }
+  }
+}

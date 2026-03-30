@@ -1,5 +1,5 @@
-import { withCollector } from "./_collector-context.js";
 import { BaseSignal } from "./_base-signal.js";
+import { withCollector } from "./_collector-context.js";
 
 /**
  * Options controlling computed signal invalidation.
@@ -22,14 +22,19 @@ export class ComputedSignal extends BaseSignal {
     super();
     /** @type {() => T} */
     this.compute = compute;
+    
     /** @type {(previousValue: T | undefined, nextValue: T) => boolean} */
     this.equals = options.equals ?? Object.is;
+    
     /** @type {Map<unknown, () => unknown>} */
     this.dependencies = new Map();
+    
     /** @type {T | undefined} */
     this.cached = undefined;
+    
     this.dirty = true;
     this.recomputing = false;
+    
     /** @type {() => void} */
     this.boundInvalidate = this.invalidate.bind(this);
   }
@@ -52,6 +57,7 @@ export class ComputedSignal extends BaseSignal {
    */
   cleanupDependencies() {
     for (const unsubscribe of this.dependencies.values()) unsubscribe();
+    
     this.dependencies.clear();
   }
 
@@ -98,6 +104,7 @@ export class ComputedSignal extends BaseSignal {
    */
   get() {
     this.track();
+    
     return this.evaluate();
   }
 
