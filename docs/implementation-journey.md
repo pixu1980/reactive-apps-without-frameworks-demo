@@ -137,6 +137,42 @@ That combination keeps the store easy to teach and easy to use.
 
 ---
 
+## Step 1 - Why `_App.js` Is the Composition Root
+
+The store no longer lives in a separate setup module.
+Instead, `components/App/_App.js` owns the full startup path:
+
+- read and normalize persisted state
+- create `store` and `tickState`
+- listen to `store:change`
+- mount the UI and sync document preferences
+
+The state barrel is now only an API surface.
+The actual behaviors are split into tiny helper modules:
+
+- `src/scripts/helpers/actions/` contains one file per write operation
+- `src/scripts/helpers/computed/` contains one file per derived signal
+- `_App.js` is the one place that wires state changes to rendering
+
+```js
+const initialState = readInitialState();
+
+export const store = new Store(initialState);
+export const tickState = new Signal.State(0, { equals: () => false });
+
+window.addEventListener('store:change', handleStoreChange);
+
+export function mountApp(target = document.body) {
+  root = resolveMountNode(target);
+  root.dataset.appRoot = 'true';
+  // Effects and rendering are attached here.
+}
+```
+
+That keeps the reactive loop easy to trace because setup and mount live together.
+
+---
+
 ## Step 2 - Add Signals
 
 The store answers one question:
@@ -270,6 +306,8 @@ The app does not create one signal per field.
 Instead, it uses the store as the main source of truth and one shared tick signal as the invalidation bridge.
 
 ```js
+const initialState = readInitialState();
+export const store = new Store(initialState);
 export const tickState = new Signal.State(0, { equals: () => false });
 
 function handleStoreChange(event) {
@@ -277,21 +315,18 @@ function handleStoreChange(event) {
   tickState.set(performance.now());
 }
 
+window.addEventListener('store:change', handleStoreChange);
+
 export const visibleTodos = new Signal.Computed(() => {
   tickState.get();
   return pipelineTodos(store.state.todos, store.state.filters, store.state.preferences.language);
-});
-
-effect(() => {
-  tickState.get();
-  render(App(), root);
 });
 ```
 
 This is the bridge:
 
 - the store emits a change
-- `state/_store-setup.js` bumps `tickState`
+- `components/App/_App.js` persists the snapshot and bumps `tickState`
 - computed views and render effects wake up
 
 ---
@@ -506,14 +541,28 @@ export function render(result, container) {
 Usage in the app bootstrap:
 
 ```js
-effect(() => {
-  tickState.get();
-  render(App(), root);
-});
+export function mountApp(target = document.body) {
+  root = resolveMountNode(target);
+  root.dataset.appRoot = 'true';
+
+  effect(() => {
+    tickState.get();
+    syncDocumentPreferences();
+  });
+
+  effect(() => {
+    tickState.get();
+    render(App(), root);
+    scheduleAppShellSizeSync();
+  });
+
+  tickState.set(performance.now());
+}
 ```
 
-So the app does not recreate the mount strategy on every render.
-It only pushes a new template result into the same root part.
+So the mount strategy now lives in the same module that owns store setup.
+`render()` still reuses the same root part forever.
+It only pushes a new template result into the same container boundary.
 
 ---
 
@@ -664,7 +713,8 @@ That is enough for this app:
 ## Step 5 - Compose Everything as Plain Functions
 
 Now the UI can stay extremely small.
-Each component is just a function that imports services and returns `html`.
+Each leaf component is still just a function that imports services and returns `html`.
+The difference is that `components/App/_App.js` now acts as the composition root for the whole app.
 
 ```js
 export function App() {
@@ -675,6 +725,16 @@ export function App() {
     <aside data-slot="debug-sidebar">${DebugPanel()}</aside>
     ${TodoModal()} ${CategoryModal()}
   `;
+}
+
+export function mountApp(target = document.body) {
+  root = resolveMountNode(target);
+  root.dataset.appRoot = 'true';
+
+  effect(() => {
+    tickState.get();
+    render(App(), root);
+  });
 }
 
 export function TodoList() {
@@ -700,6 +760,12 @@ This feels like functional components because each unit:
 - returns a template
 - composes other functions
 
+And the app still stays understandable because responsibilities are split clearly:
+
+- `App()` describes the shell
+- `mountApp()` wires the shell to the DOM
+- helper modules expose one action or one computed signal at a time
+
 No class component is needed.
 No framework runtime is needed.
 
@@ -712,7 +778,7 @@ Here is the whole pipeline in one sequence.
 1. The user types into a field.
 2. `model(...)` captures the event and writes into the store.
 3. The store emits `store:change`.
-4. `state/_store-setup.js` persists the snapshot and bumps `tickState`.
+4. `components/App/_App.js` persists the snapshot and bumps `tickState`.
 5. Computed signals become dirty.
 6. Effects rerun and call `render(...)` again.
 7. Template parts update only the exact DOM zones that changed.
@@ -732,5 +798,6 @@ It is a pipeline of small ideas.
 - The template engine turns updates into an ergonomic authoring model.
 - i18n provides the words.
 - Plain functions compose the final UI.
+- `_App.js` is the composition root that connects setup, mount, and rendering.
 
 That is how this project builds a reactive app without a framework.

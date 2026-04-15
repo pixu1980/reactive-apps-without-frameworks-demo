@@ -1,1 +1,2 @@
-export { App } from "./_App.js";
+export { App, mountApp } from "./_App.js";
+export { root, store, tickState } from "./_App.state.js";

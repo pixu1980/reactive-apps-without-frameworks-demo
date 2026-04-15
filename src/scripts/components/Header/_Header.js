@@ -2,18 +2,18 @@ import "./_Header.css";
 
 import { html } from "@/core/index.js";
 import {
+  openCategoryModal,
+  openTodoModal,
+  resetDemo,
+} from "@/helpers/actions/index.js";
+import {
   colorSchemeOptions,
   languageOptions,
   storeModel,
   themeOptions,
 } from "@/helpers/index.js";
+import { store } from "@/helpers/shared/index.js";
 import { t } from "@/i18n/index.js";
-import {
-  openCategoryModal,
-  openTodoModal,
-  resetDemo,
-  store,
-} from "@/state/index.js";
 
 /**
  * Renders the hero header and top level demo actions.

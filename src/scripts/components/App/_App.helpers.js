@@ -1,36 +1,21 @@
-import { Signal, Store } from "@/core/index.js";
 import { createSeedData } from "@/data/index.js";
 import { formatDebugTime, t } from "@/i18n/index.js";
+import {
+  legacyThemeMap,
+  MAX_DEBUG_LOG_ENTRIES,
+  STORAGE_KEY,
+  supportedThemes,
+} from "./_App.constants.js";
 
-/** @typedef {import("../data/_data.js").DebugLogEntry} DebugLogEntry */
-/** @typedef {import("../data/_data.js").DemoState} DemoState */
-
-const STORAGE_KEY = "reactive-apps-without-frameworks-demo-state-v1";
-const MAX_DEBUG_LOG_ENTRIES = 30;
-
-const supportedThemes = new Set([
-  "studio",
-  "atelier",
-  "cabinet",
-  "grove",
-  "signal",
-  "nocturne",
-]);
-
-const legacyThemeMap = {
-  amber: "studio",
-  cyberpunk: "signal",
-  wood: "cabinet",
-  sage: "grove",
-  rose: "atelier",
-};
+/** @typedef {import("@/data/_data.js").DebugLogEntry} DebugLogEntry */
+/** @typedef {import("@/data/_data.js").DemoState} DemoState */
 
 /**
  * Returns true when the provided value can be spread as a plain record.
  * @param {unknown} value
  * @returns {value is Record<string, unknown>}
  */
-function isRecord(value) {
+export function isRecord(value) {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
@@ -40,7 +25,7 @@ function isRecord(value) {
  * @param {string} fallback
  * @returns {string}
  */
-function normalizeTheme(value, fallback) {
+export function normalizeTheme(value, fallback) {
   if (typeof value !== "string") {
     return fallback;
   }
@@ -55,7 +40,7 @@ function normalizeTheme(value, fallback) {
  * @param {unknown} savedState
  * @returns {DemoState}
  */
-function normalizeState(savedState) {
+export function normalizeState(savedState) {
   const seed = createSeedData();
 
   if (!isRecord(savedState)) {
@@ -65,13 +50,11 @@ function normalizeState(savedState) {
   const draft = isRecord(savedState.draft) ? savedState.draft : {};
   const filters = isRecord(savedState.filters) ? savedState.filters : {};
   const debug = isRecord(savedState.debug) ? savedState.debug : {};
-
   const preferences = isRecord(savedState.preferences)
     ? savedState.preferences
     : {};
 
   const { colorTheme: legacyTheme, ...restPreferences } = preferences;
-
   const theme = normalizeTheme(
     restPreferences.theme ?? legacyTheme,
     seed.preferences.theme,
@@ -107,18 +90,10 @@ function normalizeState(savedState) {
 }
 
 /**
- * Shape emitted by the proxy store on every mutation.
- * @typedef {object} StoreChangeDetail
- * @property {string} path
- * @property {unknown} oldValue
- * @property {unknown} newValue
- */
-
-/**
  * Reads the persisted state when available and falls back to the seed data on malformed payloads.
  * @returns {DemoState}
  */
-function readInitialState() {
+export function readInitialState() {
   const saved = localStorage.getItem(STORAGE_KEY);
 
   if (!saved) {
@@ -132,25 +107,21 @@ function readInitialState() {
   }
 }
 
-const initialState = readInitialState();
-
-export const store = new Store(initialState);
-
-localStorage.setItem(STORAGE_KEY, JSON.stringify(initialState));
-
 /**
- * Signal bumped after each committed mutation to refresh model bindings and computed views.
+ * Shape emitted by the proxy store on every mutation.
+ * @typedef {object} StoreChangeDetail
+ * @property {string} path
+ * @property {unknown} oldValue
+ * @property {unknown} newValue
  */
-export const tickState = new Signal.State(0, { equals: () => false });
-
-let isWritingDebugLog = false;
 
 /**
  * Appends the latest store mutation to the debug panel.
  * @param {StoreChangeDetail} detail
+ * @param {{ state: DemoState }} store
  * @returns {void}
  */
-function appendDebugLog(detail) {
+export function appendDebugLog(detail, store) {
   /** @type {DebugLogEntry[]} */
   const nextLogs = [
     {
@@ -166,9 +137,10 @@ function appendDebugLog(detail) {
 
 /**
  * Persists a serializable snapshot after each successful mutation.
+ * @param {{ snapshot: () => DemoState }} store
  * @returns {void}
  */
-function persistState() {
+export function persistState(store) {
   const snapshot = store.snapshot();
   localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot));
 }
@@ -176,36 +148,40 @@ function persistState() {
 /**
  * Synchronizes persistence, debug logging, and view invalidation after store writes.
  * @param {CustomEvent<StoreChangeDetail>} event
+ * @param {{
+ *   store: { state: DemoState, snapshot: () => DemoState },
+ *   tickState: { set: (value: number) => void },
+ *   getIsWritingDebugLog: () => boolean,
+ *   setIsWritingDebugLog: (value: boolean) => void,
+ * }} context
  * @returns {void}
  */
-function handleStoreChange(event) {
-  // The debug panel writes back into the same store, so nested debug events are ignored.
-  if (isWritingDebugLog) {
+export function handleStoreChange(event, context) {
+  if (context.getIsWritingDebugLog()) {
     return;
   }
 
-  if (!store.state.debug.paused && event.detail.path !== "debug.logs") {
-    isWritingDebugLog = true;
+  if (!context.store.state.debug.paused && event.detail.path !== "debug.logs") {
+    context.setIsWritingDebugLog(true);
 
     try {
-      appendDebugLog(event.detail);
+      appendDebugLog(event.detail, context.store);
     } finally {
-      isWritingDebugLog = false;
+      context.setIsWritingDebugLog(false);
     }
   }
 
-  persistState();
-  tickState.set(performance.now());
+  persistState(context.store);
+  context.tickState.set(performance.now());
 }
-
-window.addEventListener("store:change", handleStoreChange);
 
 /**
  * Resolves an application mount node from an element or selector.
  * @param {HTMLElement | string | null | undefined} [target=document.body]
+ * @param {string} language
  * @returns {HTMLElement}
  */
-function resolveMountNode(target = document.body) {
+export function resolveMountNode(target = document.body, language) {
   if (typeof target === "string") {
     const node = document.querySelector(target);
 
@@ -213,18 +189,71 @@ function resolveMountNode(target = document.body) {
       return node;
     }
 
-    throw new Error(t(store.state.preferences.language, "errors.missingMount"));
+    throw new Error(t(language, "errors.missingMount"));
   }
 
   if (target instanceof HTMLElement) {
     return target;
   }
 
-  throw new Error(t(store.state.preferences.language, "errors.missingMount"));
+  throw new Error(t(language, "errors.missingMount"));
 }
 
 /**
- * Root node used by the template renderer.
- * @type {HTMLElement}
+ * Mirrors persisted UI preferences onto the document element so CSS can react to them.
+ * @param {{ state: DemoState }} store
+ * @returns {void}
  */
-export const root = resolveMountNode(document.body);
+export function syncDocumentPreferences(store) {
+  const { colorScheme, theme, language } = store.state.preferences;
+
+  document.documentElement.dataset.colorScheme = colorScheme;
+  document.documentElement.dataset.theme = theme;
+  document.documentElement.dataset.language = language;
+  document.documentElement.lang = language;
+}
+
+/**
+ * Measures the main workspace and mirrors its height onto the mount node.
+ * @param {{
+ *   root: HTMLElement,
+ *   observedAppShell: HTMLElement | null,
+ *   setObservedAppShell: (value: HTMLElement | null) => void,
+ *   appShellResizeObserver: ResizeObserver,
+ * }} context
+ * @returns {void}
+ */
+export function syncAppShellSize(context) {
+  const appShell = context.root.querySelector('[data-component="app-shell"]');
+
+  if (!(appShell instanceof HTMLElement)) {
+    context.root.style.removeProperty("--app-main-block-size");
+
+    return;
+  }
+
+  if (context.observedAppShell !== appShell) {
+    if (context.observedAppShell instanceof HTMLElement) {
+      context.appShellResizeObserver.unobserve(context.observedAppShell);
+    }
+
+    context.setObservedAppShell(appShell);
+    context.appShellResizeObserver.observe(appShell);
+  }
+
+  context.root.style.setProperty(
+    "--app-main-block-size",
+    `${Math.ceil(appShell.getBoundingClientRect().height)}px`,
+  );
+}
+
+/**
+ * Schedules a post-render workspace measurement.
+ * @param {() => void} callback
+ * @returns {void}
+ */
+export function scheduleAppShellSizeSync(callback) {
+  requestAnimationFrame(() => {
+    callback();
+  });
+}

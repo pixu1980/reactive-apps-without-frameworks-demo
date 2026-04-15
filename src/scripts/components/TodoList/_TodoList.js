@@ -2,8 +2,9 @@ import "./_TodoList.css";
 
 import { TodoItem } from "@/components/TodoItem/index.js";
 import { html, repeat } from "@/core/index.js";
+import { visibleLabel, visibleTodos } from "@/helpers/computed/index.js";
+import { store } from "@/helpers/shared/index.js";
 import { t } from "@/i18n/index.js";
-import { store, visibleLabel, visibleTodos } from "@/state/index.js";
 
 /**
  * Renders the central todo list and its live visibility label.

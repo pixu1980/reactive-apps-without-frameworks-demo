@@ -9,17 +9,9 @@ import {
   statusOptions,
   storeModel,
 } from "@/helpers/index.js";
+import { store } from "@/helpers/shared/index.js";
 import { t } from "@/i18n/index.js";
-import { store } from "@/state/index.js";
-
-/**
- * Prevents the filter form from submitting when Enter is pressed.
- * @param {SubmitEvent} event
- * @returns {void}
- */
-function handleFiltersSubmit(event) {
-  event.preventDefault();
-}
+import { handleFiltersSubmit } from "./_Filters.helpers.js";
 
 /**
  * Renders the filter and sorting controls that drive the visible list pipeline.

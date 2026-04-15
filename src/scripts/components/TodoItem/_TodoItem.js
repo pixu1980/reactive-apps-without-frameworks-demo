@@ -1,9 +1,10 @@
 import "./_TodoItem.css";
 
 import { html } from "@/core/index.js";
+import { removeTodo } from "@/helpers/actions/index.js";
 import { categorySelect, priorityOptions, todoModel } from "@/helpers/index.js";
+import { store } from "@/helpers/shared/index.js";
 import { optionLabel, t } from "@/i18n/index.js";
-import { removeTodo, store } from "@/state/index.js";
 
 /** @typedef {import("../../data/_data.js").TodoItem} TodoItem */
 

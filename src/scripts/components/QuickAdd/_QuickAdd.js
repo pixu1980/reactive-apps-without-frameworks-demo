@@ -6,18 +6,9 @@ import {
   priorityOptions,
   storeModel,
 } from "@/helpers/index.js";
+import { store } from "@/helpers/shared/index.js";
 import { t } from "@/i18n/index.js";
-import { addTodo, store } from "@/state/index.js";
-
-/**
- * Handles submit from the quick add form.
- * @param {SubmitEvent} event
- * @returns {void}
- */
-function handleQuickAddSubmit(event) {
-  event.preventDefault();
-  addTodo();
-}
+import { handleQuickAddSubmit } from "./_QuickAdd.helpers.js";
 
 /**
  * Renders the quick add form bound to the draft store state.

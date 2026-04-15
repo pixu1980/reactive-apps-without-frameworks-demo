@@ -1,38 +1,15 @@
 import "./_CategoryModal.css";
 
 import { html } from "@/core/index.js";
+import { closeCategoryModal } from "@/helpers/actions/index.js";
 import { storeModel } from "@/helpers/index.js";
+import { store } from "@/helpers/shared/index.js";
 import { t } from "@/i18n/index.js";
-import { addCategory, closeCategoryModal, store } from "@/state/index.js";
-
-/**
- * Handles submit from the category modal form.
- * @param {SubmitEvent} event
- * @returns {void}
- */
-function handleCategorySubmit(event) {
-  event.preventDefault();
-  addCategory();
-}
-
-/**
- * Closes the modal when the user cancels the native dialog.
- * @param {Event} event
- * @returns {void}
- */
-function handleModalCancel(event) {
-  event.preventDefault();
-  closeCategoryModal();
-}
-
-/**
- * Closes the modal when the overlay itself is clicked.
- * @param {MouseEvent} event
- * @returns {void}
- */
-function handleBackdropClick(event) {
-  event.target === event.currentTarget && closeCategoryModal();
-}
+import {
+  handleBackdropClick,
+  handleCategorySubmit,
+  handleModalCancel,
+} from "./_CategoryModal.helpers.js";
 
 /**
  * Renders the modal used to create a new category without relying on prompt().

@@ -1,16 +1,16 @@
 import "./_BulkActions.css";
 
 import { html } from "@/core/index.js";
-import { t } from "@/i18n/index.js";
 import {
   clearSelection,
   deleteCompleted,
   deleteSelected,
   selectAllVisible,
-  store,
   toggleAllSelected,
-  visibleTodos,
-} from "@/state/index.js";
+} from "@/helpers/actions/index.js";
+import { visibleTodos } from "@/helpers/computed/index.js";
+import { store } from "@/helpers/shared/index.js";
+import { t } from "@/i18n/index.js";
 
 /**
  * Renders the bulk action controls operating on the current selection.

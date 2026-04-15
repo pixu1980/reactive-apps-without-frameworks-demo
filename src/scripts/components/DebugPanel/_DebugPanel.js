@@ -2,9 +2,10 @@ import "./_DebugPanel.css";
 
 import { DebugLogEntry } from "@/components/DebugLogEntry/index.js";
 import { html, repeat } from "@/core/index.js";
+import { debugLogs } from "@/helpers/computed/index.js";
 import { storeModel } from "@/helpers/index.js";
+import { store } from "@/helpers/shared/index.js";
 import { t } from "@/i18n/index.js";
-import { debugLogs, store } from "@/state/index.js";
 
 /**
  * Renders the live store:change log panel.

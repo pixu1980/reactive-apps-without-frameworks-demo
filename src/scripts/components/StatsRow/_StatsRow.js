@@ -1,16 +1,16 @@
 import "./_StatsRow.css";
 
 import { html } from "@/core/index.js";
-import { statCard } from "@/helpers/index.js";
-import { t } from "@/i18n/index.js";
 import {
   completedCount,
   openCount,
   selectedCount,
-  store,
   totalCount,
   visibleCount,
-} from "@/state/index.js";
+} from "@/helpers/computed/index.js";
+import { statCard } from "@/helpers/index.js";
+import { store } from "@/helpers/shared/index.js";
+import { t } from "@/i18n/index.js";
 
 /**
  * Renders the summary stat cards above the workspace grid.

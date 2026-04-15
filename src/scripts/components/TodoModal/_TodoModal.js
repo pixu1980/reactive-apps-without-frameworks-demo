@@ -1,42 +1,19 @@
 import "./_TodoModal.css";
 
 import { html } from "@/core/index.js";
+import { closeTodoModal } from "@/helpers/actions/index.js";
 import {
   categorySelect,
   priorityOptions,
   storeModel,
 } from "@/helpers/index.js";
+import { store } from "@/helpers/shared/index.js";
 import { t } from "@/i18n/index.js";
-import { addTodo, closeTodoModal, store } from "@/state/index.js";
-
-/**
- * Handles submit from the todo modal form.
- * @param {SubmitEvent} event
- * @returns {void}
- */
-function handleTodoSubmit(event) {
-  event.preventDefault();
-  addTodo();
-}
-
-/**
- * Closes the modal when the user cancels the native dialog.
- * @param {Event} event
- * @returns {void}
- */
-function handleModalCancel(event) {
-  event.preventDefault();
-  closeTodoModal();
-}
-
-/**
- * Closes the modal when the overlay itself is clicked.
- * @param {MouseEvent} event
- * @returns {void}
- */
-function handleBackdropClick(event) {
-  event.target === event.currentTarget && closeTodoModal();
-}
+import {
+  handleBackdropClick,
+  handleModalCancel,
+  handleTodoSubmit,
+} from "./_TodoModal.helpers.js";
 
 /**
  * Renders the modal used to create a new todo from the shared draft state.
