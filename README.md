@@ -9,10 +9,8 @@ The app is intentionally framework free and ships only with Parcel as a build de
 ```bash
 pnpm install
 pnpm start
-pnpm run build
+pnpm build
 ```
-
-`pnpm run build` now generates Brotli sidecar assets in `dist` for compressible text files.
 
 ## GitHub Pages
 
@@ -26,6 +24,8 @@ Expected production URL:
 https://pixu1980.github.io/reactive-apps-without-frameworks-demo/
 ```
 
-## Talk Integration
+## Under the Hood Docs
 
-The talk deck no longer embeds the app in an iframe. It links to this standalone demo in a new tab so the exact same experience can be explored outside the slides.
+Short walkthrough notes for the runtime live in `docs`.
+
+- `implementation-journey.md` combines the whole story into one slide-friendly markdown file.

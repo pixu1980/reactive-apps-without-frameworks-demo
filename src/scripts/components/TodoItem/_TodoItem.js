@@ -14,10 +14,11 @@ import { removeTodo, store } from "@/state/index.js";
  */
 export function TodoItem(todo) {
   const language = store.state.preferences.language;
+  const isDone = todo.completed;
 
   return html`
     <li data-component="todo-entry">
-      <article data-component="todo-item" data-priority=${todo.priority} data-state=${todo.completed ? "done" : "open"}>
+      <article data-component="todo-item" data-priority=${todo.priority} data-state=${isDone ? "done" : "open"}>
         <header data-slot="header">
           <label data-control-group="checkline" data-slot="selection-toggle">
             <input
@@ -39,29 +40,34 @@ export function TodoItem(todo) {
             />
             <span>${t(language, "labels.done")}</span>
           </label>
-          <input aria-label=${t(language, "fields.title")} data-slot="title" model=${todoModel(todo.id, "title")} />
+          <input aria-label=${t(language, "fields.title")} aria-readonly=${String(isDone)} data-slot="title" model=${todoModel(todo.id, "title")} readonly=${isDone} />
         </header>
 
         <section data-slot="meta">
           <label data-field>
             <span>${t(language, "fields.category")}</span>
-            ${categorySelect(todoModel(todo.id, "category", { event: "change" }))}
+            ${categorySelect(
+              todoModel(todo.id, "category", { event: "change" }),
+              {
+                disabled: isDone,
+              },
+            )}
           </label>
           <label data-field>
             <span>${t(language, "fields.priority")}</span>
-            <select model=${todoModel(todo.id, "priority", { event: "change" })}>
+            <select aria-disabled=${String(isDone)} disabled=${isDone} model=${todoModel(todo.id, "priority", { event: "change" })}>
               ${priorityOptions()}
             </select>
           </label>
           <label data-field>
             <span>${t(language, "fields.dueDate")}</span>
-            <input model=${todoModel(todo.id, "dueDate", { event: "change" })} type="date" />
+            <input aria-disabled=${String(isDone)} disabled=${isDone} model=${todoModel(todo.id, "dueDate", { event: "change" })} type="date" />
           </label>
         </section>
 
         <label data-field data-slot="notes">
           <span>${t(language, "fields.notes")}</span>
-          <textarea model=${todoModel(todo.id, "notes")} rows="2"></textarea>
+          <textarea aria-readonly=${String(isDone)} model=${todoModel(todo.id, "notes")} readonly=${isDone} rows="2"></textarea>
         </label>
 
         <footer data-slot="footer">

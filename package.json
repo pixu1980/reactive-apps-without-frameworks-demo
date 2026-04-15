@@ -7,11 +7,13 @@
     "@/*": "./src/scripts/$1"
   },
   "scripts": {
+    "deps": "pnpm up -r --latest",
+    "deps:push": "git add . && git commit -m \"build(deps): bumped external dependencies\" && git push",
     "clear:cache": "rm -rf .parcel-cache",
     "clear:dist": "rm -rf dist",
     "clear": "pnpm run clear:dist && pnpm run clear:cache",
-    "prestart": "pnpm run clear",
-    "start": "parcel src/index.html -p 6002",
+    "predev": "pnpm run clear",
+    "dev": "parcel src/index.html -p 6002",
     "prebuild": "pnpm run clear",
     "build:parcel": "parcel build src/index.html --no-source-maps --dist-dir dist --public-url ./",
     "build:brotli": "node ./scripts/compress-brotli.mjs dist",
@@ -28,12 +30,12 @@
     "lint": "pnpm run lint:prettier && pnpm run lint:biome"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.10",
+    "@biomejs/biome": "2.4.12",
     "@parcel/transformer-inline-string": "2.16.4",
-    "@swc/core": "1.15.21",
-    "baseline-browser-mapping": "2.10.13",
+    "@swc/core": "1.15.26",
+    "baseline-browser-mapping": "2.10.19",
     "lightningcss": "1.32.0",
-    "prettier": "3.8.1",
-    "parcel": "2.16.4"
+    "parcel": "2.16.4",
+    "prettier": "3.8.3"
   }
 }

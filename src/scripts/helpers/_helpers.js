@@ -11,6 +11,7 @@ import {
 /** @typedef {import("../data/_data.js").TodoItem} TodoItem */
 /** @typedef {Parameters<typeof model>[0]} ModelConfig */
 /** @typedef {{ value: string, label: string }} NamedOption */
+/** @typedef {{ disabled?: boolean }} CategorySelectOptions */
 
 const colorSchemeValues = ["system", "light", "dark"];
 const themeValues = [
@@ -224,11 +225,12 @@ export function categoryFilterOptions() {
 /**
  * Renders a category select bound to a model directive.
  * @param {ReturnType<typeof model>} modelDirective
+ * @param {CategorySelectOptions} [options={}]
  * @returns {ReturnType<typeof html>}
  */
-export function categorySelect(modelDirective) {
+export function categorySelect(modelDirective, options = {}) {
   return html`
-    <select model=${modelDirective}>
+    <select disabled=${options.disabled} model=${modelDirective}>
       ${categoryChoiceOptions()}
     </select>
   `;

@@ -40,21 +40,16 @@
     --layout-shell-max-inline-size: 96rem;
     --z-index-base: 0;
     --z-index-focus: 2;
-    --shadow-soft:
-      0 0 0 1px rgba(48, 39, 32, 0.06), 0 0.5rem 1.5rem rgba(48, 39, 32, 0.08);
-    --shadow-medium:
-      0 0 0 1px rgba(48, 39, 32, 0.08), 0 1rem 2rem rgba(48, 39, 32, 0.12);
-    --shadow-strong:
-      0 0 0 1px rgba(48, 39, 32, 0.1), 0 1.5rem 3rem rgba(48, 39, 32, 0.18);
+    --shadow-soft: 0 0 0 1px rgba(48, 39, 32, 0.06), 0 0.5rem 1.5rem rgba(48, 39, 32, 0.08);
+    --shadow-medium: 0 0 0 1px rgba(48, 39, 32, 0.08), 0 1rem 2rem rgba(48, 39, 32, 0.12);
+    --shadow-strong: 0 0 0 1px rgba(48, 39, 32, 0.1), 0 1.5rem 3rem rgba(48, 39, 32, 0.18);
     --shadow-focus: 0 0 0 var(--outline-width) var(--color-focus);
   }
 }
 
 @layer typography {
   :root {
-    --font-family-base:
-      "Avenir Next", Inter, ui-sans-serif, system-ui, -apple-system,
-      BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-family-base: 'Avenir Next', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-size-2xs: 0.75rem;
     --font-size-xs: 0.8125rem;
     --font-size-sm: 0.9375rem;
@@ -78,18 +73,13 @@
 
 @layer themes {
   :root,
-  :root[data-theme="studio"] {
-    --font-family-base:
-      "Avenir Next", "Gill Sans", Inter, ui-sans-serif, system-ui,
-      -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  :root[data-theme='studio'] {
+    --font-family-base: 'Avenir Next', 'Gill Sans', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --radius-interactive: 1rem;
     --radius-card: 1.5rem;
-    --shadow-soft:
-      0 0 0 1px rgba(70, 52, 38, 0.06), 0 0.5rem 1.5rem rgba(70, 52, 38, 0.08);
-    --shadow-medium:
-      0 0 0 1px rgba(70, 52, 38, 0.08), 0 1rem 2rem rgba(70, 52, 38, 0.12);
-    --shadow-strong:
-      0 0 0 1px rgba(70, 52, 38, 0.1), 0 1.5rem 3rem rgba(70, 52, 38, 0.18);
+    --shadow-soft: 0 0 0 1px rgba(70, 52, 38, 0.06), 0 0.5rem 1.5rem rgba(70, 52, 38, 0.08);
+    --shadow-medium: 0 0 0 1px rgba(70, 52, 38, 0.08), 0 1rem 2rem rgba(70, 52, 38, 0.12);
+    --shadow-strong: 0 0 0 1px rgba(70, 52, 38, 0.1), 0 1.5rem 3rem rgba(70, 52, 38, 0.18);
     --theme-accent: #c99e66;
     --theme-accent-strong: #ac7f4a;
     --theme-focus: #8f6838;
@@ -104,22 +94,18 @@
     --theme-paper-dark: #342d28;
     --theme-ink-dark: #f4ece1;
     --theme-border-dark: #8c7d72;
-    --theme-success-dark: #8daf8b;
-    --theme-warning-dark: #cab076;
-    --theme-danger-dark: #cc98a2;
+    --theme-success-dark: #52be4d;
+    --theme-warning-dark: #dcb321;
+    --theme-danger-dark: #cb2e2e;
   }
 
-  :root[data-theme="atelier"] {
-    --font-family-base:
-      "Avenir Next", Baskerville, "Segoe UI", ui-sans-serif, sans-serif;
+  :root[data-theme='atelier'] {
+    --font-family-base: 'Avenir Next', Baskerville, 'Segoe UI', ui-sans-serif, sans-serif;
     --radius-interactive: 1.15rem;
     --radius-card: 1.9rem;
-    --shadow-soft:
-      0 0 0 1px rgba(114, 72, 88, 0.08), 0 0.5rem 1.5rem rgba(114, 72, 88, 0.12);
-    --shadow-medium:
-      0 0 0 1px rgba(114, 72, 88, 0.12), 0 1rem 2rem rgba(114, 72, 88, 0.18);
-    --shadow-strong:
-      0 0 0 1px rgba(114, 72, 88, 0.16), 0 1.5rem 3rem rgba(114, 72, 88, 0.24);
+    --shadow-soft: 0 0 0 1px rgba(114, 72, 88, 0.08), 0 0.5rem 1.5rem rgba(114, 72, 88, 0.12);
+    --shadow-medium: 0 0 0 1px rgba(114, 72, 88, 0.12), 0 1rem 2rem rgba(114, 72, 88, 0.18);
+    --shadow-strong: 0 0 0 1px rgba(114, 72, 88, 0.16), 0 1.5rem 3rem rgba(114, 72, 88, 0.24);
     --theme-accent: #d0a4b4;
     --theme-accent-strong: #ab7689;
     --theme-focus: #8f5c70;
@@ -134,22 +120,18 @@
     --theme-paper-dark: #34252c;
     --theme-ink-dark: #f7e9ef;
     --theme-border-dark: #8f6875;
-    --theme-success-dark: #7e997c;
-    --theme-warning-dark: #b6945c;
-    --theme-danger-dark: #c0728d;
+    --theme-success-dark: #52be4d;
+    --theme-warning-dark: #dcb321;
+    --theme-danger-dark: #cb2e2e;
   }
 
-  :root[data-theme="cabinet"] {
-    --font-family-base:
-      "Palatino Linotype", "Book Antiqua", Georgia, "Times New Roman", serif;
+  :root[data-theme='cabinet'] {
+    --font-family-base: 'Palatino Linotype', 'Book Antiqua', Georgia, 'Times New Roman', serif;
     --radius-interactive: 0.9rem;
     --radius-card: 1.35rem;
-    --shadow-soft:
-      0 0 0 1px rgba(84, 55, 36, 0.08), 0 0.5rem 1.5rem rgba(84, 55, 36, 0.12);
-    --shadow-medium:
-      0 0 0 1px rgba(84, 55, 36, 0.12), 0 1rem 2rem rgba(84, 55, 36, 0.18);
-    --shadow-strong:
-      0 0 0 1px rgba(84, 55, 36, 0.16), 0 1.5rem 3rem rgba(84, 55, 36, 0.24);
+    --shadow-soft: 0 0 0 1px rgba(84, 55, 36, 0.08), 0 0.5rem 1.5rem rgba(84, 55, 36, 0.12);
+    --shadow-medium: 0 0 0 1px rgba(84, 55, 36, 0.12), 0 1rem 2rem rgba(84, 55, 36, 0.18);
+    --shadow-strong: 0 0 0 1px rgba(84, 55, 36, 0.16), 0 1.5rem 3rem rgba(84, 55, 36, 0.24);
     --theme-accent: #bc9374;
     --theme-accent-strong: #8f6548;
     --theme-focus: #724d36;
@@ -164,22 +146,18 @@
     --theme-paper-dark: #30231d;
     --theme-ink-dark: #f4e2d2;
     --theme-border-dark: #7e5c48;
-    --theme-success-dark: #7f9770;
-    --theme-warning-dark: #b58b51;
-    --theme-danger-dark: #a86d62;
+    --theme-success-dark: #52be4d;
+    --theme-warning-dark: #dcb321;
+    --theme-danger-dark: #cb2e2e;
   }
 
-  :root[data-theme="grove"] {
-    --font-family-base:
-      Optima, Candara, "Avenir Next", "Segoe UI", ui-sans-serif, sans-serif;
+  :root[data-theme='grove'] {
+    --font-family-base: Optima, Candara, 'Avenir Next', 'Segoe UI', ui-sans-serif, sans-serif;
     --radius-interactive: 1.1rem;
     --radius-card: 1.75rem;
-    --shadow-soft:
-      0 0 0 1px rgba(62, 92, 68, 0.08), 0 0.5rem 1.5rem rgba(62, 92, 68, 0.12);
-    --shadow-medium:
-      0 0 0 1px rgba(62, 92, 68, 0.12), 0 1rem 2rem rgba(62, 92, 68, 0.18);
-    --shadow-strong:
-      0 0 0 1px rgba(62, 92, 68, 0.16), 0 1.5rem 3rem rgba(62, 92, 68, 0.24);
+    --shadow-soft: 0 0 0 1px rgba(62, 92, 68, 0.08), 0 0.5rem 1.5rem rgba(62, 92, 68, 0.12);
+    --shadow-medium: 0 0 0 1px rgba(62, 92, 68, 0.12), 0 1rem 2rem rgba(62, 92, 68, 0.18);
+    --shadow-strong: 0 0 0 1px rgba(62, 92, 68, 0.16), 0 1.5rem 3rem rgba(62, 92, 68, 0.24);
     --theme-accent: #9cb48f;
     --theme-accent-strong: #728968;
     --theme-focus: #596f51;
@@ -194,22 +172,18 @@
     --theme-paper-dark: #26322b;
     --theme-ink-dark: #eef3ee;
     --theme-border-dark: #647b6b;
-    --theme-success-dark: #6e9570;
-    --theme-warning-dark: #ad9955;
-    --theme-danger-dark: #a2727c;
+    --theme-success-dark: #52be4d;
+    --theme-warning-dark: #dcb321;
+    --theme-danger-dark: #cb2e2e;
   }
 
-  :root[data-theme="signal"] {
-    --font-family-base:
-      "Trebuchet MS", "Avenir Next", "Segoe UI", ui-sans-serif, sans-serif;
+  :root[data-theme='signal'] {
+    --font-family-base: 'Trebuchet MS', 'Avenir Next', 'Segoe UI', ui-sans-serif, sans-serif;
     --radius-interactive: 0.85rem;
     --radius-card: 1.25rem;
-    --shadow-soft:
-      0 0 0 1px rgba(51, 118, 164, 0.16), 0 0.5rem 1.5rem rgba(18, 46, 74, 0.24);
-    --shadow-medium:
-      0 0 0 1px rgba(51, 118, 164, 0.22), 0 1rem 2rem rgba(18, 46, 74, 0.3);
-    --shadow-strong:
-      0 0 0 1px rgba(54, 157, 201, 0.24), 0 1.5rem 3rem rgba(16, 38, 61, 0.36);
+    --shadow-soft: 0 0 0 1px rgba(51, 118, 164, 0.16), 0 0.5rem 1.5rem rgba(18, 46, 74, 0.24);
+    --shadow-medium: 0 0 0 1px rgba(51, 118, 164, 0.22), 0 1rem 2rem rgba(18, 46, 74, 0.3);
+    --shadow-strong: 0 0 0 1px rgba(54, 157, 201, 0.24), 0 1.5rem 3rem rgba(16, 38, 61, 0.36);
     --theme-accent: #65d1ff;
     --theme-accent-strong: #2ea2da;
     --theme-focus: #1588c1;
@@ -224,21 +198,18 @@
     --theme-paper-dark: #162736;
     --theme-ink-dark: #ebf9ff;
     --theme-border-dark: #467899;
-    --theme-success-dark: #4fa287;
-    --theme-warning-dark: #bb8f3c;
-    --theme-danger-dark: #c36f6f;
+    --theme-success-dark: #52be4d;
+    --theme-warning-dark: #dcb321;
+    --theme-danger-dark: #cb2e2e;
   }
 
-  :root[data-theme="nocturne"] {
-    --font-family-base: "Iowan Old Style", Georgia, "Times New Roman", serif;
+  :root[data-theme='nocturne'] {
+    --font-family-base: 'Iowan Old Style', Georgia, 'Times New Roman', serif;
     --radius-interactive: 0.95rem;
     --radius-card: 1.25rem;
-    --shadow-soft:
-      0 0 0 1px rgba(46, 63, 88, 0.12), 0 0.65rem 1.65rem rgba(13, 22, 36, 0.22);
-    --shadow-medium:
-      0 0 0 1px rgba(46, 63, 88, 0.18), 0 1rem 2rem rgba(13, 22, 36, 0.28);
-    --shadow-strong:
-      0 0 0 1px rgba(62, 83, 116, 0.22), 0 1.5rem 3rem rgba(13, 22, 36, 0.34);
+    --shadow-soft: 0 0 0 1px rgba(46, 63, 88, 0.12), 0 0.65rem 1.65rem rgba(13, 22, 36, 0.22);
+    --shadow-medium: 0 0 0 1px rgba(46, 63, 88, 0.18), 0 1rem 2rem rgba(13, 22, 36, 0.28);
+    --shadow-strong: 0 0 0 1px rgba(62, 83, 116, 0.22), 0 1.5rem 3rem rgba(13, 22, 36, 0.34);
     --theme-accent: #8cb8ff;
     --theme-accent-strong: #5c8fd9;
     --theme-focus: #3f74c2;
@@ -253,266 +224,104 @@
     --theme-paper-dark: #172130;
     --theme-ink-dark: #ecf3ff;
     --theme-border-dark: #51637f;
-    --theme-success-dark: #5c9188;
-    --theme-warning-dark: #b8924f;
-    --theme-danger-dark: #b56f7d;
+    --theme-success-dark: #52be4d;
+    --theme-warning-dark: #dcb321;
+    --theme-danger-dark: #cb2e2e;
   }
 }
 
 @layer scheme {
   :root,
-  :root[data-color-scheme="light"],
-  :root[data-color-scheme="system"] {
+  :root[data-color-scheme='light'],
+  :root[data-color-scheme='system'] {
     color-scheme: light;
+    --color-focus-base: var(--theme-focus);
     --color-canvas: var(--theme-canvas-light);
     --color-surface: color-mix(in srgb, var(--theme-paper-light) 92%, white 8%);
-    --color-surface-muted: color-mix(
-      in srgb,
-      var(--theme-paper-light) 78%,
-      var(--theme-canvas-light) 22%
-    );
-    --color-surface-raised: color-mix(
-      in srgb,
-      var(--theme-paper-light) 96%,
-      white 4%
-    );
+    --color-surface-muted: color-mix(in srgb, var(--theme-paper-light) 78%, var(--theme-canvas-light) 22%);
+    --color-surface-raised: color-mix(in srgb, var(--theme-paper-light) 96%, white 4%);
     --color-field: color-mix(in srgb, var(--theme-paper-light) 90%, white 10%);
-    --color-field-hover: color-mix(
-      in srgb,
-      var(--theme-paper-light) 84%,
-      var(--theme-accent) 16%
-    );
+    --color-field-hover: color-mix(in srgb, var(--theme-paper-light) 84%, var(--theme-accent) 16%);
     --color-text: var(--theme-ink-light);
-    --color-muted: color-mix(
-      in srgb,
-      var(--theme-ink-light) 68%,
-      var(--theme-paper-light) 32%
-    );
-    --color-muted-strong: color-mix(
-      in srgb,
-      var(--theme-ink-light) 82%,
-      var(--theme-paper-light) 18%
-    );
-    --color-border: color-mix(
-      in srgb,
-      var(--theme-border-light) 82%,
-      var(--theme-paper-light) 18%
-    );
+    --color-muted: color-mix(in srgb, var(--theme-ink-light) 68%, var(--theme-paper-light) 32%);
+    --color-muted-strong: color-mix(in srgb, var(--theme-ink-light) 82%, var(--theme-paper-light) 18%);
+    --color-border: color-mix(in srgb, var(--theme-border-light) 82%, var(--theme-paper-light) 18%);
     --color-border-strong: var(--theme-border-light);
-    --color-backdrop: color-mix(
-      in srgb,
-      var(--theme-ink-light) 28%,
-      transparent 72%
-    );
+    --color-backdrop: color-mix(in srgb, var(--theme-ink-light) 28%, transparent 72%);
     --color-success: var(--theme-success-light);
     --color-warning: var(--theme-warning-light);
     --color-danger: var(--theme-danger-light);
-    --color-success-surface: color-mix(
-      in srgb,
-      var(--theme-success-light) 24%,
-      var(--theme-paper-light) 76%
-    );
-    --color-warning-surface: color-mix(
-      in srgb,
-      var(--theme-warning-light) 24%,
-      var(--theme-paper-light) 76%
-    );
-    --color-danger-surface: color-mix(
-      in srgb,
-      var(--theme-danger-light) 22%,
-      var(--theme-paper-light) 78%
-    );
-    --color-priority-low-surface: color-mix(
-      in srgb,
-      var(--theme-success-light) 18%,
-      var(--theme-paper-light) 82%
-    );
-    --color-priority-medium-surface: color-mix(
-      in srgb,
-      var(--theme-warning-light) 18%,
-      var(--theme-paper-light) 82%
-    );
-    --color-priority-high-surface: color-mix(
-      in srgb,
-      var(--theme-danger-light) 18%,
-      var(--theme-paper-light) 82%
-    );
+    --color-success-surface: color-mix(in srgb, var(--theme-success-light) 24%, var(--theme-paper-light) 76%);
+    --color-warning-surface: color-mix(in srgb, var(--theme-warning-light) 24%, var(--theme-paper-light) 76%);
+    --color-danger-surface: color-mix(in srgb, var(--theme-danger-light) 22%, var(--theme-paper-light) 78%);
+    --color-priority-low-surface: color-mix(in srgb, var(--theme-success-light) 18%, var(--theme-paper-light) 82%);
+    --color-priority-medium-surface: color-mix(in srgb, var(--theme-warning-light) 18%, var(--theme-paper-light) 82%);
+    --color-priority-high-surface: color-mix(in srgb, var(--theme-danger-light) 18%, var(--theme-paper-light) 82%);
   }
 
-  :root[data-color-scheme="dark"] {
+  :root[data-color-scheme='dark'] {
     color-scheme: dark;
+    --color-focus-base: color-mix(in srgb, var(--theme-accent) 58%, var(--theme-ink-dark) 20%);
     --color-canvas: var(--theme-canvas-dark);
     --color-surface: var(--theme-paper-dark);
-    --color-surface-muted: color-mix(
-      in srgb,
-      var(--theme-paper-dark) 82%,
-      var(--theme-canvas-dark) 18%
-    );
-    --color-surface-raised: color-mix(
-      in srgb,
-      var(--theme-paper-dark) 86%,
-      white 14%
-    );
+    --color-surface-muted: color-mix(in srgb, var(--theme-paper-dark) 82%, var(--theme-canvas-dark) 18%);
+    --color-surface-raised: color-mix(in srgb, var(--theme-paper-dark) 86%, white 10%);
     --color-field: color-mix(in srgb, var(--theme-paper-dark) 80%, white 20%);
-    --color-field-hover: color-mix(
-      in srgb,
-      var(--theme-paper-dark) 68%,
-      var(--theme-accent) 32%
-    );
+    --color-field-hover: color-mix(in srgb, var(--theme-paper-dark) 68%, var(--theme-accent) 32%);
     --color-text: var(--theme-ink-dark);
-    --color-muted: color-mix(
-      in srgb,
-      var(--theme-ink-dark) 76%,
-      var(--theme-paper-dark) 24%
-    );
-    --color-muted-strong: color-mix(
-      in srgb,
-      var(--theme-ink-dark) 88%,
-      var(--theme-paper-dark) 12%
-    );
-    --color-border: color-mix(
-      in srgb,
-      var(--theme-border-dark) 84%,
-      var(--theme-paper-dark) 16%
-    );
+    --color-muted: color-mix(in srgb, var(--theme-ink-dark) 76%, var(--theme-paper-dark) 24%);
+    --color-muted-strong: color-mix(in srgb, var(--theme-ink-dark) 88%, var(--theme-paper-dark) 12%);
+    --color-border: color-mix(in srgb, var(--theme-border-dark) 84%, var(--theme-paper-dark) 16%);
     --color-border-strong: var(--theme-border-dark);
-    --color-backdrop: color-mix(
-      in srgb,
-      var(--theme-ink-dark) 46%,
-      transparent 54%
-    );
+    --color-backdrop: color-mix(in srgb, var(--theme-ink-dark) 46%, transparent 54%);
     --color-success: var(--theme-success-dark);
     --color-warning: var(--theme-warning-dark);
     --color-danger: var(--theme-danger-dark);
-    --color-success-surface: color-mix(
-      in srgb,
-      var(--theme-success-dark) 28%,
-      var(--theme-paper-dark) 72%
-    );
-    --color-warning-surface: color-mix(
-      in srgb,
-      var(--theme-warning-dark) 28%,
-      var(--theme-paper-dark) 72%
-    );
-    --color-danger-surface: color-mix(
-      in srgb,
-      var(--theme-danger-dark) 26%,
-      var(--theme-paper-dark) 74%
-    );
-    --color-priority-low-surface: color-mix(
-      in srgb,
-      var(--theme-success-dark) 20%,
-      var(--theme-paper-dark) 80%
-    );
-    --color-priority-medium-surface: color-mix(
-      in srgb,
-      var(--theme-warning-dark) 20%,
-      var(--theme-paper-dark) 80%
-    );
-    --color-priority-high-surface: color-mix(
-      in srgb,
-      var(--theme-danger-dark) 20%,
-      var(--theme-paper-dark) 80%
-    );
+    --color-success-surface: color-mix(in srgb, var(--theme-success-dark) 28%, var(--theme-paper-dark) 72%);
+    --color-warning-surface: color-mix(in srgb, var(--theme-warning-dark) 28%, var(--theme-paper-dark) 72%);
+    --color-danger-surface: color-mix(in srgb, var(--theme-danger-dark) 26%, var(--theme-paper-dark) 74%);
+    --color-priority-low-surface: color-mix(in srgb, var(--theme-success-dark) 20%, var(--theme-paper-dark) 80%);
+    --color-priority-medium-surface: color-mix(in srgb, var(--theme-warning-dark) 20%, var(--theme-paper-dark) 80%);
+    --color-priority-high-surface: color-mix(in srgb, var(--theme-danger-dark) 20%, var(--theme-paper-dark) 80%);
   }
 
   @media (prefers-color-scheme: dark) {
-    :root[data-color-scheme="system"] {
+    :root[data-color-scheme='system'] {
       color-scheme: dark;
+      --color-focus-base: color-mix(in srgb, var(--theme-accent) 58%, var(--theme-ink-dark) 20%);
       --color-canvas: var(--theme-canvas-dark);
       --color-surface: var(--theme-paper-dark);
-      --color-surface-muted: color-mix(
-        in srgb,
-        var(--theme-paper-dark) 82%,
-        var(--theme-canvas-dark) 18%
-      );
-      --color-surface-raised: color-mix(
-        in srgb,
-        var(--theme-paper-dark) 86%,
-        white 14%
-      );
+      --color-surface-muted: color-mix(in srgb, var(--theme-paper-dark) 82%, var(--theme-canvas-dark) 18%);
+      --color-surface-raised: color-mix(in srgb, var(--theme-paper-dark) 86%, white 10%);
       --color-field: color-mix(in srgb, var(--theme-paper-dark) 80%, white 20%);
-      --color-field-hover: color-mix(
-        in srgb,
-        var(--theme-paper-dark) 68%,
-        var(--theme-accent) 32%
-      );
+      --color-field-hover: color-mix(in srgb, var(--theme-paper-dark) 68%, var(--theme-accent) 32%);
       --color-text: var(--theme-ink-dark);
-      --color-muted: color-mix(
-        in srgb,
-        var(--theme-ink-dark) 76%,
-        var(--theme-paper-dark) 24%
-      );
-      --color-muted-strong: color-mix(
-        in srgb,
-        var(--theme-ink-dark) 88%,
-        var(--theme-paper-dark) 12%
-      );
-      --color-border: color-mix(
-        in srgb,
-        var(--theme-border-dark) 84%,
-        var(--theme-paper-dark) 16%
-      );
+      --color-muted: color-mix(in srgb, var(--theme-ink-dark) 76%, var(--theme-paper-dark) 24%);
+      --color-muted-strong: color-mix(in srgb, var(--theme-ink-dark) 88%, var(--theme-paper-dark) 12%);
+      --color-border: color-mix(in srgb, var(--theme-border-dark) 84%, var(--theme-paper-dark) 16%);
       --color-border-strong: var(--theme-border-dark);
-      --color-backdrop: color-mix(
-        in srgb,
-        var(--theme-ink-dark) 46%,
-        transparent 54%
-      );
+      --color-backdrop: color-mix(in srgb, var(--theme-ink-dark) 46%, transparent 54%);
       --color-success: var(--theme-success-dark);
       --color-warning: var(--theme-warning-dark);
       --color-danger: var(--theme-danger-dark);
-      --color-success-surface: color-mix(
-        in srgb,
-        var(--theme-success-dark) 28%,
-        var(--theme-paper-dark) 72%
-      );
-      --color-warning-surface: color-mix(
-        in srgb,
-        var(--theme-warning-dark) 28%,
-        var(--theme-paper-dark) 72%
-      );
-      --color-danger-surface: color-mix(
-        in srgb,
-        var(--theme-danger-dark) 26%,
-        var(--theme-paper-dark) 74%
-      );
-      --color-priority-low-surface: color-mix(
-        in srgb,
-        var(--theme-success-dark) 20%,
-        var(--theme-paper-dark) 80%
-      );
-      --color-priority-medium-surface: color-mix(
-        in srgb,
-        var(--theme-warning-dark) 20%,
-        var(--theme-paper-dark) 80%
-      );
-      --color-priority-high-surface: color-mix(
-        in srgb,
-        var(--theme-danger-dark) 20%,
-        var(--theme-paper-dark) 80%
-      );
+      --color-success-surface: color-mix(in srgb, var(--theme-success-dark) 28%, var(--theme-paper-dark) 72%);
+      --color-warning-surface: color-mix(in srgb, var(--theme-warning-dark) 28%, var(--theme-paper-dark) 72%);
+      --color-danger-surface: color-mix(in srgb, var(--theme-danger-dark) 26%, var(--theme-paper-dark) 74%);
+      --color-priority-low-surface: color-mix(in srgb, var(--theme-success-dark) 20%, var(--theme-paper-dark) 80%);
+      --color-priority-medium-surface: color-mix(in srgb, var(--theme-warning-dark) 20%, var(--theme-paper-dark) 80%);
+      --color-priority-high-surface: color-mix(in srgb, var(--theme-danger-dark) 20%, var(--theme-paper-dark) 80%);
     }
   }
 
   :root {
     --color-accent: var(--theme-accent);
     --color-accent-strong: var(--theme-accent-strong);
-    --color-focus: var(--theme-focus);
-    --color-accent-surface: color-mix(
-      in srgb,
-      var(--color-accent) 22%,
-      var(--color-surface) 78%
-    );
-    --color-todo-done: color-mix(
-      in srgb,
-      var(--color-accent-strong) 58%,
-      var(--color-success) 42%
-    );
-    --color-todo-done-surface: color-mix(
-      in srgb,
-      var(--color-accent-surface) 76%,
-      var(--color-success-surface) 24%
-    );
+    --color-focus: var(--color-focus-base);
+    --color-accent-surface: color-mix(in srgb, var(--color-accent) 22%, var(--color-surface) 78%);
+    --color-todo-done: color-mix(in srgb, var(--color-text) 28%, var(--color-surface) 72%);
+    --color-todo-done-surface: color-mix(in srgb, var(--color-surface-raised) 80%, var(--color-canvas) 20%);
+    --color-todo-done-field: color-mix(in srgb, var(--color-surface-muted) 74%, var(--color-canvas) 26%);
+    --color-todo-done-text: color-mix(in srgb, var(--color-text) 60%, var(--color-surface) 40%);
+    --color-todo-done-text-strong: color-mix(in srgb, var(--color-text) 72%, var(--color-surface) 28%);
   }
 }
