@@ -139,37 +139,45 @@ That combination keeps the store easy to teach and easy to use.
 
 ## Step 1 - Why `_App.js` Is the Composition Root
 
-The store no longer lives in a separate setup module.
-Instead, `components/App/_App.js` owns the full startup path:
+The startup path no longer hides behind one generic state barrel.
+Instead, the `_App` module family owns the whole bootstrap path, and `_App.js` stays the composition root that orchestrates it.
 
-- read and normalize persisted state
-- create `store` and `tickState`
-- listen to `store:change`
-- mount the UI and sync document preferences
+- `_App.state.js` reads the initial snapshot and exports `store`, `tickState`, and `root`
+- `_App.helpers.js` handles normalization, persistence, debug logging, mount resolution, and document sync
+- `_App.js` listens to `store:change`, mounts effects, and renders the shell
 
-The state barrel is now only an API surface.
-The actual behaviors are split into tiny helper modules:
+The rest of the state surface is split by responsibility too:
 
 - `src/scripts/helpers/actions/` contains one file per write operation
 - `src/scripts/helpers/computed/` contains one file per derived signal
-- `_App.js` is the one place that wires state changes to rendering
+- `src/scripts/helpers/shared/` re-exports the shared `store`, `tickState`, and `root`
 
 ```js
+// _App.state.js
 const initialState = readInitialState();
 
 export const store = new Store(initialState);
 export const tickState = new Signal.State(0, { equals: () => false });
 
-window.addEventListener('store:change', handleStoreChange);
+// _App.js
+window.addEventListener('store:change', (event) => {
+  handleStoreChange(event, {
+    store,
+    tickState,
+    getIsWritingDebugLog: () => isWritingDebugLog,
+    setIsWritingDebugLog: (value) => {
+      isWritingDebugLog = value;
+    },
+  });
+});
 
 export function mountApp(target = document.body) {
-  root = resolveMountNode(target);
+  setRoot(resolveMountNode(target, store.state.preferences.language));
   root.dataset.appRoot = 'true';
-  // Effects and rendering are attached here.
 }
 ```
 
-That keeps the reactive loop easy to trace because setup and mount live together.
+That keeps the reactive loop easy to trace because `_App.js` is still the one module that connects setup, invalidation, and rendering even though the supporting code now lives in dedicated siblings.
 
 ---
 
@@ -306,17 +314,22 @@ The app does not create one signal per field.
 Instead, it uses the store as the main source of truth and one shared tick signal as the invalidation bridge.
 
 ```js
-const initialState = readInitialState();
-export const store = new Store(initialState);
+// _App.state.js
 export const tickState = new Signal.State(0, { equals: () => false });
 
-function handleStoreChange(event) {
-  persistState();
-  tickState.set(performance.now());
-}
+// _App.js
+window.addEventListener('store:change', (event) => {
+  handleStoreChange(event, {
+    store,
+    tickState,
+    getIsWritingDebugLog: () => isWritingDebugLog,
+    setIsWritingDebugLog: (value) => {
+      isWritingDebugLog = value;
+    },
+  });
+});
 
-window.addEventListener('store:change', handleStoreChange);
-
+// helpers/computed/_visibleTodos.js
 export const visibleTodos = new Signal.Computed(() => {
   tickState.get();
   return pipelineTodos(store.state.todos, store.state.filters, store.state.preferences.language);
@@ -326,8 +339,41 @@ export const visibleTodos = new Signal.Computed(() => {
 This is the bridge:
 
 - the store emits a change
-- `components/App/_App.js` persists the snapshot and bumps `tickState`
-- computed views and render effects wake up
+- `_App.js` is the single place listening to `store:change`
+- `handleStoreChange(...)` in `_App.helpers.js` persists, updates debug state, and bumps `tickState`
+- computed views, model bindings, and render effects wake up
+
+---
+
+## Step 2 - Why `tickState` Matters
+
+`tickState` is not business data.
+It is a deliberately noisy invalidation signal.
+
+- the proxy store can change at any nested path
+- computed views and model bindings only need to know that "something changed"
+- `_App.js` is the single place that turns store events into one reactive pulse
+
+```js
+export const tickState = new Signal.State(0, { equals: () => false });
+
+window.addEventListener('store:change', (event) => {
+  handleStoreChange(event, {
+    store,
+    tickState,
+    getIsWritingDebugLog: () => isWritingDebugLog,
+    setIsWritingDebugLog: (value) => {
+      isWritingDebugLog = value;
+    },
+  });
+});
+```
+
+Why `equals: () => false`?
+
+Because `tickState` is not compared for meaning.
+It behaves like a clock edge.
+Every committed store write should wake up subscribers.
 
 ---
 
@@ -542,27 +588,42 @@ Usage in the app bootstrap:
 
 ```js
 export function mountApp(target = document.body) {
-  root = resolveMountNode(target);
+  if (isMounted) {
+    return root;
+  }
+
+  setRoot(resolveMountNode(target, store.state.preferences.language));
   root.dataset.appRoot = 'true';
 
   effect(() => {
     tickState.get();
-    syncDocumentPreferences();
+    syncDocumentPreferences(store);
   });
 
   effect(() => {
     tickState.get();
     render(App(), root);
-    scheduleAppShellSizeSync();
+    scheduleAppShellSizeSync(() => {
+      syncAppShellSize({
+        root,
+        observedAppShell,
+        setObservedAppShell: (value) => {
+          observedAppShell = value;
+        },
+        appShellResizeObserver,
+      });
+    });
   });
 
   tickState.set(performance.now());
+  isMounted = true;
+  return root;
 }
 ```
 
-So the mount strategy now lives in the same module that owns store setup.
+So the mount strategy now lives in the same orchestration module that listens for store changes.
 `render()` still reuses the same root part forever.
-It only pushes a new template result into the same container boundary.
+It only pushes a new template result into the same container boundary, while `_App.js` uses `tickState` to drive both document syncing and shell rendering.
 
 ---
 
@@ -728,13 +789,36 @@ export function App() {
 }
 
 export function mountApp(target = document.body) {
-  root = resolveMountNode(target);
+  if (isMounted) {
+    return root;
+  }
+
+  setRoot(resolveMountNode(target, store.state.preferences.language));
   root.dataset.appRoot = 'true';
 
   effect(() => {
     tickState.get();
-    render(App(), root);
+    syncDocumentPreferences(store);
   });
+
+  effect(() => {
+    tickState.get();
+    render(App(), root);
+    scheduleAppShellSizeSync(() => {
+      syncAppShellSize({
+        root,
+        observedAppShell,
+        setObservedAppShell: (value) => {
+          observedAppShell = value;
+        },
+        appShellResizeObserver,
+      });
+    });
+  });
+
+  tickState.set(performance.now());
+  isMounted = true;
+  return root;
 }
 
 export function TodoList() {
@@ -766,6 +850,9 @@ And the app still stays understandable because responsibilities are split clearl
 - `mountApp()` wires the shell to the DOM
 - helper modules expose one action or one computed signal at a time
 
+That is also why `_App.js` can stay small and readable.
+It imports child components, imports `store`, `root`, and `tickState` from `_App.state.js`, imports orchestration helpers from `_App.helpers.js`, and wires them together.
+
 No class component is needed.
 No framework runtime is needed.
 
@@ -778,10 +865,11 @@ Here is the whole pipeline in one sequence.
 1. The user types into a field.
 2. `model(...)` captures the event and writes into the store.
 3. The store emits `store:change`.
-4. `components/App/_App.js` persists the snapshot and bumps `tickState`.
-5. Computed signals become dirty.
-6. Effects rerun and call `render(...)` again.
-7. Template parts update only the exact DOM zones that changed.
+4. `_App.js` receives that event and delegates it to `handleStoreChange(...)`.
+5. `_App.helpers.js` persists the snapshot, appends a debug entry when allowed, and bumps `tickState`.
+6. Computed signals, model bindings, and effects that read `tickState` wake up.
+7. `_App.js` reruns `render(...)` inside its effect.
+8. Template parts update only the exact DOM zones that changed.
 
 That is the entire reactive loop.
 
@@ -793,11 +881,12 @@ This architecture is not one magic abstraction.
 It is a pipeline of small ideas.
 
 - The store owns the truth.
+- `tickState` is the bridge between store mutations and reactive invalidation.
 - Signals know what is stale.
 - DOM parts know where to update.
 - The template engine turns updates into an ergonomic authoring model.
 - i18n provides the words.
 - Plain functions compose the final UI.
-- `_App.js` is the composition root that connects setup, mount, and rendering.
+- The `_App` modules connect state setup, side effects, and rendering, with `_App.js` as the orchestration root.
 
 That is how this project builds a reactive app without a framework.
