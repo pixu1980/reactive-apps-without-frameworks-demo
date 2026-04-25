@@ -1,6 +1,7 @@
 import "./_Header.css";
 
 import { html } from "@/core/index.js";
+
 import {
   openCategoryModal,
   openTodoModal,
@@ -13,6 +14,7 @@ import {
   themeOptions,
 } from "@/helpers/index.js";
 import { store } from "@/helpers/shared/index.js";
+
 import { t } from "@/i18n/index.js";
 
 /**

@@ -9,6 +9,7 @@ import { StatsRow } from "@/components/StatsRow/index.js";
 import { TodoList } from "@/components/TodoList/index.js";
 import { TodoModal } from "@/components/TodoModal/index.js";
 import { effect, html, render } from "@/core/index.js";
+
 import {
   handleStoreChange,
   resolveMountNode,
@@ -16,6 +17,7 @@ import {
   syncAppShellSize,
   syncDocumentPreferences,
 } from "./_App.helpers.js";
+
 import { root, setRoot, store, tickState } from "./_App.state.js";
 
 let isWritingDebugLog = false;

@@ -29,3 +29,4 @@ https://pixu1980.github.io/reactive-apps-without-frameworks-demo/
 Short walkthrough notes for the runtime live in `docs`.
 
 - `implementation-journey.md` combines the whole story into one slide-friendly markdown file.
+- `store-to-dom-change-flow.md` follows one store property change from proxy write to signal invalidation to DOM commit.

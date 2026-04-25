@@ -1,7 +1,7 @@
 @layer surfaces;
 
 @layer surfaces {
-  [data-surface='card'] {
+  [data-surface="card"] {
     z-index: var(--z-index-base);
     border: var(--border-width-1) solid var(--color-border);
     border-radius: var(--radius-card);
@@ -21,7 +21,7 @@
     gap: var(--space-4);
   }
 
-  :where([data-panel], [data-component='todo-list'] [data-slot='header']) {
+  :where([data-panel], [data-component="todo-list"] [data-slot="header"]) {
     margin: 0;
 
     h2 {
@@ -33,7 +33,7 @@
       font-weight: var(--font-weight-bold);
 
       &::before {
-        content: '';
+        content: "";
         inline-size: 1rem;
         block-size: 1rem;
         border-radius: 0.5rem;

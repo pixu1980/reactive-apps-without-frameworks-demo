@@ -49,7 +49,7 @@
 
 @layer typography {
   :root {
-    --font-family-base: 'Avenir Next', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-family-base: "Avenir Next", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --font-size-2xs: 0.75rem;
     --font-size-xs: 0.8125rem;
     --font-size-sm: 0.9375rem;
@@ -73,8 +73,8 @@
 
 @layer themes {
   :root,
-  :root[data-theme='studio'] {
-    --font-family-base: 'Avenir Next', 'Gill Sans', Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  :root[data-theme="studio"] {
+    --font-family-base: "Avenir Next", "Gill Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --radius-interactive: 1rem;
     --radius-card: 1.5rem;
     --shadow-soft: 0 0 0 1px rgba(70, 52, 38, 0.06), 0 0.5rem 1.5rem rgba(70, 52, 38, 0.08);
@@ -99,8 +99,8 @@
     --theme-danger-dark: #cb2e2e;
   }
 
-  :root[data-theme='atelier'] {
-    --font-family-base: 'Avenir Next', Baskerville, 'Segoe UI', ui-sans-serif, sans-serif;
+  :root[data-theme="atelier"] {
+    --font-family-base: "Avenir Next", Baskerville, "Segoe UI", ui-sans-serif, sans-serif;
     --radius-interactive: 1.15rem;
     --radius-card: 1.9rem;
     --shadow-soft: 0 0 0 1px rgba(114, 72, 88, 0.08), 0 0.5rem 1.5rem rgba(114, 72, 88, 0.12);
@@ -125,8 +125,8 @@
     --theme-danger-dark: #cb2e2e;
   }
 
-  :root[data-theme='cabinet'] {
-    --font-family-base: 'Palatino Linotype', 'Book Antiqua', Georgia, 'Times New Roman', serif;
+  :root[data-theme="cabinet"] {
+    --font-family-base: "Palatino Linotype", "Book Antiqua", Georgia, "Times New Roman", serif;
     --radius-interactive: 0.9rem;
     --radius-card: 1.35rem;
     --shadow-soft: 0 0 0 1px rgba(84, 55, 36, 0.08), 0 0.5rem 1.5rem rgba(84, 55, 36, 0.12);
@@ -151,8 +151,8 @@
     --theme-danger-dark: #cb2e2e;
   }
 
-  :root[data-theme='grove'] {
-    --font-family-base: Optima, Candara, 'Avenir Next', 'Segoe UI', ui-sans-serif, sans-serif;
+  :root[data-theme="grove"] {
+    --font-family-base: Optima, Candara, "Avenir Next", "Segoe UI", ui-sans-serif, sans-serif;
     --radius-interactive: 1.1rem;
     --radius-card: 1.75rem;
     --shadow-soft: 0 0 0 1px rgba(62, 92, 68, 0.08), 0 0.5rem 1.5rem rgba(62, 92, 68, 0.12);
@@ -177,8 +177,8 @@
     --theme-danger-dark: #cb2e2e;
   }
 
-  :root[data-theme='signal'] {
-    --font-family-base: 'Trebuchet MS', 'Avenir Next', 'Segoe UI', ui-sans-serif, sans-serif;
+  :root[data-theme="signal"] {
+    --font-family-base: "Trebuchet MS", "Avenir Next", "Segoe UI", ui-sans-serif, sans-serif;
     --radius-interactive: 0.85rem;
     --radius-card: 1.25rem;
     --shadow-soft: 0 0 0 1px rgba(51, 118, 164, 0.16), 0 0.5rem 1.5rem rgba(18, 46, 74, 0.24);
@@ -203,8 +203,8 @@
     --theme-danger-dark: #cb2e2e;
   }
 
-  :root[data-theme='nocturne'] {
-    --font-family-base: 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  :root[data-theme="nocturne"] {
+    --font-family-base: "Iowan Old Style", Georgia, "Times New Roman", serif;
     --radius-interactive: 0.95rem;
     --radius-card: 1.25rem;
     --shadow-soft: 0 0 0 1px rgba(46, 63, 88, 0.12), 0 0.65rem 1.65rem rgba(13, 22, 36, 0.22);
@@ -232,8 +232,8 @@
 
 @layer scheme {
   :root,
-  :root[data-color-scheme='light'],
-  :root[data-color-scheme='system'] {
+  :root[data-color-scheme="light"],
+  :root[data-color-scheme="system"] {
     color-scheme: light;
     --color-focus-base: var(--theme-focus);
     --color-canvas: var(--theme-canvas-light);
@@ -259,7 +259,7 @@
     --color-priority-high-surface: color-mix(in srgb, var(--theme-danger-light) 18%, var(--theme-paper-light) 82%);
   }
 
-  :root[data-color-scheme='dark'] {
+  :root[data-color-scheme="dark"] {
     color-scheme: dark;
     --color-focus-base: color-mix(in srgb, var(--theme-accent) 58%, var(--theme-ink-dark) 20%);
     --color-canvas: var(--theme-canvas-dark);
@@ -286,7 +286,7 @@
   }
 
   @media (prefers-color-scheme: dark) {
-    :root[data-color-scheme='system'] {
+    :root[data-color-scheme="system"] {
       color-scheme: dark;
       --color-focus-base: color-mix(in srgb, var(--theme-accent) 58%, var(--theme-ink-dark) 20%);
       --color-canvas: var(--theme-canvas-dark);

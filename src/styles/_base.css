@@ -50,7 +50,7 @@
     }
   }
 
-  :where([data-text='eyebrow']) {
+  :where([data-text="eyebrow"]) {
     margin: 0 0 var(--space-2);
     color: var(--color-accent-strong);
     font-size: var(--font-size-xs);
@@ -59,7 +59,7 @@
     text-transform: uppercase;
   }
 
-  :where([data-text='subcopy']) {
+  :where([data-text="subcopy"]) {
     margin: 0;
     max-width: 80ch;
     color: var(--color-muted);
@@ -67,7 +67,7 @@
 }
 
 @layer controls {
-  :where(input:not([type='checkbox']):not([type='radio']), select, textarea) {
+  :where(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
     --control-shadow: var(--shadow-soft);
     inline-size: 100%;
     padding: var(--space-3) var(--space-4);
@@ -90,7 +90,7 @@
     }
   }
 
-  :where(input:not([type='checkbox']):not([type='radio']), select) {
+  :where(input:not([type="checkbox"]):not([type="radio"]), select) {
     block-size: var(--control-height);
   }
 
@@ -145,14 +145,14 @@
       border-color: var(--button-hover-border);
     }
 
-    &[data-variant='secondary'] {
+    &[data-variant="secondary"] {
       --button-background: var(--color-surface-raised);
       --button-border: var(--color-border-strong);
       --button-hover-background: var(--color-surface-muted);
       --button-hover-border: var(--color-border-strong);
     }
 
-    &[data-variant='warning'] {
+    &[data-variant="warning"] {
       --control-shadow: var(--shadow-medium);
       --button-background: color-mix(in srgb, var(--color-warning) 52%, var(--color-surface) 48%);
       --button-border: color-mix(in srgb, var(--color-warning) 84%, var(--color-text) 16%);
@@ -160,7 +160,7 @@
       --button-hover-border: color-mix(in srgb, var(--color-warning) 92%, var(--color-text) 8%);
     }
 
-    &[data-variant='danger'] {
+    &[data-variant="danger"] {
       --control-shadow: var(--shadow-medium);
       --button-background: color-mix(in srgb, var(--color-danger) 52%, var(--color-surface) 48%);
       --button-border: color-mix(in srgb, var(--color-danger) 84%, var(--color-text) 16%);
@@ -169,7 +169,7 @@
     }
   }
 
-  :where(button, input:not([type='checkbox']):not([type='radio']), select, textarea):is(:focus, :focus-visible) {
+  :where(button, input:not([type="checkbox"]):not([type="radio"]), select, textarea):is(:focus, :focus-visible) {
     position: relative;
     z-index: var(--z-index-focus);
     border-color: var(--color-focus);
@@ -177,7 +177,7 @@
     box-shadow: var(--control-shadow);
   }
 
-  :where(input[type='checkbox'], input[type='radio']):is(:focus, :focus-visible) {
+  :where(input[type="checkbox"], input[type="radio"]):is(:focus, :focus-visible) {
     outline: none;
   }
 
@@ -191,7 +191,7 @@
     color: var(--color-text);
   }
 
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     inline-size: var(--checkbox-size);
     block-size: var(--checkbox-size);
     min-block-size: 0;
@@ -202,7 +202,7 @@
     accent-color: var(--color-accent-strong);
   }
 
-  input[type='date'] {
+  input[type="date"] {
     color-scheme: inherit;
   }
 }
@@ -214,7 +214,7 @@
     list-style: none;
   }
 
-  :where([data-layout='pair-grid'], [data-layout='action-grid']) {
+  :where([data-layout="pair-grid"], [data-layout="action-grid"]) {
     display: grid;
     gap: var(--space-3);
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -228,7 +228,7 @@
     align-self: stretch;
   }
 
-  [data-control-group='checkline'] {
+  [data-control-group="checkline"] {
     --control-shadow: var(--shadow-soft);
     display: flex;
     align-items: center;
@@ -262,7 +262,7 @@
     }
   }
 
-  [data-control-group='checkline']:has(> input:is(:focus, :focus-visible)) {
+  [data-control-group="checkline"]:has(> input:is(:focus, :focus-visible)) {
     position: relative;
     z-index: var(--z-index-focus);
     border-color: var(--color-focus);
@@ -270,7 +270,7 @@
     box-shadow: var(--control-shadow);
   }
 
-  [data-density='compact'] {
+  [data-density="compact"] {
     --control-shadow: none;
     display: inline-flex;
     justify-content: flex-start;

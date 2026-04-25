@@ -4,7 +4,7 @@
       padding: var(--space-4);
     }
 
-    :where([data-layout='pair-grid'], [data-layout='action-grid']) {
+    :where([data-layout="pair-grid"], [data-layout="action-grid"]) {
       grid-template-columns: 1fr;
     }
   }
