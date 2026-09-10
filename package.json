@@ -33,7 +33,7 @@
     "@biomejs/biome": "2.4.15",
     "@parcel/transformer-inline-string": "2.16.4",
     "@swc/core": "1.15.33",
-    "baseline-browser-mapping": "2.10.29",
+    "baseline-browser-mapping": "2.11.0",
     "lightningcss": "1.32.0",
     "parcel": "2.16.4",
     "prettier": "3.8.3"
