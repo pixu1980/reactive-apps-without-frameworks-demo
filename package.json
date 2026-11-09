@@ -7,35 +7,23 @@
     "@/*": "./src/scripts/$1"
   },
   "scripts": {
-    "deps": "pnpm up -r --latest",
-    "deps:push": "git add . && git commit -m \"build(deps): bumped external dependencies\" && git push",
-    "clear:cache": "rm -rf .parcel-cache",
-    "clear:dist": "rm -rf dist",
-    "clear": "pnpm run clear:dist && pnpm run clear:cache",
-    "predev": "pnpm run clear",
-    "dev": "parcel src/index.html -p 6002",
-    "prebuild": "pnpm run clear",
-    "build:parcel": "parcel build src/index.html --no-source-maps --dist-dir dist --public-url ./",
-    "build:brotli": "node ./scripts/compress-brotli.mjs dist",
-    "build": "pnpm run build:parcel && pnpm run build:brotli && git add . && git commit --amend --no-edit && git push -f",
-    "rel:push": "git push && git push --tags",
-    "rel:major": "pnpm run build && pnpm version major -m \"rel(%s)\" && pnpm run rel:push",
-    "rel:minor": "pnpm run build && pnpm version minor -m \"rel(%s)\" && pnpm run rel:push",
-    "rel:patch": "pnpm run build && pnpm version patch -m \"rel(%s)\" && pnpm run rel:push",
-    "format:prettier": "prettier --write \"package.json\" \"src/**/*.{html,css,js,json}\" \"*.{md,yml,yaml}\"",
-    "format:biome": "biome format --write src/scripts scripts package.json",
-    "lint:prettier": "prettier --check \"package.json\" \"src/**/*.{html,css,js,json}\" \"*.{md,yml,yaml}\"",
-    "lint:biome": "biome lint src/scripts scripts package.json",
-    "format": "pnpm run format:prettier && pnpm run format:biome",
-    "lint": "pnpm run lint:prettier && pnpm run lint:biome"
+    "clean": "rm -rf dist .parcel-cache",
+    "dev": "pnpm run clean && parcel src/index.html -p 6002",
+    "build": "pnpm run clean && parcel build src/index.html --no-source-maps --dist-dir dist --public-url ./ && node ./scripts/compress-brotli.mjs dist",
+    "format": "prettier --write \"**/*.{md,yml,yaml}\" && biome check --write src/scripts scripts package.json",
+    "lint": "prettier --check \"**/*.{md,yml,yaml}\" && biome check src/scripts scripts package.json",
+    "deps": "pnpm up --latest --save-exact \"!sharp\"",
+    "release": "release-it"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.15",
+    "@biomejs/biome": "2.6.6",
     "@parcel/transformer-inline-string": "2.16.4",
-    "@swc/core": "1.16.13",
-    "baseline-browser-mapping": "2.11.27",
+    "@release-it/conventional-changelog": "12.0.2",
+    "@swc/core": "1.16.22",
+    "baseline-browser-mapping": "2.11.35",
     "lightningcss": "1.33.0",
     "parcel": "2.16.4",
-    "prettier": "3.9.9"
+    "prettier": "3.9.10",
+    "release-it": "21.1.2"
   }
 }
